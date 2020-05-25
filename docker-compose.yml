@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    env_file:
+      - ./back/environments/db.env
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+
+  back:
+    build: back/
+    env_file:
+      - ./back/environments/db.env
+    volumes:
+      - ./back:/app
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+
+  front:
+    build: front/
+    command: npm run dev
+    volumes:
+      - ./front:/app
+    ports:
+      - 8081:3000
+    depends_on:
+      - back
+      
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
+  db-data:
