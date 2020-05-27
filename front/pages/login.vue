@@ -1,71 +1,89 @@
 <template>
-  <div class="mt-3">
-    <v-card class="mt-5 mx-auto" max-width="600">
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-container>
-          <v-row justify="center">
-            <p cols="12" class="mt-3 display-1 grey--text">
-              ログイン
-            </p>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="10" sm="10">
-              <v-text-field
-                v-model="email"
-                label="Eメールアドレス"
-              />
-              <p class="caption mb-0" />
-            </v-col>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="10" sm="10">
-              <v-text-field
-                v-model="password"
-                type="password"
-                label="パスワード"
-              />
-            </v-col>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="10" sm="10">
-              <v-btn
-                block
-                class="mr-4 blue white--text"
-                @click="loginWithAuthModule"
-              >
-                ログイン
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form>
-    </v-card>
-  </div>
+  <v-row>
+    <v-col cols="12" md="4">
+      <h2>Sign Up</h2>
+      <form>
+        <v-text-field v-model="name" :counter="10" label="Name" data-vv-name="name" required></v-text-field>
+        <v-text-field v-model="email" :counter="50" label="Email" data-vv-name="email" required></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="password"
+          data-vv-name="password"
+          required
+          :type="show1 ? 'text' : 'password'"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="show1 = !show1"
+        ></v-text-field>
+        <v-text-field
+          v-model="passwordConfirm"
+          label="passwordConfirm"
+          data-vv-name="passwordConfirm"
+          required
+          :type="show2 ? 'text' : 'password'"
+          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="show2 = !show2"
+        ></v-text-field>
+        <v-btn class="mr-4" @click="signup">submit</v-btn>
+        <p v-if="error" class="errors">{{error}}</p>
+      </form>
+    </v-col>
+  </v-row>
 </template>
-
 <script>
+import firebase from '~/plugins/firebase'
+import axios from "~/plugins/axios"
 export default {
-  data () {
+  data() {
     return {
-      password: '',
-      email: ''
-    }
+      email: "",
+      name: "",
+      password: "",
+      passwordConfirm: "",
+      show1: false,
+      show2: false,
+      error: ""
+    };
   },
   methods: {
-    async loginWithAuthModule () {
-      await this.$auth.loginWith('local', {
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
-        .then((response) => {
-          return response
-        },
-        (error) => {
-          return error
+   signup() {
+      if (this.password !== this.passwordConfirm) {
+        this.error = "※パスワードとパスワード確認が一致していません";
+      }
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(res => {
+          const user = {
+            email: res.user.email,
+            name: this.name,
+            uid: res.user.uid
+          };
+          axios.post("/v1/users",{ user }).then(() => {
+            this.$router.push("/");
+          });
         })
+        .catch(error => {
+          this.error = (code => {
+            switch (code) {
+              case "auth/email-already-in-use":
+                return "既にそのメールアドレスは使われています";
+              case "auth/wrong-password":
+                return "※パスワードが正しくありません";
+              case "auth/weak-password":
+                return "※パスワードは最低6文字以上にしてください";
+              default:
+                return "※メールアドレスとパスワードをご確認ください";
+            }
+          })(error.code);
+        });
     }
   }
+};
+</script>
+
+<style scoped>
+.errors {
+  color: red;
+  margin-top: 20px;
 }
-</script>s
+</style>

@@ -3,7 +3,7 @@
   <v-layout justify-center>
     <v-flex xs12 sm12 md12>
       <h2 class="display-1 font-weight-thin mb-4">
-        Recommended Bistros
+        Recommended Bistro
       </h2>
       <v-row>
         <v-col cols="12">
@@ -88,6 +88,9 @@
         this.loader = null
       },
     },
+    created(){
+    console.log("API_KEY:", process.env.API_KEY);
+    }
   }
 
 </script>
