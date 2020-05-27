@@ -16,3 +16,8 @@
 
 # macOS
 .DS_Store
+
+# firebase
+.env
+
+.log

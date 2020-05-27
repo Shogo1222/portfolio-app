@@ -1,5 +1,5 @@
+require('dotenv').config();
 import colors from 'vuetify/es5/util/colors'
-
 export default {
 
   watchers: {
@@ -44,14 +44,14 @@ export default {
   ],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/dotenv'
   ],
   axios: {
-    proxy: true,
-    baseURL: 'http:localhost:3000'
+    proxy: true
   },
   proxy: {
-    '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } }
+    // '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } }
   },
   auth: {
     redirect: {

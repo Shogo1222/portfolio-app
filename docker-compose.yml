@@ -7,14 +7,15 @@ services:
       - ./back/environments/db.env
     restart: always
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql:cached
 
   back:
     build: back/
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     env_file:
       - ./back/environments/db.env
     volumes:
-      - ./back:/app
+      - ./back:/app:cached
     depends_on:
       - db
     ports:
@@ -24,12 +25,12 @@ services:
     build: front/
     command: npm run dev
     volumes:
-      - ./front:/app
+      - ./front:/app:cached
     ports:
       - 8081:3000
     depends_on:
       - back
-      
+
 volumes:
   public-data:
   tmp-data:
