@@ -39,8 +39,10 @@ export default {
     '@nuxtjs/vuetify',
   ],
   plugins: [
-    'plugins/axios',
-    'plugins/vuetify'
+    '@/plugins/axios',
+    '@/plugins/vuetify',
+    "@/plugins/auth-check",
+    "@/plugins/vee-validate.js"
   ],
   modules: [
     '@nuxtjs/axios',

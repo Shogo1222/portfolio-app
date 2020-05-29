@@ -1,4 +1,3 @@
-
 <template>
   <v-layout justify-center>
     <v-flex xs12 sm12 md12>
@@ -12,7 +11,7 @@
             v-for="n in 6"
             :key="n"
             class="mx-auto my-5"
-            max-width="374"
+            max-width="340"
             >
             <v-img
             height="250"
@@ -71,20 +70,14 @@
     data () {
       return {
         loader: null,
-        loading: false,
-        loading2: false,
-        loading3: false,
-        loading4: false,
-        loading5: false,
+        loading: false
       }
     },
     watch: {
       loader () {
         const l = this.loader
         this[l] = !this[l]
-
         setTimeout(() => (this[l] = false), 3000)
-
         this.loader = null
       },
     },
@@ -92,5 +85,4 @@
     console.log("API_KEY:", process.env.API_KEY);
     }
   }
-
 </script>
