@@ -90,3 +90,5 @@ sw.*
 *.swp
 
 .ash_history
+
+front/.config/configstore/update-notifier-npm.json

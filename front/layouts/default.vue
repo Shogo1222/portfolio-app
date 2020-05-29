@@ -4,6 +4,7 @@
     <v-app-bar fixed app style="background-color:rgba(87,82,82,0.3);">
       <!-- ヘッダータイトル -->
       <v-btn
+      v-if="!$vuetify.breakpoint.xs"
       color="#fff"
       dark
       rounded
@@ -161,7 +162,6 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      console.log(this.$store.state.isLoggedIn);
       return this.$store.state.isLoggedIn;
     },
     userName(){

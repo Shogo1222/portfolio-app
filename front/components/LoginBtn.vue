@@ -53,10 +53,19 @@ export default {
   },
   methods: {
     login() {
+      this.$store.commit("setLoading", true);
       firebase
       .auth()
       .signInWithEmailAndPassword(this.email, this.password)
       .then(() => {
+        this.$store.commit("setNotice", {
+          status: true,
+          message: "Success Login!"
+        });
+        setTimeout(() => {
+          this.$store.commit("setNotice",{});
+        }, 2000); //2秒後に隠す
+        this.$store.commit("setLoading", false);
         this.dialog = false
       })
       .catch(error => {
@@ -70,11 +79,13 @@ export default {
             default:
             return "※メールアドレスとパスワードをご確認ください";
           }
+          this.$store.commit("setLoading", false);
         })(error.code);
       });
     },
     // テストユーザー用ログイン
     testLogin() {
+      this.$store.commit("setLoading", true);
       firebase
       .auth()
       .signInWithEmailAndPassword('test@gmail.com', 'testPassword')
@@ -86,6 +97,7 @@ export default {
         setTimeout(() => {
           this.$store.commit("setNotice",{});
         }, 2000); //2秒後に隠す
+        this.$store.commit("setLoading", false);
         this.dialog = false;
       })
     }
