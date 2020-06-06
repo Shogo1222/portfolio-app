@@ -21,6 +21,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    //google maps apiのソースファイル
+    script: [
+      {
+        src:
+          "https://maps.google.com/maps/api/js?key=" + process.env.API_KEY
+      }
     ]
   },
   /*
@@ -53,7 +60,10 @@ export default {
     proxy: true
   },
   proxy: {
-    // '/api/': { target: 'http://back:3000', pathRewrite: { '^/api/': '/' } }
+    '/hotpepper': {
+  target: 'http://webservice.recruit.co.jp/hotpepper',
+  pathRewrite: { '^/hotpepper': '' }
+}
   },
   auth: {
     redirect: {

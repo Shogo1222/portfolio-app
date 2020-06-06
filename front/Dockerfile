@@ -4,9 +4,7 @@ ENV HOME="/app" \
     LANG=C.UTF-8 \
     TZ=Asia/Tokyo
 
-
 WORKDIR ${HOME}
-
 
 RUN apk update && \
     apk upgrade && \
@@ -15,6 +13,3 @@ RUN apk update && \
     rm -rf /var/cache/apk/* s
 
 ENV HOST 0.0.0.0
-EXPOSE 3000
-
-CMD ["yarn", "start"]

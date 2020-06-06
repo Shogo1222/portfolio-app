@@ -23,13 +23,23 @@ services:
 
   front:
     build: front/
-    command: npm run dev
+    command: yarn run dev
     volumes:
       - ./front:/app:cached
     ports:
-      - 8081:3000
+      - 8091:3000
     depends_on:
       - back
+
+  nginx:
+    image: nginx
+    ports:
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl/server.crt:/etc/nginx/ssl/server.crt
+      - ./ssl/server.key:/etc/nginx/ssl/server.key
+
 
 volumes:
   public-data:
