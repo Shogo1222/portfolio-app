@@ -106,7 +106,7 @@ export default {
         return {
             fixed: false,
             rightDrawer: false,
-            title: "俺達のハンバーガー！"
+            title: ""
         }
     },
     computed: {
