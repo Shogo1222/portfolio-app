@@ -49,7 +49,7 @@
                     <v-icon>fas fa-camera</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>自分の投稿</v-list-item-title>
+                    <v-list-item-title>Favorite</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <!-- 右リスト内 current_areaボタン -->
@@ -58,7 +58,7 @@
                     <v-icon>fas fa-search-location</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>現在地周辺のお店を探す</v-list-item-title>
+                    <v-list-item-title>SAMPLE</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <!-- 右リスト内 みんなの写真ボタン -->
@@ -67,7 +67,7 @@
                     <v-icon>fas fa-camera-retro</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>みんなの写真</v-list-item-title>
+                    <v-list-item-title>SAMPLE</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
