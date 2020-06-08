@@ -9,7 +9,7 @@
                 <h1 class="display-2 font-weight-thin mb-4">
         - Bischierge -
       </h1>
-      <h4 class="display-1 font-weight-thin mb-4">
+                <h4 class="display-1 font-weight-thin mb-4">
         What do you feel like eating?
       </h4>
                 <StartBtn @get-location-shops="getLocation" />
@@ -25,32 +25,33 @@
                 <v-col cols="12">
                     <v-row>
                         <v-card v-for="shop in shops" class="mx-auto my-4" width="350">
-                            <v-img height="250" :src="shop.photo.pc.l"></v-img>
-
+                            <v-img height="250" :src="shop.photo.pc.l">
+                              <v-card-actions class="float-right">
+                                <v-btn class="mt-2" large icon color="white">
+                                  <v-icon>favorite_border</v-icon>
+                                </v-btn>
+                              </v-card-actions>
+                            </v-img>
                             <v-card-title>{{ shop.name | truncate(19, '...') }}</v-card-title>
-                            <v-card-text>
-                                <v-row align="center" class="mx-0">
-                                    <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-
-                                    <div class="grey--text ml-4">4.5 (413)</div>
-                                </v-row>
-
+                            <v-card-text  style="height: 250px;">
                                 <div class="my-4 subtitle-1">
                                     {{ shop.catch| truncate(30, '...') }}
                                 </div>
 
                                 <span class="grey--text">・平均予算：</span>
                                 <br>
-                                <span> {{ shop.budget.average| truncate(15, '...')  }}</span
-            ><br />
-            <span class="grey--text">・アクセス：</span>
+                                <span> {{ shop.budget.average| truncate(15, '...')  }}</span><br />
+                                <span class="grey--text">・アクセス：</span>
                                 <br>
-                                <span>{{ shop.mobile_access| truncate(23, '...')  }}</span
-              ><br />
-              <span class="grey--text">・営業時間：</span>
+                                <span>{{ shop.mobile_access| truncate(23, '...')  }}</span><br />
+                                <span class="grey--text">・営業時間：</span>
                                 <br>
                                 <span>{{ shop.open | truncate(30, '...') }}</span>
                             </v-card-text>
+                            <v-card-actions class="mt-4">
+                            <ShopDetailsDialog :shop="shop" />
+                            </v-card-actions>
+
                         </v-card>
                     </v-row>
                 </v-col>
@@ -63,12 +64,13 @@
             </v-row>
         </v-flex>
     </v-container>
-    <ShopDetailsDialog />
 
 </v-app>
+
 </template>
 
 <script>
+
 import StartBtn from "../components/StartBtn.vue";
 import ShopDetailsDialog from "../components/ShopDetailsDialog.vue";
 
@@ -92,8 +94,13 @@ export default {
         loader() {
             const l = this.loader
             this[l] = !this[l]
-            setTimeout(() => (this[l] = false), 3000)
+            setTimeout(() => (this[l] = false), 1000)
             this.loader = null
+            this.getLocation()
+            window.scroll({
+              top: 750,
+              behavior: "smooth"
+            })
         },
     },
     filters: {
@@ -111,9 +118,9 @@ export default {
     methods: {
         // 現在地の緯度、経度の取得
         getLocation(terms) {
-          if(terms){
-            this.terms = terms
-          }
+                if (terms) {
+                    this.terms = terms
+                }
                 if (process.client) {
                     if (!navigator.geolocation) {
                         alert(
@@ -171,27 +178,26 @@ export default {
             // G017 Korean
             // G014 Sweets
             getShops() {
-              var priceCode = null
-              var genre = null
-              var isTermsArray = this.terms.length === 0 ? false : true
-              if(isTermsArray){
-                var priceCode = this.terms['priceCode']
-                var genre = this.terms['genre']
-                switch (priceRange) {
-                    case 1000:
-                        priceCode = 'B009, B010'
-                    case 2000:
-                        priceCode = 'B011, B001'
-                    case 3000:
-                        priceCode = 'B002'
-                    case 4000:
-                        priceCode = 'B003'
-                        break;
-                    default:
-                        priceCode = ''
+                var priceCode = null
+                var genre = null
+                var isTermsArray = this.terms.length === 0 ? false : true
+                if (isTermsArray) {
+                    var priceCode = this.terms['priceCode']
+                    var genre = this.terms['genre']
+                    switch (priceRange) {
+                        case 1000:
+                            priceCode = 'B009, B010'
+                        case 2000:
+                            priceCode = 'B011, B001'
+                        case 3000:
+                            priceCode = 'B002'
+                        case 4000:
+                            priceCode = 'B003'
+                            break;
+                        default:
+                            priceCode = ''
+                    }
                 }
-              }
-              console.log(process.env.VUE_APP_HOTPEPPER_API_KEY)
                 this.$axios
                     .$get("hotpepper/gourmet/v1/", {
                         params: {
@@ -222,8 +228,8 @@ export default {
                 var count = count || 1;
                 var arrayData = arrayData;
                 var result = [];
-                if(!arrayData){
-                  return;
+                if (!arrayData) {
+                    return;
                 }
                 for (var i = 0; i < count; i++) {
                     var arrayIndex = Math.floor(Math.random() * arrayData.length);
