@@ -24,12 +24,10 @@
             <v-row>
                 <v-col cols="12">
                     <v-row>
-                        <v-card v-for="shop in shops" class="mx-auto my-4" width="350">
+                        <v-card v-for="shop in shops" :key="shop.id" class="mx-auto my-4" width="350">
                             <v-img height="250" :src="shop.photo.pc.l">
                               <v-card-actions class="float-right">
-                                <v-btn class="mt-2" large icon color="white">
-                                  <v-icon>favorite_border</v-icon>
-                                </v-btn>
+                                <Favorite :shop_id="shop.id" />
                               </v-card-actions>
                             </v-img>
                             <v-card-title>{{ shop.name | truncate(19, '...') }}</v-card-title>
@@ -73,11 +71,13 @@
 
 import StartBtn from "../components/StartBtn.vue";
 import ShopDetailsDialog from "../components/ShopDetailsDialog.vue";
+import Favorite from "../components/Favorite.vue";
 
 export default {
     components: {
         StartBtn,
-        ShopDetailsDialog
+        ShopDetailsDialog,
+        Favorite
     },
     data() {
         return {
