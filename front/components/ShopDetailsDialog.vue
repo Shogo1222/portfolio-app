@@ -5,7 +5,7 @@
         <v-btn class="ma-2" color="black" rounded outlined v-on="on" >Details</v-btn>
       </template>
       <v-card>
-        <v-toolbar color="white" flat>
+        <v-toolbar color="white" flat >
           <v-spacer></v-spacer>
           <v-btn class="mt-4" icon @click="dialog = false">
             <v-icon>mdi-close</v-icon>
@@ -17,10 +17,6 @@
           </h2>
         <v-img height="400" :src="shop.photo.pc.l"></v-img>
         <v-card-text>
-            <v-row align="center" class="my-4">
-                <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
-                <div class="grey--text ml-4">4.5 (413)</div>
-            </v-row>
 
             <div class="my-4 subtitle-1">
                 {{ shop.catch }}
@@ -52,7 +48,7 @@
             <span>{{ shop.open }}</span>
         </v-card-text>
         <div :id="shop.id" style="height: 400px; width: 100%;"></div>
-
+        <CommentArea :shop_id="shop.id" />
       </v-container>
       </v-card>
     </v-dialog>
@@ -60,7 +56,11 @@
 </template>
 
 <script>
+import CommentArea from "./CommentArea.vue";
   export default {
+    components: {
+      CommentArea
+    },
     props: ['shop'],
     data () {
       return {

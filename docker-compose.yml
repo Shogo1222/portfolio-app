@@ -16,8 +16,8 @@ services:
       - ./back/environments/db.env
     volumes:
       - ./back:/app:cached
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     ports:
       - 3000:3000
 
