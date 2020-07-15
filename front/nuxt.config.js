@@ -1,5 +1,7 @@
 require('dotenv').config();
 import colors from 'vuetify/es5/util/colors'
+const envSet = require(`./env.pro.js`)
+
 export default {
 
   watchers: {
@@ -46,7 +48,7 @@ export default {
     '@nuxtjs/vuetify',
   ],
   plugins: [
-    '@/plugins/axios',
+    '~/plugins/axios',
     '@/plugins/vuetify',
     "@/plugins/auth-check",
     "@/plugins/vee-validate.js"
@@ -60,10 +62,10 @@ export default {
     proxy: true
   },
   proxy: {
-    '/hotpepper': {
-  target: 'http://webservice.recruit.co.jp/hotpepper',
-  pathRewrite: { '^/hotpepper': '' }
-}
+    "/api/": {
+      target: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/",
+      pathRewrite: { "^/api/": "/" }
+    }
   },
   auth: {
     redirect: {
@@ -111,6 +113,7 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
-  }
+    },
+  },
+  env: envSet
 }

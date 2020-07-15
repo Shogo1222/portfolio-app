@@ -128,8 +128,8 @@ export default {
                         return
                     }
                     const options = {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
+                        enableHighAccuracy: false,
+                        timeout: 15000,
                         maximumAge: 0
                     }
                     navigator.geolocation.getCurrentPosition(
@@ -197,8 +197,7 @@ export default {
                             priceCode = ''
                     }
                 }
-                this.$axios
-                    .$get("hotpepper/gourmet/v1/", {
+                this.$axios.$get("https://webservice.recruit.co.jp/hotpepper/gourmet/v1/", {
                         params: {
                             key: process.env.VUE_APP_HOTPEPPER_API_KEY,
                             lat: this.latitude,
