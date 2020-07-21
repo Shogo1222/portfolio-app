@@ -197,7 +197,7 @@ export default {
                             priceCode = ''
                     }
                 }
-                this.$axios.$get("https://webservice.recruit.co.jp/hotpepper/gourmet/v1/", {
+                this.$axios.$get("/api/", {
                         params: {
                             key: process.env.VUE_APP_HOTPEPPER_API_KEY,
                             lat: this.latitude,
