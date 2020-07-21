@@ -21,10 +21,10 @@
             <h2 class="display-1 font-weight-thin my-5">
       Recommended Bistro
     </h2>
-            <v-row>
-                <v-col cols="12">
-                    <v-row>
-                        <v-card v-for="shop in shops" :key="shop.id" class="mx-auto my-4" width="350">
+            <v-row justify="center">
+                <v-col cols="12" md="12" xl="10">
+                    <v-row justify="center">
+                        <v-card v-for="shop in shops" :key="shop.id" class="mx-3 my-4" width="350">
                             <v-img height="250" :src="shop.photo.pc.l">
                               <v-card-actions class="float-right">
                                 <Favorite :shop_id="shop.id" />
@@ -49,7 +49,6 @@
                             <v-card-actions class="mt-4">
                             <ShopDetailsDialog :shop="shop" />
                             </v-card-actions>
-
                         </v-card>
                     </v-row>
                 </v-col>
@@ -129,8 +128,8 @@ export default {
                         return
                     }
                     const options = {
-                        enableHighAccuracy: true,
-                        timeout: 5000,
+                        enableHighAccuracy: false,
+                        timeout: 15000,
                         maximumAge: 0
                     }
                     navigator.geolocation.getCurrentPosition(
@@ -198,8 +197,7 @@ export default {
                             priceCode = ''
                     }
                 }
-                this.$axios
-                    .$get("hotpepper/gourmet/v1/", {
+                this.$axios.$get("/api/", {
                         params: {
                             key: process.env.VUE_APP_HOTPEPPER_API_KEY,
                             lat: this.latitude,

@@ -53,6 +53,7 @@ export default {
   ],
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv'
   ],
@@ -60,10 +61,10 @@ export default {
     proxy: true
   },
   proxy: {
-    '/hotpepper': {
-  target: 'http://webservice.recruit.co.jp/hotpepper',
-  pathRewrite: { '^/hotpepper': '' }
-}
+    "/api/": {
+      target: "https://webservice.recruit.co.jp/hotpepper/gourmet/v1/",
+      pathRewrite: { "^/api/": "/" }
+    }
   },
   auth: {
     redirect: {
