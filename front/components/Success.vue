@@ -1,18 +1,19 @@
 <template>
   <transition name="fade">
-    <div v-if="notice.status" class="success">{{notice.message}}</div>
+    <div v-if="notice.status" class="success">
+      {{ notice.message }}
+    </div>
   </transition>
 </template>
-
 
 <script>
 export default {
   computed: {
     notice() {
-      return this.$store.state.notification;
+      return this.$store.state.notification
     }
   }
-};
+}
 </script>
 
 <style scoped>

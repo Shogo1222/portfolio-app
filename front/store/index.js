@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue"
+import Vuex from "vuex"
 
 Vue.use(Vuex)
 
 const store = () => {
   return new Vuex.Store({
     state: {
-      id: '',
-      name: '',
+      id: "",
+      name: "",
       isLoggedIn: false,
       loading: false,
       notification: {
@@ -16,22 +16,22 @@ const store = () => {
       }
     },
     mutations: {
-      login (state, user) {
-        if(!user){
-          state.id= '';
-          state.name = '';
-          state.isLoggedIn = false;
-        } else{
-          state.id= user.id;
-          state.name = user.name;
-          state.isLoggedIn = true;
-          console.log(state);
+      login(state, user) {
+        if (!user) {
+          state.id = ""
+          state.name = ""
+          state.isLoggedIn = false
+        } else {
+          state.id = user.id
+          state.name = user.name
+          state.isLoggedIn = true
         }
       },
       setLoading(state, payload) {
-        state.loading = payload;
+        state.loading = payload
       },
-      setNotice(state, payload) {   //追加
+      setNotice(state, payload) {
+        //追加
         state.notification = payload
       }
     }

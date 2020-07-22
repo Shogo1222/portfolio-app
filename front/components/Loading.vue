@@ -1,28 +1,28 @@
 <template>
-  <div class="loader-container" v-if="loading">
+  <div v-if="loading" class="loader-container">
     <div class="loaders">
       <div class="ball-clip-rotate">
-        <div class="ball"></div>
+        <div class="ball" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import "loaders.css";
+import "loaders.css"
 export default {
   data() {
-    return {};
+    return {}
   },
   computed: {
     loading() {
-      return this.$store.state.loading;　//storeから読み込む
+      return this.$store.state.loading //storeから読み込む
     }
   }
-};
+}
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 $theme-color: #25b290;
 .loader-container {
   position: fixed;
