@@ -3,18 +3,18 @@
     <h2 class="display-1 font-weight-thin my-5">
       Comment
     </h2>
-    <v-card
-      v-for="comment in comments"
-      v-if="existsComment"
-      :key="comment.id"
-      class="mx-auto my-4"
-    >
-      <v-card-title>{{ comment.user_name }}</v-card-title>
-      <v-card-text>
-        {{ comment.comment }}
-      </v-card-text>
-    </v-card>
-
+    <div v-if="existsComment">
+      <v-card
+        v-for="postedComment in comments"
+        :key="postedComment.id"
+        class="mx-auto my-4"
+      >
+        <v-card-title>{{ postedComment.user_name }}</v-card-title>
+        <v-card-text>
+          {{ postedComment.comment }}
+        </v-card-text>
+      </v-card>
+    </div>
     <form>
       <v-textarea
         v-model="comment"
@@ -37,7 +37,12 @@
 import axios from "~/plugins/axios"
 
 export default {
-  props: ["shop_id"],
+  props: {
+    shopId: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       comments: [],
@@ -54,12 +59,10 @@ export default {
     }
   },
   created: function() {
-    axios.get("/v1/comment?shop_id=" + this.shop_id + "").then(res => {
+    axios.get("/v1/comment?shop_id=" + this.shopId + "").then(res => {
       if (!res.data) {
-        console.log("aa")
         this.exists_comment = false
       } else {
-        console.log(res.data)
         this.comments = res.data
         this.exists_comment = true
       }
@@ -70,7 +73,7 @@ export default {
       const comment = {
         user_id: this.$store.state.id,
         user_name: this.$store.state.name,
-        shop_id: this.shop_id,
+        shop_id: this.shopId,
         comment: this.comment
       }
       axios

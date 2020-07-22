@@ -25,7 +25,6 @@ const store = () => {
           state.id = user.id
           state.name = user.name
           state.isLoggedIn = true
-          console.log(state)
         }
       },
       setLoading(state, payload) {

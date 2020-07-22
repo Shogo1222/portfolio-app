@@ -8,13 +8,10 @@
   <v-app>
     <!-- ヘッダーbar -->
     <v-app-bar
+      style="background:linear-gradient(100deg, rgba(130,182,12,0.7) 0%, rgba(214,221,36,0.5) 40%, rgba(68,208,240,0.7) 100%);"
       fixed
       flat
       app
-      style="background:linear-gradient(100deg, rgba(130,182,12,0.7) 0%, rgba(214,221,36,0.5) 40%, rgba(68,208,240,0.7) 100%);"
-      <!--
-      ヘッダータイトル
-      --
     >
       <v-btn
         v-if="!$vuetify.breakpoint.xs"

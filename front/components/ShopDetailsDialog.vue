@@ -31,31 +31,31 @@
 
             <span class="grey--text">Budget: </span>
             <br />
-            <span> {{ shop.budget.average }}</span><br >
-            <span> {{ shop.budget_memo }}</span><br >
+            <span> {{ shop.budget.average }}</span><br />
+            <span> {{ shop.budget_memo }}</span><br />
 
             <span class="grey--text">Capacity: </span>
             <br />
-            <span> {{ shop.budget.capacity }}</span><br >
+            <span> {{ shop.budget.capacity }}</span><br />
 
             <span class="grey--text">Smoke: </span>
             <br />
-            <span> {{ shop.non_smoking }}</span><br >
+            <span> {{ shop.non_smoking }}</span><br />
 
             <span class="grey--text">Access: </span>
             <br />
-            <span>{{ shop.mobile_access }}</span><br >
+            <span>{{ shop.mobile_access }}</span><br />
 
             <span class="grey--text">Address: </span>
             <br />
-            <span>{{ shop.address }}</span><br >
+            <span>{{ shop.address }}</span><br />
 
             <span class="grey--text">Open hours: </span>
             <br />
             <span>{{ shop.open }}</span>
           </v-card-text>
           <div :id="shop.id" style="height: 400px; width: 100%;" />
-          <CommentArea :shop_id="shop.id" />
+          <CommentArea :shop-id="shop.id" />
         </v-container>
       </v-card>
     </v-dialog>

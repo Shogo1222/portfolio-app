@@ -29,7 +29,7 @@
               >
                 <v-img height="250" :src="shop.photo.pc.l">
                   <v-card-actions class="float-right">
-                    <Favorite :shop_id="shop.id" />
+                    <Favorite :shop-id="shop.id" />
                   </v-card-actions>
                 </v-img>
                 <v-card-title>
@@ -40,16 +40,15 @@
                     {{ shop.catch | truncate(30, "...") }}
                   </div>
 
-                  <span class="grey--text">・平均予算：</span>
-                  <br>
-                  <span> {{ shop.budget.average | truncate(15, "...") }}</span
-                  ><br />
+                  <span class="grey--text">・平均予算：</span><br />
+                  <span> {{ shop.budget.average | truncate(15, "...") }}</span>
+                  <br />
                   <span class="grey--text">・アクセス：</span>
-                  <br>
-                  <span>{{ shop.mobile_access | truncate(23, "...") }}</span
-                  ><br />
+                  <br />
+                  <span>{{ shop.mobile_access | truncate(23, "...") }}</span>
+                  <br />
                   <span class="grey--text">・営業時間：</span>
-                  <br>
+                  <br />
                   <span>{{ shop.open | truncate(30, "...") }}</span>
                 </v-card-text>
                 <v-card-actions class="mt-4">
@@ -194,15 +193,19 @@ export default {
       var genre = null
       var isTermsArray = this.terms.length === 0 ? false : true
       if (isTermsArray) {
-        var priceCode = this.terms["priceCode"]
-        var genre = this.terms["genre"]
+        priceCode = this.terms["priceCode"]
+        genre = this.terms["genre"]
+        var priceRange = priceRange
         switch (priceRange) {
           case 1000:
             priceCode = "B009, B010"
+            break
           case 2000:
             priceCode = "B011, B001"
+            break
           case 3000:
             priceCode = "B002"
+            break
           case 4000:
             priceCode = "B003"
             break
@@ -237,8 +240,7 @@ export default {
     },
     ChooseAtRandom(arrayData, count) {
       // countが設定されていない場合は1にする
-      var count = count || 1
-      var arrayData = arrayData
+      count = count || 1
       var result = []
       if (!arrayData) {
         return
