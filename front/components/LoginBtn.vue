@@ -12,29 +12,40 @@
         <v-col cols="10" align="center">
           <h2>Login</h2>
           <form>
-            <v-text-field v-model="email" :counter="50" label="email" data-vv-name="email" required></v-text-field>
             <v-text-field
-            v-model="password"
-            label="password"
-            data-vv-name="password"
-            required
-            :type="show1 ? 'text' : 'password'"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show1 = !show1"
-            >
-          </v-text-field>
-          <v-btn dark class="mr-4" @click="login">submit</v-btn>
-          <v-btn dark class="mr-4" @click="testLogin">testLogin</v-btn>
-          <p v-if="error" class="errors">{{error}}</p>
-        </form>
-      </v-col>
-    </v-row>
-  </v-card>
-</v-dialog>
+              v-model="email"
+              :counter="50"
+              label="email"
+              data-vv-name="email"
+              required
+            />
+            <v-text-field
+              v-model="password"
+              label="password"
+              data-vv-name="password"
+              required
+              :type="show1 ? 'text' : 'password'"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show1 = !show1"
+            />
+            <v-btn dark class="mr-4" @click="login">
+              submit
+            </v-btn>
+            <v-btn dark class="mr-4" @click="testLogin">
+              testLogin
+            </v-btn>
+            <p v-if="error" class="errors">
+              {{ error }}
+            </p>
+          </form>
+        </v-col>
+      </v-row>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
-import firebase from "@/plugins/firebase";
+import firebase from "@/plugins/firebase"
 
 export default {
   data() {
@@ -44,7 +55,7 @@ export default {
       show1: false,
       error: "",
       dialog: false
-    };
+    }
   },
   computed: {
     isLoggedIn() {
@@ -53,53 +64,53 @@ export default {
   },
   methods: {
     login() {
-      this.$store.commit("setLoading", true);
+      this.$store.commit("setLoading", true)
       firebase
-      .auth()
-      .signInWithEmailAndPassword(this.email, this.password)
-      .then(() => {
-        this.$store.commit("setNotice", {
-          status: true,
-          message: "Success Login!"
-        });
-        setTimeout(() => {
-          this.$store.commit("setNotice",{});
-        }, 2000); //2秒後に隠す
-        this.$store.commit("setLoading", false);
-        this.dialog = false
-      })
-      .catch(error => {
-        console.log(error);
-        this.error = (code => {
-          switch (code) {
-            case "auth/user-not-found":
-            return "メールアドレスが間違っています";
-            case "auth/wrong-password":
-            return "※パスワードが正しくありません";
-            default:
-            return "※メールアドレスとパスワードをご確認ください";
-          }
-          this.$store.commit("setLoading", false);
-        })(error.code);
-      });
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$store.commit("setNotice", {
+            status: true,
+            message: "Success Login!"
+          })
+          setTimeout(() => {
+            this.$store.commit("setNotice", {})
+          }, 2000) //2秒後に隠す
+          this.$store.commit("setLoading", false)
+          this.dialog = false
+        })
+        .catch(error => {
+          console.log(error)
+          this.error = (code => {
+            switch (code) {
+              case "auth/user-not-found":
+                return "メールアドレスが間違っています"
+              case "auth/wrong-password":
+                return "※パスワードが正しくありません"
+              default:
+                return "※メールアドレスとパスワードをご確認ください"
+            }
+            this.$store.commit("setLoading", false)
+          })(error.code)
+        })
     },
     // テストユーザー用ログイン
     testLogin() {
-      this.$store.commit("setLoading", true);
+      this.$store.commit("setLoading", true)
       firebase
-      .auth()
-      .signInWithEmailAndPassword('test@gmail.com', 'testPassword')
-      .then(() => {
-        this.$store.commit("setNotice", {
-          status: true,
-          message: "Success Login!"
-        });
-        setTimeout(() => {
-          this.$store.commit("setNotice",{});
-        }, 2000); //2秒後に隠す
-        this.$store.commit("setLoading", false);
-        this.dialog = false;
-      })
+        .auth()
+        .signInWithEmailAndPassword("test@gmail.com", "testPassword")
+        .then(() => {
+          this.$store.commit("setNotice", {
+            status: true,
+            message: "Success Login!"
+          })
+          setTimeout(() => {
+            this.$store.commit("setNotice", {})
+          }, 2000) //2秒後に隠す
+          this.$store.commit("setLoading", false)
+          this.dialog = false
+        })
     }
   }
 }
