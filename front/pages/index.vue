@@ -1,7 +1,4 @@
-
-
 <template>
-
 <v-app>
     <v-parallax src="key_visual.jpg" flat style="height:95vh;">
         <v-row align="center" justify="center">
@@ -20,7 +17,7 @@
         <v-flex xs12 sm12 md12>
             <h2 class="display-1 font-weight-thin my-5">
       Recommended Bistro
-    </h2>
+    </h2><data value="" />
             <v-row justify="center">
                 <v-col cols="12" md="12" xl="10">
                     <v-row justify="center">
@@ -31,17 +28,17 @@
                               </v-card-actions>
                             </v-img>
                             <v-card-title>{{ shop.name | truncate(19, '...') }}</v-card-title>
-                            <v-card-text  style="height: 250px;">
+                            <v-card-text style="height: 250px;">
                                 <div class="my-4 subtitle-1">
                                     {{ shop.catch| truncate(30, '...') }}
                                 </div>
 
                                 <span class="grey--text">・平均予算：</span>
                                 <br>
-                                <span> {{ shop.budget.average| truncate(15, '...')  }}</span><br />
+                                <span> {{ shop.budget.average| truncate(15, '...') }}</span><br>
                                 <span class="grey--text">・アクセス：</span>
                                 <br>
-                                <span>{{ shop.mobile_access| truncate(23, '...')  }}</span><br />
+                                <span>{{ shop.mobile_access| truncate(23, '...') }}</span><br>
                                 <span class="grey--text">・営業時間：</span>
                                 <br>
                                 <span>{{ shop.open | truncate(30, '...') }}</span>
@@ -56,21 +53,21 @@
             <v-row align="center" justify="space-around">
                 <v-btn class="ma-2" color="#000" rounded outlined :loading="loading" :disabled="loading" @click="loader = 'loading'">
                     Reload
-                    <v-icon dark right>refresh</v-icon>
+                    <v-icon dark right>
+refresh
+</v-icon>
                 </v-btn>
             </v-row>
         </v-flex>
     </v-container>
-
 </v-app>
-
 </template>
 
 <script>
 
-import StartBtn from "../components/StartBtn.vue";
-import ShopDetailsDialog from "../components/ShopDetailsDialog.vue";
-import Favorite from "../components/Favorite.vue";
+import StartBtn from "../components/StartBtn.vue"
+import ShopDetailsDialog from "../components/ShopDetailsDialog.vue"
+import Favorite from "../components/Favorite.vue"
 
 export default {
     components: {
@@ -104,11 +101,11 @@ export default {
     },
     filters: {
         truncate: function(value, length) {
-            var ommision = "...";
+            var ommision = "..."
             if (value.length <= length) {
-                return value;
+                return value
             }
-            return value.substring(0, length) + ommision;
+            return value.substring(0, length) + ommision
         }
     },
     created: function() {
@@ -192,7 +189,7 @@ export default {
                             priceCode = 'B002'
                         case 4000:
                             priceCode = 'B003'
-                            break;
+                            break
                         default:
                             priceCode = ''
                     }
@@ -214,7 +211,7 @@ export default {
                     })
                     .then(res => {
                         this.shops = res.results.shop
-                        this.shops = this.ChooseAtRandom(this.shops, 6);
+                        this.shops = this.ChooseAtRandom(this.shops, 6)
                         this.length = res.results.shop.length
                         if (res.results.shop.length === 0) {
                             this.alert = true
@@ -223,19 +220,19 @@ export default {
             },
             ChooseAtRandom(arrayData, count) {
                 // countが設定されていない場合は1にする
-                var count = count || 1;
-                var arrayData = arrayData;
-                var result = [];
+                var count = count || 1
+                var arrayData = arrayData
+                var result = []
                 if (!arrayData) {
-                    return;
+                    return
                 }
                 for (var i = 0; i < count; i++) {
-                    var arrayIndex = Math.floor(Math.random() * arrayData.length);
-                    result[i] = arrayData[arrayIndex];
+                    var arrayIndex = Math.floor(Math.random() * arrayData.length)
+                    result[i] = arrayData[arrayIndex]
                     // 1回選択された値は削除して再度選ばれないようにする
-                    arrayData.splice(arrayIndex, 1);
+                    arrayData.splice(arrayIndex, 1)
                 }
-                return result;
+                return result
             },
 
     }

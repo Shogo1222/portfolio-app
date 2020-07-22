@@ -7,7 +7,6 @@
 </style>
 
 <template>
-
 <v-app>
     <!-- ヘッダーbar -->
     <v-app-bar fixed flat app style="background:linear-gradient(100deg, rgba(130,182,12,0.7) 0%, rgba(214,221,36,0.5) 40%, rgba(68,208,240,0.7) 100%);">
@@ -117,7 +116,7 @@ export default {
                 return this.$store.state.name;
             }
     },
-    methods: {
+    methods:
         logout() {
             firebase
                 .auth()
