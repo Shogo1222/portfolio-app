@@ -23,3 +23,7 @@
 .log
 
 /ssl
+
+/back/.local/share/pry/pry_history
+/back/.rspec
+/ubuntu-xenial-16.04-cloudimg-console.log
