@@ -52,13 +52,10 @@ export default {
   },
   methods: {
     favorite() {
-      const favorite = {
-        user_id: this.$store.state.id,
-        shop_id: this.shopId
-      }
       axios
         .post("/v1/favorite", {
-          favorite
+          user_id: this.$store.state.id,
+          shop_id: this.shopId
         })
         .then(() => {
           this.is_favorite = true

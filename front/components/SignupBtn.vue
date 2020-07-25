@@ -124,23 +124,28 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(res => {
-          const user = {
-            email: res.user.email,
-            name: this.name,
-            uid: res.user.uid
-          }
-          axios.post("/v1/users", { user }).then(() => {
-            this.$store.commit("setLoading", false)
-            this.$store.commit("login", user)
-            this.$store.commit("setNotice", {
-              status: true,
-              message: "Success Signup!"
+          axios
+            .post("/v1/users", {
+              email: res.user.email,
+              name: this.name,
+              uid: res.user.uid
             })
-            setTimeout(() => {
-              this.$store.commit("setNotice", {})
-            }, 2000) //2秒後に隠す
-            this.dialog = false
-          })
+            .then(() => {
+              this.$store.commit("setLoading", false)
+              this.$store.commit("login", {
+                email: res.user.email,
+                name: this.name,
+                uid: res.user.uid
+              })
+              this.$store.commit("setNotice", {
+                status: true,
+                message: "Success Signup!"
+              })
+              setTimeout(() => {
+                this.$store.commit("setNotice", {})
+              }, 2000) //2秒後に隠す
+              this.dialog = false
+            })
         })
         .catch(error => {
           this.$store.commit("setLoading", false)
