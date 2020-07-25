@@ -70,18 +70,20 @@ export default {
   },
   methods: {
     submitComment() {
-      const comment = {
-        user_id: this.$store.state.id,
-        user_name: this.$store.state.name,
-        shop_id: this.shopId,
-        comment: this.comment
-      }
       axios
         .post("/v1/comment", {
-          comment
+          user_id: this.$store.state.id,
+          user_name: this.$store.state.name,
+          shop_id: this.shopId,
+          comment: this.comment
         })
         .then(() => {
-          this.comments.push(comment)
+          this.comments.push({
+            user_id: this.$store.state.id,
+            user_name: this.$store.state.name,
+            shop_id: this.shopId,
+            comment: this.comment
+          })
           this.comment = null
           this.exists_comment = true
         })
