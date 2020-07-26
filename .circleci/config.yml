@@ -2,7 +2,8 @@ version:           2.1
 
 jobs:
   test:
-    machine:       circleci/classic:edge
+    machine:
+    image:         circleci/classic:edge
     steps:
       - checkout
       - run:
