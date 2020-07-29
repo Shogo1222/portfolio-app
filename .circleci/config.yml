@@ -1,34 +1,52 @@
-version:           2
+version:            2.1
+orbs:
+  aws-ecr:          circleci/aws-ecr@6.11.0
+  aws-ecs:          circleci/aws-ecs@1.2.0
 
 jobs:
   build:
     machine:
-      image:       circleci/classic:edge
+      image:        circleci/classic:edge
     steps:
       - checkout
       - run:
-          name:    docker-compose build
-          command: docker-compose build
+          name:     docker-compose build
+          command:  docker-compose build
       - run:
-          name:    docker-compose up -d
-          command: docker-compose up -d
-      - run:       sleep 30
+          name:     docker-compose up -d
+          command:  docker-compose up -d
+      - run:        sleep 30
+
+  test:
+    machine:
+      image:        circleci/classic:edge
+    steps:
+      - checkout
       - run:
-          name:    docker-compose run back rails db:create RAILS_ENV=test
-          command: docker-compose run back rails db:create RAILS_ENV=test
+          name:     docker-compose run back rails db:create RAILS_ENV=test
+          command:  docker-compose run back rails db:create RAILS_ENV=test
       - run:
-          name:    docker-compose run back rails db:migrate RAILS_ENV=test
-          command: docker-compose run back rails db:migrate RAILS_ENV=test
+          name:     docker-compose run back rails db:migrate RAILS_ENV=test
+          command:  docker-compose run back rails db:migrate RAILS_ENV=test
       - run:
-          name:    docker-compose run back bundle exec rspec spec
-          command: docker-compose run back bundle exec rspec spec
+          name:     docker-compose run back bundle exec rspec spec
+          command:  docker-compose run back bundle exec rspec spec
       - run:
-          name:    docker-compose down
-          command: docker-compose down
+          name:     docker-compose down
+          command:  docker-compose down
+
+workflows:
+    version:        2
+    build_and_test:
+      jobs:
+      - build
+      - test:
+          requires:
+            - build
 
 # orbs:
-#   aws-ecr:       circleci/aws-ecr@6.0.0
-#   aws-ecs:       circleci/aws-ecs@1.2.0
+#   aws-ecr:        circleci/aws-ecr@6.0.0
+#   aws-ecs:        circleci/aws-ecs@1.2.0
 #
 # workflows:
 #   build-and-deploy::
@@ -36,9 +54,9 @@ jobs:
 #       - aws-ecr/build-and-push-image:
 #           region: AWS_REGION
 #           account-url: AWS_ECR_ACCOUNT_URL
-#           repo:  '${MY_APP_PREFIX}-sample'
-#           path:  '/back'
-#           tag:   "${CIRCLE_SHA1}"
+#           repo:   '${MY_APP_PREFIX}-sample'
+#           path:   '/back'
+#           tag:    "${CIRCLE_SHA1}"
 #
 #       - aws-ecr/build-and-push-image:
 #           account-url: AWS_ECR_ACCOUNT_URL
@@ -46,10 +64,10 @@ jobs:
 #           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
 #           create-repo: true
 #           dockerfile: Dockerfile
-#           path:  .
+#           path:   .
 #           region: AWS_REGION
-#           repo:  circleci-ecr-orb-demo
-#           tag:   "$CIRCLE_SHA1"
+#           repo:   circleci-ecr-orb-demo
+#           tag:    "$CIRCLE_SHA1"
 #
 #       - aws-ecs/deploy-service-update:
 #           requires:
