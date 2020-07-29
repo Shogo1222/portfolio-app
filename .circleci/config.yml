@@ -1,9 +1,9 @@
-version:           2.1
+version:           2
 
 jobs:
-  test:
-    machine:       true
-    image:         circleci/classic:edge
+  build:
+    docker:
+      - image:     circleci/ruby:2.6.3-node-browsers
     steps:
       - checkout
       - run:
