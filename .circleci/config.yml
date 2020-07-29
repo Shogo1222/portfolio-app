@@ -12,7 +12,10 @@ jobs:
       - run:
           name:    docker-compose up -d
           command: docker-compose up -d
-      - run:       sleep 100
+      -run:
+          name:    config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+          command: config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+      - run:       sleep 30
       - run:
           name:    docker-compose run back rails db:create RAILS_ENV=test
           command: docker-compose run back rails db:create RAILS_ENV=test
