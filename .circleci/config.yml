@@ -13,11 +13,11 @@ jobs:
           name:    docker-compose run back bundle install
           command: docker-compose run back bundle install
       - run:
-          name:    docker-compose run back rails db:create
-          command: docker-compose run back rails db:create
+          name:    docker-compose run back rails db:create RAILS_ENV=test
+          command: docker-compose run back rails db:create RAILS_ENV=test
       - run:
-          name:    docker-compose run back rails db:migrate
-          command: docker-compose run back rails db:migrate
+          name:    docker-compose run back rails db:migrate RAILS_ENV=test
+          command: docker-compose run back rails db:migrate RAILS_ENV=test
       - run:
           name:    docker-compose run back bundle exec rspec spec
           command: docker-compose run back bundle exec rspec spec
