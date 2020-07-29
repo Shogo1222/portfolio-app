@@ -9,24 +9,26 @@
 # And be sure to use new-style password hashing:
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
-default: &default
-  adapter: mysql2
-  encoding: utf8
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch('MYSQL_USER') { 'root' } %>
-  password: <%= ENV.fetch('MYSQL_PASSWORD') { 'password' } %>
-  host: db
+default:      &default
+  adapter:    mysql2
+  encoding:   utf8
+  pool:       <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username:   <%= ENV.fetch('MYSQL_USER') { 'root' } %>
+  password:   <%= ENV.fetch('MYSQL_PASSWORD') { 'password' } %>
+  host:       db
 
 development:
-  <<: *default
-  database: app_development
+  <<:         *default
+  database:   app_development
 
-# Warning: The database defined as "test" will be erased and
+# Warning:    The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: app_test
+  <<:         *default
+  database:   app_test
+  username:   root
+  password:   rootpassword
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -45,11 +47,11 @@ test:
 # You can use this database configuration with:
 #
 #   production:
-#     url: <%= ENV['DATABASE_URL'] %>
+#     url:    <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  host: <%= Rails.application.credentials.rds[:host] %>
-  database: <%= Rails.application.credentials.rds[:database] %>
-  username: <%= Rails.application.credentials.rds[:username] %>
-  password: <%= Rails.application.credentials.rds[:password] %>
+  <<:         *default
+  host:       <%= Rails.application.credentials.rds[:host] %>
+  database:   <%= Rails.application.credentials.rds[:database] %>
+  username:   <%= Rails.application.credentials.rds[:username] %>
+  password:   <%= Rails.application.credentials.rds[:password] %>
