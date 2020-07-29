@@ -2,7 +2,9 @@ version:           2.1
 
 jobs:
   test:
-    machine:
+    docker:
+      -image:
+    machine:       true
     image:         circleci/classic:edge
     steps:
       - checkout
