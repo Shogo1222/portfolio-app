@@ -12,7 +12,7 @@ jobs:
       - run:
           name:    docker-compose up -d
           command: docker-compose up -d
-      -run:
+      - run:
           name:    config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
           command: config:set RAILS_MASTER_KEY=$RAILS_MASTER_KEY
       - run:       sleep 30
