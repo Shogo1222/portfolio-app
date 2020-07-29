@@ -10,8 +10,8 @@ jobs:
           name:    docker-compose build
           command: docker-compose build
       - run:
-          name:    docker-compose up
-          command: docker-compose up
+          name:    docker-compose up -d
+          command: docker-compose up -d
       - run:
           name:    docker-compose run back rails db:create
           command: docker-compose run back rails db:create
