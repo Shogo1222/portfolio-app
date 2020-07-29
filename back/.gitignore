@@ -22,7 +22,4 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# mysql
-/environments
-
 .ash_history
