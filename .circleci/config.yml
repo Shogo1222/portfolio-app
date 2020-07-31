@@ -55,4 +55,4 @@ workflows:
               repo:         back
               tag:          "${CIRCLE_SHA1}"
               path:         './back'
-              dockerfile:   Dockerfile.pro
+              dockerfile:   back/Dockerfile.pro
