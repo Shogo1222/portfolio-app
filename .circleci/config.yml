@@ -54,5 +54,5 @@ workflows:
               region:       AWS_REGION
               repo:         back
               tag:          "${CIRCLE_SHA1}"
-              path:         ~/back
+              path:         ~project/back
               dockerfile:   Dockerfile.pro
