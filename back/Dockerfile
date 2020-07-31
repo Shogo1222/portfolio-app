@@ -6,6 +6,9 @@ ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata 
     LANG=C.UTF-8 \
     TZ=Asia/Tokyo
 
+ARG RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
+
 WORKDIR ${HOME}
 
 ADD Gemfile ${HOME}/Gemfile
