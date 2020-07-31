@@ -1,44 +1,44 @@
-version:                                2.1
+version:                                  2.1
 orbs:
-  aws-ecr:                              circleci/aws-ecr@1.0.0
-  aws-ecs:                              circleci/aws-ecs@1.2.0
+  aws-ecr:                                circleci/aws-ecr@1.0.0
+  aws-ecs:                                circleci/aws-ecs@1.2.0
 
 executors:
   docker_build:
     machine:
-      docker_layer_caching:             true
+      docker_layer_caching:               true
 
 jobs:
   build:
     machine:
-      image:                            circleci/classic:edge
+      image:                              circleci/classic:edge
     steps:
       - checkout
       - run:
-          name:                         docker-compose build
-          command:                      docker-compose build
+          name:                           docker-compose build
+          command:                        docker-compose build
 
   test:
     machine:
-      image:                            circleci/classic:edge
+      image:                              circleci/classic:edge
     steps:
       - checkout
       - run:
-          name:                         docker-compose up -d
-          command:                      docker-compose up -d
-      - run:                            sleep 30
+          name:                           docker-compose up -d
+          command:                        docker-compose up -d
+      - run:                              sleep 30
       - run:
-          name:                         docker-compose run back rails db:create RAILS_ENV=test
-          command:                      docker-compose run back rails db:create RAILS_ENV=test
+          name:                           docker-compose run back rails db:create RAILS_ENV=test
+          command:                        docker-compose run back rails db:create RAILS_ENV=test
       - run:
-          name:                         docker-compose run back rails db:migrate RAILS_ENV=test
-          command:                      docker-compose run back rails db:migrate RAILS_ENV=test
+          name:                           docker-compose run back rails db:migrate RAILS_ENV=test
+          command:                        docker-compose run back rails db:migrate RAILS_ENV=test
       - run:
-          name:                         docker-compose run back bundle exec rspec spec
-          command:                      docker-compose run back bundle exec rspec spec
+          name:                           docker-compose run back bundle exec rspec spec
+          command:                        docker-compose run back bundle exec rspec spec
       - run:
-          name:                         docker-compose down
-          command:                      docker-compose down
+          name:                           docker-compose down
+          command:                        docker-compose down
 
 workflows:
     build_and_test_and_deploy:
@@ -48,12 +48,13 @@ workflows:
           requires:
             - build
       - aws-ecr/build_and_push_image:
-            account-url:                AWS_ECR_ACCOUNT_URL
-            region:                     AWS_REGION
-            repo:                       back
-            tag:                        "${CIRCLE_SHA1}"
-            path:                       './back'
-            dockerfile:                 back/Dockerfile.pro
+            name:                         'build-back'
+            account-url:                  AWS_ECR_ACCOUNT_URL
+            region:                       AWS_REGION
+            repo:                         back
+            tag:                          "${CIRCLE_SHA1}"
+            path:                         './back'
+            dockerfile:                   back/Dockerfile.pro
             requires:
               - test
           # filters:
@@ -61,12 +62,13 @@ workflows:
           #     only:
           #       - master
       - aws-ecr/build_and_push_image:
-            account-url:                AWS_ECR_ACCOUNT_URL
-            region:                     AWS_REGION
-            repo:                       front
-            tag:                        "${CIRCLE_SHA1}"
-            path:                       './front'
-            dockerfile:                 front/Dockerfile.pro
+            name:                         'build-front'
+            account-url:                  AWS_ECR_ACCOUNT_URL
+            region:                       AWS_REGION
+            repo:                         front
+            tag:                          "${CIRCLE_SHA1}"
+            path:                         './front'
+            dockerfile:                   front/Dockerfile.pro
             requires:
               - test
           # filters:
@@ -74,10 +76,12 @@ workflows:
           #     only:
           #       - master
       - aws-ecs/deploy-service-update:
-          family:                       'back'
-          service-name:                 'back'
-          cluster-name:                 CLUSTER_NAME
-          container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/back:${CIRCLE_SHA1}'
+            family:                       'back'
+            service-name:                 'back'
+            cluster-name:                 ${CLUSTER_NAME}
+            container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/back:${CIRCLE_SHA1}'
+            requires:
+              - build-back
           # filters:
           #   branches:
           #     only:
