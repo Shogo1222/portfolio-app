@@ -50,10 +50,8 @@ workflows:
     ecs_push_image:
       jobs:
         - aws-ecr/build_and_push_image:
-              executor:     docker_build
               account-url:  AWS_ECR_ACCOUNT_URL
               region:       AWS_REGION
               repo:         back
               tag:          "${CIRCLE_SHA1}"
-              path:         ./project/back
-              dockerfile:   Dockerfile.pro
+              dockerfile:   back/Dockerfile.pro
