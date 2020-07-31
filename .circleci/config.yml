@@ -48,7 +48,7 @@ workflows:
           requires:
             - build
       - aws-ecr/build_and_push_image:
-            name:                         'build-back'
+            name:                         'build-and-push-back'
             account-url:                  AWS_ECR_ACCOUNT_URL
             region:                       AWS_REGION
             repo:                         back
@@ -62,7 +62,7 @@ workflows:
           #     only:
           #       - master
       - aws-ecr/build_and_push_image:
-            name:                         'build-front'
+            name:                         'build-and-push-front'
             account-url:                  AWS_ECR_ACCOUNT_URL
             region:                       AWS_REGION
             repo:                         front
@@ -81,7 +81,18 @@ workflows:
             cluster-name:                 ${CLUSTER_NAME}
             container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/back:${CIRCLE_SHA1}'
             requires:
-              - build-back
+              - build-and-push-back
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+      - aws-ecs/deploy-service-update:
+            family:                       'front'
+            service-name:                 'front'
+            cluster-name:                 ${CLUSTER_NAME}
+            container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/front:${CIRCLE_SHA1}'
+            requires:
+              - build-and-push-front
           # filters:
           #   branches:
           #     only:
