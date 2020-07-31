@@ -17,6 +17,7 @@ jobs:
     machine:
       image:        circleci/classic:edge
     steps:
+      - checkout
       - run:
           name:     docker-compose up -d
           command:  docker-compose up -d
