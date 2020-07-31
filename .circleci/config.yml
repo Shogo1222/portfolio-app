@@ -52,10 +52,10 @@ workflows:
             dockerfile:                   back/Dockerfile.pro
             requires:
               - test
-          filters:
-            branches:
-              only:
-                - master
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecr/build_and_push_image:
             name:                         'build-and-push-front'
             account-url:                  AWS_ECR_ACCOUNT_URL
@@ -66,10 +66,10 @@ workflows:
             dockerfile:                   front/Dockerfile.pro
             requires:
               - test
-          filters:
-            branches:
-              only:
-                - master
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecs/deploy-service-update:
             family:                       'back'
             service-name:                 'back'
@@ -77,10 +77,10 @@ workflows:
             container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/back:${CIRCLE_SHA1}'
             requires:
               - build-and-push-back
-          filters:
-            branches:
-              only:
-                - master
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecs/deploy-service-update:
             family:                       'front'
             service-name:                 'front'
@@ -88,7 +88,7 @@ workflows:
             container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/front:${CIRCLE_SHA1}'
             requires:
               - build-and-push-front
-          filters:
-            branches:
-              only:
-                - master
+            filters:
+              branches:
+                only:
+                  - master
