@@ -1,6 +1,6 @@
 version:                    2.1
 orbs:
-  aws-ecr:                  circleci/aws-ecr@6.11.0
+  aws-ecr:                  circleci/aws-ecr@1.0.0
   aws-ecs:                  circleci/aws-ecs@1.2.0
 
 executors:
@@ -47,12 +47,12 @@ workflows:
       - test:
           requires:
             - build
-      - aws-ecr/build_and_push_image:
-            executor:       dockcer_build
-            name:           'build-prod'
-            account-url:    AWS_ECR_ACCOUNT_URL
-            region:         AWS_REGION
-            repo:           AWS_ECR_REPO_BACK
-            tag:            "${CIRCLE_SHA1}"
-            path:           ./back
-            dockerfile:     Dockerfile.pro
+    ecs_push_image:
+      jobs:
+        - aws-ecr/build_and_push_image:
+              account-url:  AWS_ECR_ACCOUNT_URL
+              region:       AWS_REGION
+              repo:         AWS_ECR_REPO_BACK
+              tag:          "${CIRCLE_SHA1}"
+              path:         ./back
+              dockerfile:   Dockerfile.pro
