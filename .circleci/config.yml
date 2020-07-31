@@ -50,6 +50,7 @@ workflows:
     ecs_push_image:
       jobs:
         - aws-ecr/build_and_push_image:
+              executor:     docker_build
               account-url:  AWS_ECR_ACCOUNT_URL
               region:       AWS_REGION
               repo:         back
