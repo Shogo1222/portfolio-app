@@ -1,6 +1,6 @@
 version:                                  2.1
 orbs:
-  aws-ecr:                                circleci/aws-ecr@1.0.0
+  aws-ecr:                                circleci/aws-ecr@6.2.0
   aws-ecs:                                circleci/aws-ecs@1.2.0
 
 jobs:
@@ -42,8 +42,6 @@ jobs:
       - run:
           name:                           setup
           command:                        |
-            pwd
-            ls
             export API_KEY=$API_KEY
             export PROJECT_ID=$PROJECT_ID
             export DATABASE_URL=$DATABASE_URL
@@ -60,7 +58,7 @@ workflows:
     #       requires:
     #         - build
       - setup
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
             name:                         'build-and-push-back'
             account-url:                  AWS_ECR_ACCOUNT_URL
             region:                       AWS_REGION
@@ -68,13 +66,14 @@ workflows:
             tag:                          "${CIRCLE_SHA1}"
             path:                         './back'
             dockerfile:                   back/Dockerfile.pro
+            extra-build-args:             '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
             requires:
               - setup
             # filters:
             #   branches:
             #     only:
             #       - master
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
             name:                         'build-and-push-front'
             account-url:                  AWS_ECR_ACCOUNT_URL
             region:                       AWS_REGION
@@ -82,6 +81,7 @@ workflows:
             tag:                          "${CIRCLE_SHA1}"
             path:                         './front'
             dockerfile:                   front/Dockerfile.pro
+            extra-build-args:             '--build-arg API_KEY=$API_KEY --build-arg PROJECT_ID=$PROJECT_ID --build-arg DATABASE_URL=$DATABASE_URL --build-arg STORAGE_BUCKET=$STORAGE_BUCKET --build-arg MESSAGE_SENDER_ID=$MESSAGE_SENDER_ID  --build-arg VUE_APP_HOTPEPPER_API_KEY=$VUE_APP_HOTPEPPER_API_KEY --build-arg AUTH_DOMAIN=$AUTH_DOMAIN'
             requires:
               - setup
             # filters:
