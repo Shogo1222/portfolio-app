@@ -66,12 +66,12 @@ workflows:
             tag:                          "${CIRCLE_SHA1}"
             path:                         './back'
             dockerfile:                   back/Dockerfile.pro
-            # requires:
-            #   - test
-            filters:
-              branches:
-                only:
-                  - master
+            requires:
+              - setup
+            # filters:
+            #   branches:
+            #     only:
+            #       - master
       - aws-ecr/build_and_push_image:
             name:                         'build-and-push-front'
             account-url:                  AWS_ECR_ACCOUNT_URL
@@ -80,12 +80,12 @@ workflows:
             tag:                          "${CIRCLE_SHA1}"
             path:                         './front'
             dockerfile:                   front/Dockerfile.pro
-            # requires:
-            #   - test
-            filters:
-              branches:
-                only:
-                  - master
+            requires:
+              - setup
+            # filters:
+            #   branches:
+            #     only:
+            #       - master
       - aws-ecs/deploy-service-update:
             family:                       'back'
             service-name:                 'back'
