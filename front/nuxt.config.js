@@ -30,6 +30,16 @@ export default {
       }
     ]
   },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+    API_KEY: process.env.API_KEY,
+    AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+    PROJECT_ID: process.env.PROJECT_ID,
+    DATABASE_URL: process.env.DATABASE_URL,
+    STORAGE_BUCKET: process.env.STORAGE_BUCKET,
+    MESSAGE_SENDER_ID: process.env.MESSAGE_SENDER_ID,
+    VUE_APP_HOTPEPPER_API_KEY: process.env.VUE_APP_HOTPEPPER_API_KEY
+  },
   /*
    ** Customize the progress-bar color
    */
