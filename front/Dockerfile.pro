@@ -16,6 +16,9 @@ RUN echo ${STORAGE_BUCKET} >> .env
 RUN echo ${MESSAGE_SENDER_ID} >> .env
 RUN echo ${VUE_APP_HOTPEPPER_API_KEY} >> .env
 
+RUN echo ${API_KEY}
+RUN cat .env
+
 COPY package.json .
 COPY . .
 
