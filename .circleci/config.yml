@@ -4,60 +4,45 @@ orbs:
   aws-ecs:                                circleci/aws-ecs@1.2.0
 
 jobs:
-#   build:
-#     machine:
-#       image:                            circleci/classic:edge
-#     steps:
-#       - checkout
-#       - run:
-#           name:                         docker-compose build
-#           command:                      docker-compose build
-#
-#   test:
-#     machine:
-#       image:                            circleci/classic:edge
-#     steps:
-#       - checkout
-#       - run:
-#           name:                         docker-compose up -d
-#           command:                      docker-compose up -d
-#       - run:                            sleep 30
-#       - run:
-#           name:                         docker-compose run back rails db:create RAILS_ENV=test
-#           command:                      docker-compose run back rails db:create RAILS_ENV=test
-#       - run:
-#           name:                         docker-compose run back rails db:migrate RAILS_ENV=test
-#           command:                      docker-compose run back rails db:migrate RAILS_ENV=test
-#       - run:
-#           name:                         docker-compose run back bundle exec rspec spec
-#           command:                      docker-compose run back bundle exec rspec spec
-#       - run:
-#           name:                         docker-compose down
-#           command:                      docker-compose down
-
-  setup:
+  build:
     machine:
       image:                              circleci/classic:edge
     steps:
+      - checkout
       - run:
-          name:                           setup
-          command:                        |
-            export API_KEY=$API_KEY
-            export PROJECT_ID=$PROJECT_ID
-            export DATABASE_URL=$DATABASE_URL
-            export STORAGE_BUCKET=$STORAGE_BUCKET
-            export MESSAGE_SENDER_ID=$MESSAGE_SENDER_ID
-            export VUE_APP_HOTPEPPER_API_KEY=$VUE_APP_HOTPEPPER_API_KEY
-            export AUTH_DOMAIN=$AUTH_DOMAIN
+          name:                           docker-compose build
+          command:                        docker-compose build
+
+  test:
+    machine:
+      image:                              circleci/classic:edge
+    steps:
+      - checkout
+      - run:
+          name:                           docker-compose up -d
+          command:                        docker-compose up -d
+      - run:                              sleep 30
+      - run:
+          name:                           docker-compose run back rails db:create RAILS_ENV=test
+          command:                        docker-compose run back rails db:create RAILS_ENV=test
+      - run:
+          name:                           docker-compose run back rails db:migrate RAILS_ENV=test
+          command:                        docker-compose run back rails db:migrate RAILS_ENV=test
+      - run:
+          name:                           docker-compose run back bundle exec rspec spec
+          command:                        docker-compose run back bundle exec rspec spec
+      - run:
+          name:                           docker-compose down
+          command:                        docker-compose down
+
 
 workflows:
   build_and_test_and_deploy:
     jobs:
-    #   - build
-    #   - test:
-    #       requires:
-    #         - build
-      - setup
+      - build
+      - test:
+          requires:
+            - build
       - aws-ecr/build-and-push-image:
             name:                         'build-and-push-back'
             account-url:                  AWS_ECR_ACCOUNT_URL
@@ -68,11 +53,11 @@ workflows:
             dockerfile:                   back/Dockerfile.pro
             extra-build-args:             '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
             requires:
-              - setup
-            # filters:
-            #   branches:
-            #     only:
-            #       - master
+              - test
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecr/build-and-push-image:
             name:                         'build-and-push-front'
             account-url:                  AWS_ECR_ACCOUNT_URL
@@ -83,11 +68,11 @@ workflows:
             dockerfile:                   front/Dockerfile.pro
             extra-build-args:             '--build-arg API_KEY=$API_KEY --build-arg PROJECT_ID=$PROJECT_ID --build-arg DATABASE_URL=$DATABASE_URL --build-arg STORAGE_BUCKET=$STORAGE_BUCKET --build-arg MESSAGE_SENDER_ID=$MESSAGE_SENDER_ID  --build-arg VUE_APP_HOTPEPPER_API_KEY=$VUE_APP_HOTPEPPER_API_KEY --build-arg AUTH_DOMAIN=$AUTH_DOMAIN'
             requires:
-              - setup
-            # filters:
-            #   branches:
-            #     only:
-            #       - master
+              - test
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecs/deploy-service-update:
             family:                       'back'
             service-name:                 'back'
