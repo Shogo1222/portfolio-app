@@ -3,7 +3,7 @@ orbs:
   aws-ecr:                                circleci/aws-ecr@1.0.0
   aws-ecs:                                circleci/aws-ecs@1.2.0
 
-# jobs:
+jobs:
 #   build:
 #     machine:
 #       image:                            circleci/classic:edge
@@ -35,6 +35,21 @@ orbs:
 #           name:                         docker-compose down
 #           command:                      docker-compose down
 
+  setup:
+    machine:
+      image:                              circleci/classic:edge
+    steps:
+      - run:
+          name:                           setup
+          command:                        |
+            export API_KEY = $API_KEY
+            export PROJECT_ID = $PROJECT_ID
+            export DATABASE_URL = $DATABASE_URL
+            export STORAGE_BUCKET = $STORAGE_BUCKET
+            export MESSAGE_SENDER_ID = $MESSAGE_SENDER_ID
+            export VUE_APP_HOTPEPPER_API_KEY = $VUE_APP_HOTPEPPER_API_KEY
+            export AUTH_DOMAIN = $AUTH_DOMAIN
+
 workflows:
   build_and_test_and_deploy:
     jobs:
@@ -42,6 +57,7 @@ workflows:
     #   - test:
     #       requires:
     #         - build
+      - setup
       - aws-ecr/build_and_push_image:
             name:                         'build-and-push-back'
             account-url:                  AWS_ECR_ACCOUNT_URL
