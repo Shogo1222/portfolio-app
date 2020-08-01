@@ -42,6 +42,8 @@ jobs:
       - run:
           name:                           setup
           command:                        |
+            pwd
+            ls
             export API_KEY=$API_KEY
             export PROJECT_ID=$PROJECT_ID
             export DATABASE_URL=$DATABASE_URL
