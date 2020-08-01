@@ -42,13 +42,13 @@ jobs:
       - run:
           name:                           setup
           command:                        |
-            export API_KEY = $API_KEY
-            export PROJECT_ID = $PROJECT_ID
-            export DATABASE_URL = $DATABASE_URL
-            export STORAGE_BUCKET = $STORAGE_BUCKET
-            export MESSAGE_SENDER_ID = $MESSAGE_SENDER_ID
-            export VUE_APP_HOTPEPPER_API_KEY = $VUE_APP_HOTPEPPER_API_KEY
-            export AUTH_DOMAIN = $AUTH_DOMAIN
+            export API_KEY=$API_KEY
+            export PROJECT_ID=$PROJECT_ID
+            export DATABASE_URL=$DATABASE_URL
+            export STORAGE_BUCKET=$STORAGE_BUCKET
+            export MESSAGE_SENDER_ID=$MESSAGE_SENDER_ID
+            export VUE_APP_HOTPEPPER_API_KEY=$VUE_APP_HOTPEPPER_API_KEY
+            export AUTH_DOMAIN=$AUTH_DOMAIN
 
 workflows:
   build_and_test_and_deploy:
