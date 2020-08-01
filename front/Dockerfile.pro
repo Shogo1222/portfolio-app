@@ -29,16 +29,13 @@ ENV MESSAGE_SENDER_ID ${MESSAGE_SENDER_ID}
 ARG VUE_APP_HOTPEPPER_API_KEY
 ENV VUE_APP_HOTPEPPER_API_KEY ${VUE_APP_HOTPEPPER_API_KEY}
 
-RUN echo API_KEY
-RUN echo ${API_KEY}
-
-RUN echo API_KEY > .env
-RUN echo PROJECT_ID >> .env
-RUN echo AUTH_DOMAIN >> .env
-RUN echo DATABASE_URL >> .env
-RUN echo STORAGE_BUCKET >> .env
-RUN echo MESSAGE_SENDER_ID >> .env
-RUN echo VUE_APP_HOTPEPPER_API_KEY >> .env
+RUN echo ${API_KEY} > .env
+RUN echo ${PROJECT_ID} >> .env
+RUN echo ${AUTH_DOMAIN} >> .env
+RUN echo ${DATABASE_URL} >> .env
+RUN echo ${STORAGE_BUCKET} >> .env
+RUN echo ${MESSAGE_SENDER_ID} >> .env
+RUN echo ${VUE_APP_HOTPEPPER_API_KEY} >> .env
 
 RUN cat .env
 
