@@ -77,7 +77,7 @@ workflows:
             family:                       ${FAMILY_NAME_BACK}
             service-name:                 ${SERVICE_NAME_BACK}
             cluster-name:                 ${CLUSTER_NAME}
-            container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_FRONT}:${CIRCLE_SHA1}'
+            container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_BACK}:${CIRCLE_SHA1}'
             requires:
               - build-and-push-back
             filters:
@@ -88,7 +88,7 @@ workflows:
             family:                       ${FAMILY_NAME_FRONT}
             service-name:                 ${SERVICE_NAME_FRONT}
             cluster-name:                 ${CLUSTER_NAME}
-            container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_BACK}:${CIRCLE_SHA1}'
+            container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_FRONT}:${CIRCLE_SHA1}'
             requires:
               - build-and-push-front
             filters:
