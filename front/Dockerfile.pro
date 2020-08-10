@@ -37,9 +37,6 @@ RUN echo STORAGE_BUCKET = ${STORAGE_BUCKET} >> .env
 RUN echo MESSAGE_SENDER_ID = ${MESSAGE_SENDER_ID} >> .env
 RUN echo VUE_APP_HOTPEPPER_API_KEY = ${VUE_APP_HOTPEPPER_API_KEY} >> .env
 
-RUN cat .env
-
-
 COPY package.json .
 COPY . .
 
@@ -53,5 +50,4 @@ RUN yarn run build
 
 EXPOSE 3000
 
-#CMD ["yarn", "dev"]
 CMD ["yarn", "start"]
