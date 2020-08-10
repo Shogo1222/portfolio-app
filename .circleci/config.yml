@@ -39,10 +39,10 @@ jobs:
 workflows:
   build_and_test_and_deploy:
     jobs:
-      # - build
-      # - test:
-      #     requires:
-      #       - build
+      - build
+      - test:
+          requires:
+            - build
       - aws-ecr/build-and-push-image:
             name:                         'build-and-push-back'
             account-url:                  AWS_ECR_ACCOUNT_URL
@@ -52,12 +52,12 @@ workflows:
             path:                         './back'
             dockerfile:                   back/Dockerfile.pro
             extra-build-args:             '--build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY'
-            # requires:
-            #   - test
-            # filters:
-            #   branches:
-            #     only:
-            #       - master
+            requires:
+              - test
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecr/build-and-push-image:
             name:                         'build-and-push-front'
             account-url:                  AWS_ECR_ACCOUNT_URL
@@ -67,31 +67,31 @@ workflows:
             path:                         './front'
             dockerfile:                   front/Dockerfile.pro
             extra-build-args:             '--build-arg API_KEY=$API_KEY --build-arg PROJECT_ID=$PROJECT_ID --build-arg DATABASE_URL=$DATABASE_URL --build-arg STORAGE_BUCKET=$STORAGE_BUCKET --build-arg MESSAGE_SENDER_ID=$MESSAGE_SENDER_ID  --build-arg VUE_APP_HOTPEPPER_API_KEY=$VUE_APP_HOTPEPPER_API_KEY --build-arg AUTH_DOMAIN=$AUTH_DOMAIN'
-            # requires:
-            #   - test
-            # filters:
-            #   branches:
-            #     only:
-            #       - master
+            requires:
+              - test
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecs/deploy-service-update:
             family:                       'back'
             service-name:                 'back'
             cluster-name:                 ${CLUSTER_NAME}
-            container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/back:${CIRCLE_SHA1}'
+            container-image-name-updates: 'container=back,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_FRONT}:${CIRCLE_SHA1}'
             requires:
               - build-and-push-back
-            # filters:
-            #   branches:
-            #     only:
-            #       - master
+            filters:
+              branches:
+                only:
+                  - master
       - aws-ecs/deploy-service-update:
             family:                       'front'
             service-name:                 'front'
             cluster-name:                 ${CLUSTER_NAME}
-            container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/front:${CIRCLE_SHA1}'
+            container-image-name-updates: 'container=front,image-and-tag=${AWS_ECR_ACCOUNT_URL}/${REPO_NAME_BACK}:${CIRCLE_SHA1}'
             requires:
               - build-and-push-front
-            # filters:
-            #   branches:
-            #     only:
-            #       - master
+            filters:
+              branches:
+                only:
+                  - master
