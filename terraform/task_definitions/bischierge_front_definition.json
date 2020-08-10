@@ -1,0 +1,21 @@
+[
+  {
+    "name": "front",
+    "image": "${front_image}",
+    "portMappings": [
+      {
+        "containerPort": 3000
+      }
+    ],
+    "memory": 700,
+    "networkMode": "host",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "front"
+      }
+    }
+  }
+]
