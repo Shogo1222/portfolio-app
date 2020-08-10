@@ -1,0 +1,28 @@
+[
+  {
+    "name": "back",
+    "image": "${back_image}",
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 3000
+      }
+    ],
+    "memory": 300,
+    "networkMode": "awsvpc",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "back"
+      }
+    },
+    "environment": [
+      {
+        "name": "RAILS_MASTER_KEY",
+        "value": "${rails_master_key}"
+      }
+    ]
+  }
+]
