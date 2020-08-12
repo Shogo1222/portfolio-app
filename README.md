@@ -35,7 +35,7 @@ Bistro + Concierge = Bischierge <br>
 - 開発環境での問題をnginx、Vagrant等を用いて柔軟に解決する問題解決能力。
 - Frontend、Backendを切り分け、Dockerを利用してマイクロサービスアーキテクチャを実現。
 - DockerComposeを用いて開発環境構築・自動テストをしている。
-- ECS/ECRを用いて本番環境を構築、常時SSL通信をしている。
+- ECS/ECRを用いて本番環境を設計・構築、常時SSL通信をしている。
 - Frontendにて、Nuxt.jsを用いてSPAを実現・UIUX、デザインに力を入れ、レスポンシブデザインに対応している。
 - 外部API（HotPepperAPI、GoogleAPI、firebase）を用いて機能を実現している。
 - CircleCIを用いて自動テスト・自動デプロイをしている。
