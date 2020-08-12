@@ -2,6 +2,12 @@
 近くの飲食店にランダムで検索出来ることができるアプリケーションです。<br>
 「今日、何食べる？」を手軽に、ワンクリック・シンプル・スマートに解決する事がコンセプトです。
 
+### PC
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/35006561/90004321-63915a80-dcd0-11ea-89ef-a65d7dfd3e11.gif)
+
+### SP
+![20200812_191936](https://user-images.githubusercontent.com/35006561/90004702-0fd34100-dcd1-11ea-9ae5-9bc07bbc4290.GIF)
+
 [Bischierge](https://www.bischierge.work/)
 
 ## Target users
@@ -28,7 +34,7 @@
 - Frontend、Backendを切り分け、Dockerを利用してマイクロサービスアーキテクチャを実現。
 - DockerComposeを用いて開発環境構築・自動テストをしている。
 - ECS/ECRを用いて本番環境を構築、常時SSL通信をしている。
-- Frontendにて、Nuxt.jsを用いてSPAを実現・UIUX、デザインに力を入れている。
+- Frontendにて、Nuxt.jsを用いてSPAを実現・UIUX、デザインに力を入れ、レスポンシブデザインに対応している。
 - 外部API（HotPepperAPI、GoogleAPI、firebase）を用いて機能を実現している。
 - CircleCIを用いて自動テスト・自動デプロイをしている。
 - terraformを用いてIaCを実現している。
