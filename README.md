@@ -32,7 +32,7 @@ Bistro + Concierge = Bischierge <br>
 
 # 特に注目して頂きたい部分
 
-- 開発環境での問題をnginx,Vagrant等を用いて柔軟に解決する問題解決能力。
+- 開発環境での問題をnginx、Vagrant等を用いて柔軟に解決する問題解決能力。
 - Frontend、Backendを切り分け、Dockerを利用してマイクロサービスアーキテクチャを実現。
 - DockerComposeを用いて開発環境構築・自動テストをしている。
 - ECS/ECRを用いて本番環境を構築、常時SSL通信をしている。
@@ -52,7 +52,7 @@ Bistro + Concierge = Bischierge <br>
 - openssl <br>
 > 位置情報取得の際に、ChromeだとSSL化しなければ取得出来ないため、nginxを追加・対処しました。
 - Vagrant（ubuntu） <br>
-> PCのCPU・メモリ共に限界が来たため、仮想環境にて開発。 <br>
+> PCのCPU・メモリ・バッテリーに限界が来たため、仮想環境にて開発。 <br>
 > Docker hyperkitがCPU100%に張り付くバグがあったため、対処しました。
 
 
