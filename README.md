@@ -2,7 +2,7 @@
 
 Bistro + Concierge = Bischierge <br>
 近くの飲食店にランダムで検索出来ることができるアプリケーションです。<br>
-「今日、何食べる？」を手軽に、ワンクリック・シンプル・スマートに解決する事がコンセプトです。
+「今日、何食べる？」を手軽に、シンプル・スマート、少ない導線で解決する事がコンセプトです。
 
 ### PC view
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/35006561/90004321-63915a80-dcd0-11ea-89ef-a65d7dfd3e11.gif)
@@ -36,7 +36,9 @@ Bistro + Concierge = Bischierge <br>
 - Frontend、Backendを切り分け、Dockerを利用してマイクロサービスアーキテクチャを実現。
 - DockerComposeを用いて開発環境構築・自動テストをしている。
 - ECS/ECRを用いて本番環境を設計・構築、常時SSL通信をしている。
-- Frontendにて、Nuxt.jsを用いてSPAを実現・UIUX、デザインに力を入れ、レスポンシブデザインに対応している。
+- Frontendにて、Nuxt.jsを用いてSPAを実現。
+- UIUX・デザインにこだわり、より少ない導線の実現。
+- レスポンシブデザインに対応している。
 - 外部API（HotPepperAPI、GoogleAPI、firebase）を用いて機能を実現している。
 - CircleCIを用いて自動テスト・自動デプロイをしている。
 - terraformを用いてIaCを実現している。
