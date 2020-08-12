@@ -1,6 +1,6 @@
 # - Bischierge -
 
-**ビストロ + コンシェルジュ = Bischierge** <br>
+**Bistro + Concierge = Bischierge** <br>
 近くの飲食店をランダムで検索出来ることができるアプリケーションです。<br>
 「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。
 
