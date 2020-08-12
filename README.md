@@ -4,10 +4,10 @@ Bistro + Concierge = Bischierge <br>
 近くの飲食店にランダムで検索出来ることができるアプリケーションです。<br>
 「今日、何食べる？」を手軽に、ワンクリック・シンプル・スマートに解決する事がコンセプトです。
 
-### PC
+### PC view
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/35006561/90004321-63915a80-dcd0-11ea-89ef-a65d7dfd3e11.gif)
 
-### SP
+### SP view
 ![20200812_191936](https://user-images.githubusercontent.com/35006561/90004702-0fd34100-dcd1-11ea-9ae5-9bc07bbc4290.GIF)
 
 [Bischierge](https://www.bischierge.work/)
@@ -17,7 +17,7 @@ Bistro + Concierge = Bischierge <br>
 - これから恋人や友人と食事に行く際に、何処に行くか決められない人
 - グルメサイトを見て、情報が多すぎて何処に行くべきか決められない人
 
-## Function
+## Functions
 - 近所の飲食店をランダムで9件表示します。（HotPepperAPI/GoogleMapを利用）
   - 気分に合わせて洋食・和食・中華などの絞り込みが行えます。
   - 予算に合わせて絞り込みが行えます。
@@ -25,7 +25,7 @@ Bistro + Concierge = Bischierge <br>
   - いつか行きたい、行ってよかったお店をお気に入りに登録出来ます。 
   - コメントが投稿出来、以前訪問したユーザーの意見が見れます。
 
-## Load Map
+## Road map
 - 飲食店オーナー向けの管理画面。
 - 飲食店オーナーの課金度合いによって表示確率を変動させる。
 - 飲食店オーナーによる飲食店の自己PR項目。
