@@ -34,7 +34,7 @@
 - terraformを用いてIaCを実現している。
 
 # Architecture
-
+![インフラ構成](https://user-images.githubusercontent.com/35006561/90001148-04314b80-dccc-11ea-9497-44a40d9bd6d5.png)
 
 # Technology used
 ## Development Environment
