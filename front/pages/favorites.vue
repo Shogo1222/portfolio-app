@@ -91,7 +91,6 @@ export default {
   },
   created: function() {
     setTimeout(() => {
-      console.log(this.$store.state.id)
       this.getFavorites()
     }, 700)
   },
