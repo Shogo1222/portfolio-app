@@ -51,40 +51,31 @@
     <!-- 右のナビゲーション内部 -->
     <v-navigation-drawer v-model="rightDrawer" right temporary fixed>
       <v-list>
-        <!-- 右リスト内ログアウトボタン（ログイン時のみ表示） -->
-        <v-list-item v-if="isLoggedIn" @click="logout">
+        <!-- 右リスト内Homeボタン（ログイン時のみ表示） -->
+        <v-list-item v-if="isLoggedIn" nuxt to="/">
           <v-list-item-action>
-            <v-icon>fas fa-heart</v-icon>
+            <v-icon>home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
+            <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- 右リスト内 自分の投稿ボタン（ログイン時のみ表示） -->
-        <v-list-item v-if="isLoggedIn" nuxt to="/my_topics" exact>
+        <!-- 右リスト内お気に入りリスト（ログイン時のみ表示） -->
+        <v-list-item v-if="isLoggedIn" nuxt to="/favorites">
           <v-list-item-action>
-            <v-icon>fas fa-camera</v-icon>
+            <v-icon>favorite</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Favorite</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- 右リスト内 current_areaボタン -->
-        <v-list-item nuxt to="/current_area" exact>
+        <!-- 右リスト内ログアウトボタン（ログイン時のみ表示） -->
+        <v-list-item v-if="isLoggedIn" @click="logout">
           <v-list-item-action>
-            <v-icon>fas fa-search-location</v-icon>
+            <v-icon>arrow_back</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>SAMPLE</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <!-- 右リスト内 みんなの写真ボタン -->
-        <v-list-item nuxt to="/" exact>
-          <v-list-item-action>
-            <v-icon>fas fa-camera-retro</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>SAMPLE</v-list-item-title>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -151,7 +142,8 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    }
+    },
+    favorites() {}
   }
 }
 </script>

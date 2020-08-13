@@ -16,7 +16,7 @@
     <v-container>
       <v-flex xs12 sm12 md12>
         <h2 class="display-1 font-weight-thin my-5">
-          Recommended Bistro
+          Recommended Bistros
         </h2>
         <v-row justify="center">
           <v-col cols="12" md="12" xl="10">
