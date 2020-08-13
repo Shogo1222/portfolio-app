@@ -372,7 +372,7 @@
                         color="#fff"
                         dark
                         rounded
-                        utlined
+                        outlined
                         large
                         class="ma-2"
                         @click="getLocationShops"
