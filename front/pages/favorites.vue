@@ -7,7 +7,7 @@
         </h2>
         <v-row justify="center">
           <v-col cols="12" md="12" xl="10">
-            <v-row justify="center">
+            <v-row v-if="shops.length" justify="center">
               <v-card
                 v-for="shop in shops"
                 :key="shop.id"
@@ -43,6 +43,21 @@
                 </v-card-actions>
               </v-card>
             </v-row>
+
+            <v-row v-if="!shops.length">
+              <v-card else class="mx-auto" width="400">
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="headline mb-1">
+                      Sorry! We can't find any bistros
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      please go back home and add favorite your
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-card>
+            </v-row>
           </v-col>
         </v-row>
       </v-flex>
@@ -71,37 +86,36 @@ export default {
   },
   data() {
     return {
-      alert: false,
-      shops: []
+      shops: [],
+      user_id: null
     }
   },
   created: function() {
+    this.user_id = this.$store.state.id
     this.getFavorites()
   },
   methods: {
     // 現在地の緯度、経度の取得
     getFavorites() {
-      axios.get("/v1/favorite?user_id=1").then(res => {
-        if (res.data) {
+      axios.get("/v1/favorite?user_id=" + this.user_id).then(res => {
+        if (res.data.length) {
           var shopIds = []
           res.data.forEach(data => {
             shopIds.push(data.shop_id)
           })
           this.getShops(shopIds)
-          console.log(res.data)
         } else {
-          console.log("yay")
+          this.shops = []
         }
       })
     },
     getShops(shopIds) {
-      console.log(shopIds)
       this.$axios
         .$get("/api/", {
           params: {
             key: process.env.VUE_APP_HOTPEPPER_API_KEY,
             count: 100,
-            id: shopIds.join(","),
+            id: shopIds !== 1 ? shopIds.join(",") : shopIds[0],
             format: "json"
           },
           headers: {
@@ -111,9 +125,6 @@ export default {
         .then(res => {
           this.shops = res.results.shop
           this.length = res.results.shop.length
-          if (res.results.shop.length === 0) {
-            this.alert = true
-          }
         })
     }
   }
