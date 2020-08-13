@@ -86,18 +86,18 @@ export default {
   },
   data() {
     return {
-      shops: [],
-      user_id: null
+      shops: []
     }
   },
   created: function() {
-    this.user_id = this.$store.state.id
-    this.getFavorites()
+    setTimeout(() => {
+      console.log(this.$store.state.id)
+      this.getFavorites()
+    }, 700)
   },
   methods: {
-    // 現在地の緯度、経度の取得
     getFavorites() {
-      axios.get("/v1/favorite?user_id=" + this.user_id).then(res => {
+      axios.get("/v1/favorite?user_id=" + this.$store.state.id).then(res => {
         if (res.data.length) {
           var shopIds = []
           res.data.forEach(data => {
