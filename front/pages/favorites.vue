@@ -20,7 +20,7 @@
                   </v-card-actions>
                 </v-img>
                 <v-card-title>
-                  {{ shop.name | truncate(19, "...") }}
+                  {{ shop.name | truncate(15, "...") }}
                 </v-card-title>
                 <v-card-text style="height: 250px;">
                   <div class="my-4 subtitle-1">
@@ -91,7 +91,6 @@ export default {
   },
   created: function() {
     setTimeout(() => {
-      console.log(this.$store.state.id)
       this.getFavorites()
     }, 700)
   },
