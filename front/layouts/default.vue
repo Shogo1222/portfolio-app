@@ -142,8 +142,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    },
-    favorites() {}
+    }
   }
 }
 </script>
