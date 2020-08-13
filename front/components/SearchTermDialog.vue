@@ -106,7 +106,7 @@
                         height="150"
                         @click="
                           toggle()
-                          fetchGenre('G003')
+                          fetchGenre('G006')
                         "
                       >
                         <div
