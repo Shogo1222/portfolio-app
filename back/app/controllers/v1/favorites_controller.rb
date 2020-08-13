@@ -2,6 +2,8 @@ class V1::FavoritesController < ApplicationController
   def show
     @favorite = if params[:user_id] && params[:shop_id]
                   Favorite.find_by(user_id: params[:user_id], shop_id: params[:shop_id])
+                elsif params[:user_id]
+                  favorites = Favorite.where(user_id: params[:user_id])||[]
                 else
                   Favorite.all
                 end

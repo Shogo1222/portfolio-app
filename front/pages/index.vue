@@ -16,11 +16,11 @@
     <v-container>
       <v-flex xs12 sm12 md12>
         <h2 class="display-1 font-weight-thin my-5">
-          Recommended Bistro
+          Recommended Bistros
         </h2>
         <v-row justify="center">
           <v-col cols="12" md="12" xl="10">
-            <v-row justify="center">
+            <v-row v-if="shops.length" justify="center">
               <v-card
                 v-for="shop in shops"
                 :key="shop.id"
@@ -54,6 +54,21 @@
                 <v-card-actions class="mt-4">
                   <ShopDetailsDialog :shop="shop" />
                 </v-card-actions>
+              </v-card>
+            </v-row>
+
+            <v-row v-if="!shops.length">
+              <v-card else class="mx-auto" width="400">
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="headline mb-1">
+                      Sorry! We can't find any bistros
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      please go back home and add favorite your
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
               </v-card>
             </v-row>
           </v-col>
@@ -232,10 +247,6 @@ export default {
         .then(res => {
           this.shops = res.results.shop
           this.shops = this.ChooseAtRandom(this.shops, 6)
-          this.length = res.results.shop.length
-          if (res.results.shop.length === 0) {
-            this.alert = true
-          }
         })
     },
     ChooseAtRandom(arrayData, count) {
