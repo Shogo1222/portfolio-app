@@ -1,7 +1,7 @@
 {
-  "name": "app",
+  "name": "Bischierge",
   "version": "1.0.0",
-  "description": "My flawless Nuxt.js project",
+  "description": "What do you feel like eating?",
   "author": "",
   "private": true,
   "scripts": {
