@@ -122,7 +122,8 @@ export default {
       longitude: 0,
       alert: false,
       shops: [],
-      terms: []
+      genre: [],
+      range: null
     }
   },
   watch: {
@@ -145,7 +146,8 @@ export default {
     // 現在地の緯度、経度の取得
     getLocation(terms) {
       if (terms) {
-        this.terms = terms
+        this.range = terms["priceRange"]
+        this.genre = terms["genre"]
       }
       if (process.client) {
         if (!navigator.geolocation) {
@@ -198,36 +200,30 @@ export default {
     // G004 Japanese
     // G007 Chinese
     // G005 Western
-    // G003 Italian
+    // G006 Italian
     // G001 Izakaya
     // G002 Bar
     // G017 Korean
     // G014 Sweets
     getShops() {
       var priceCode = null
-      var genre = null
-      var isTermsArray = this.terms.length === 0 ? false : true
-      if (isTermsArray) {
-        priceCode = this.terms["priceCode"]
-        genre = this.terms["genre"]
-        var priceRange = priceRange
-        switch (priceRange) {
-          case 1000:
-            priceCode = "B009, B010"
-            break
-          case 2000:
-            priceCode = "B011, B001"
-            break
-          case 3000:
-            priceCode = "B002"
-            break
-          case 4000:
-            priceCode = "B003"
-            break
-          default:
-            priceCode = ""
-        }
+      switch (this.range) {
+        case 1000:
+          priceCode = "B009, B010"
+          break
+        case 2000:
+          priceCode = "B011, B001"
+          break
+        case 3000:
+          priceCode = "B002"
+          break
+        case 4000:
+          priceCode = "B003"
+          break
+        default:
+          priceCode = ""
       }
+
       this.$axios
         .$get("/api/", {
           params: {
@@ -235,7 +231,7 @@ export default {
             lat: this.latitude,
             lng: this.longitude,
             count: 100,
-            genre: genre,
+            genre: this.genre.length ? this.genre.toString() : null,
             budget: priceCode,
             range: 4,
             format: "json"
@@ -246,15 +242,17 @@ export default {
         })
         .then(res => {
           this.shops = res.results.shop
-          this.shops = this.ChooseAtRandom(this.shops, 6)
+          this.shops = this.ChooseAtRandom(this.shops)
         })
     },
-    ChooseAtRandom(arrayData, count) {
-      // countが設定されていない場合は1にする
-      count = count || 1
+    ChooseAtRandom(arrayData) {
+      // 取得件数によってcountを変更
+      var defaultCount = 9
+      var arrayLength = arrayData["length"]
+      var count = defaultCount <= arrayLength ? defaultCount : arrayLength
       var result = []
-      if (!arrayData) {
-        return
+      if (!arrayLength === 0) {
+        return []
       }
       for (var i = 0; i < count; i++) {
         var arrayIndex = Math.floor(Math.random() * arrayData.length)
