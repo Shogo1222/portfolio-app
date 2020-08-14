@@ -22,6 +22,26 @@
       {
         "name": "RAILS_MASTER_KEY",
         "value": "${rails_master_key}"
+      },
+      {
+        "name": "AWS_ACCESS_KEY_S3",
+        "value": "${aws_access_key_s3}"
+      },
+      {
+        "name": "AWS_SECRET_ACCESS_KEY_S3",
+        "value": "${aws__secret_access_key_s3}"
+      },
+      {
+        "name": "REGION",
+        "value": "${region}"
+      },
+      {
+        "name": "S3_END_POINT",
+        "value": "${s3_end_point}"
+      },
+      {
+        "name": "S3_NAME",
+        "value": "${s3_name}"
       }
     ]
   }

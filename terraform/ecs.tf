@@ -2,6 +2,12 @@ variable "front_image" {}
 variable "back_image" {}
 variable "rails_master_key" {}
 
+variable "aws_access_key_s3" {}
+variable "aws__secret_access_key_s3" {}
+variable "region" {}
+variable "s3_end_point" {}
+variable "s3_name" {}
+
 #######################
 # CloudWatch Log Group
 #######################
@@ -38,6 +44,11 @@ data "template_file" "bischierge_back_container" {
   vars = {
     back_image      = var.back_image
     rails_master_key = var.rails_master_key
+    aws_access_key_s3 = var.aws_access_key_s3
+    aws__secret_access_key_s3 = var.aws__secret_access_key_s3
+    region = var.region
+    s3_end_point = var.s3_end_point
+    s3_name = var.s3_name
     log_group       = aws_cloudwatch_log_group.bischierge-cloudwatch.name
   }
 }
