@@ -11,10 +11,6 @@ describe 'Comment' do
   end
   it 'コメントを表示' do
     user = FactoryBot.create(:user)
-    Rails.logger.debug("デバッグ")
-    Rails.logger.debug(user.name)
-    Rails.logger.debug("デバッグ")
-
     params = { user_id: user.id, user_name: user.name, shop_id: @shop_id, comment: @comment }
     post '/v1/comment/', params: params
     get '/v1/comment', params: params
