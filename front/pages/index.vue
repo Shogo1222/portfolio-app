@@ -65,7 +65,7 @@
                       Sorry! We can't find any bistros
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                      please go back home and add favorite your
+                      Change your terms or Permit location permission
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
