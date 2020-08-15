@@ -52,7 +52,7 @@
                       Sorry! We can't find any bistros
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                      please go back home and add favorite your
+                      please go back home and add favorite your bistros
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -71,6 +71,7 @@ import ShopDetailsDialog from "../components/ShopDetailsDialog.vue"
 import Favorite from "../components/Favorite.vue"
 
 export default {
+  middleware: "authenticated",
   components: {
     ShopDetailsDialog,
     Favorite
@@ -90,9 +91,7 @@ export default {
     }
   },
   created: function() {
-    setTimeout(() => {
-      this.getFavorites()
-    }, 700)
+    this.getFavorites()
   },
   methods: {
     getFavorites() {

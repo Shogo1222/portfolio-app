@@ -138,6 +138,7 @@ export default {
           }, 2000) //2秒後に隠す
           this.$store.commit("login", null)
           this.rightDrawer = false
+          this.$router.push("/")
         })
         .catch(error => {
           console.log(error)

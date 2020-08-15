@@ -34,23 +34,31 @@ export default {
     }
   },
   created: function() {
-    axios
-      .get(
-        "/v1/favorite?user_id=" +
-          this.$store.state.id +
-          "&shop_id=" +
-          this.shopId +
-          ""
-      )
-      .then(res => {
-        if (!res.data) {
-          this.is_favorite = false
-        } else {
-          this.is_favorite = true
-        }
-      })
+    this.getFavorite()
+  },
+  mounted() {
+    this.$store.watch(() => {
+      this.getFavorite()
+    })
   },
   methods: {
+    getFavorite() {
+      axios
+        .get(
+          "/v1/favorite?user_id=" +
+            this.$store.state.id +
+            "&shop_id=" +
+            this.shopId +
+            ""
+        )
+        .then(res => {
+          if (!res.data) {
+            this.is_favorite = false
+          } else {
+            this.is_favorite = true
+          }
+        })
+    },
     favorite() {
       axios
         .post("/v1/favorite", {
