@@ -130,9 +130,10 @@ export default {
               name: this.name,
               uid: res.user.uid
             })
-            .then(() => {
+            .then(responseUser => {
               this.$store.commit("setLoading", false)
               this.$store.commit("login", {
+                id: responseUser.data.id,
                 email: res.user.email,
                 name: this.name,
                 uid: res.user.uid
