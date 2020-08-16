@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 202008150430224) do
+ActiveRecord::Schema.define(version: 202008150430225) do
 
   create_table "comment_favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 202008150430224) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "comment_favorites", "comments"
+  add_foreign_key "comment_favorites", "comments", on_delete: :cascade
   add_foreign_key "comment_favorites", "users"
   add_foreign_key "comments", "users"
 end

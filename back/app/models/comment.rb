@@ -5,5 +5,7 @@ class Comment < ApplicationRecord
   validates :comment, length: { minimum: 1, maximum: 100 }
 
   belongs_to :user
+  has_many :comment_favorites, dependent: :destroy
+
   mount_uploader :image, ImageUploader
 end
