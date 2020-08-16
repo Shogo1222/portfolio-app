@@ -19,7 +19,6 @@
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
-
           <v-card-text>
             <v-icon>person</v-icon>
             {{ postedComment.user_name }}
@@ -30,6 +29,7 @@
           <v-card-text class="font-weight-medium">
             {{ postedComment.comment }}
           </v-card-text>
+          <CommentFavorite :comment-id="postedComment.id" :shop-id="postedComment.shop_id" />
         </v-col>
       </v-card>
     </div>
@@ -67,10 +67,12 @@
 <script>
 import axios from "~/plugins/axios"
 import CommentImageArea from "./CommentImageArea"
+import CommentFavorite from "./CommentFavorite"
 
 export default {
   components: {
-    CommentImageArea
+    CommentImageArea,
+    CommentFavorite
   },
   props: {
     shopId: {
