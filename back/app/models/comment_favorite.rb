@@ -3,6 +3,6 @@
 class CommentFavorite < ApplicationRecord
   validates :user_id, :comment_id, :shop_id, presence: true
 
-  has_many :user
-  has_many :comment
+  belongs_to :user
+  belongs_to :comment
 end
