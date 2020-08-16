@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 202006090430224) do
+ActiveRecord::Schema.define(version: 202008150430224) do
+
+  create_table "comment_favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "shop_id", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_comment_favorites_on_comment_id"
+    t.index ["user_id"], name: "index_comment_favorites_on_user_id"
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -39,5 +49,7 @@ ActiveRecord::Schema.define(version: 202006090430224) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comment_favorites", "comments"
+  add_foreign_key "comment_favorites", "users"
   add_foreign_key "comments", "users"
 end
