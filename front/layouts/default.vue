@@ -8,7 +8,7 @@
   <v-app>
     <!-- ヘッダーbar -->
     <v-app-bar
-      style="background:linear-gradient(100deg, rgba(130,182,12,0.7) 0%, rgba(214,221,36,0.5) 40%, rgba(68,208,240,0.7) 100%);"
+      style="background:linear-gradient(100deg, rgba(130,182,12,0.6) 0%, rgba(214,221,36,0.4) 40%, rgba(68,208,240,0.6) 100%);"
       fixed
       flat
       app
@@ -38,7 +38,7 @@
         Hi ! {{ userName }}
       </h1>
       <SignupBtn />
-      <v-btn v-if="isLoggedIn" dark @click.stop="rightDrawer = !rightDrawer">
+      <v-btn v-if="isLoggedIn" dark outlined @click.stop="rightDrawer = !rightDrawer">
         <v-icon>
           mdi-menu
         </v-icon>
