@@ -26,6 +26,8 @@
 
 /back/.local/share/pry/pry_history
 /back/.rspec
+/back/log/.keep
+/front/.nuxtrc
 /ubuntu-xenial-16.04-cloudimg-console.log
 
 # terraform
