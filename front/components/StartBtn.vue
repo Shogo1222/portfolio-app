@@ -3,8 +3,7 @@
   <v-dialog v-model="dialog" max-width="900px">
     <template v-slot:activator="{ on }">
       <v-btn
-        color="#fff"
-        dark
+        color="#000"
         rounded
         outlined
         large
