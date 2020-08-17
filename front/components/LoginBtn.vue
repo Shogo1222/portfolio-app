@@ -82,15 +82,15 @@ export default {
         .catch(error => {
           console.log(error)
           this.error = (code => {
+            this.$store.commit("setLoading", false)
             switch (code) {
               case "auth/user-not-found":
-                return "メールアドレスが間違っています"
+                return "Email address is in correc"
               case "auth/wrong-password":
-                return "※パスワードが正しくありません"
+                return "The password is in correc"
               default:
-                return "※メールアドレスとパスワードをご確認ください"
+                return "Confirm email address and password"
             }
-            this.$store.commit("setLoading", false)
           })(error.code)
         })
     },
