@@ -1,4 +1,5 @@
 <template>
+  <!-- 店舗詳細モーダルボタン -->
   <v-row justify="center">
     <v-dialog
       v-model="dialog"
@@ -7,6 +8,7 @@
       transition="dialog-bottom-transition"
       eager
     >
+      <!-- 店舗詳細モーダル -->
       <template v-slot:activator="{ on }">
         <v-btn class="ma-2" color="black" rounded outlined v-on="on">
           Details
@@ -28,31 +30,37 @@
             <div class="my-4 subtitle-1">
               {{ shop.catch }}
             </div>
-
-            <span class="grey--text">Budget: </span>
-            <br />
-            <span> {{ shop.budget.average }}</span><br />
-            <span> {{ shop.budget_memo }}</span><br />
-
-            <span class="grey--text">Capacity: </span>
-            <br />
-            <span> {{ shop.budget.capacity }}</span><br />
-
-            <span class="grey--text">Smoke: </span>
-            <br />
-            <span> {{ shop.non_smoking }}</span><br />
-
-            <span class="grey--text">Access: </span>
-            <br />
-            <span>{{ shop.mobile_access }}</span><br />
-
-            <span class="grey--text">Address: </span>
-            <br />
-            <span>{{ shop.address }}</span><br />
-
-            <span class="grey--text">Open hours: </span>
-            <br />
-            <span>{{ shop.open }}</span>
+            <div v-if="shop.budget.average && shop.budget_memo">
+              <span class="grey--text">Budget: </span>
+              <br />
+              <span> {{ shop.budget.average }}</span><br />
+              <span> {{ shop.budget_memo }}</span><br />
+            </div>
+            <div v-if="shop.budget.capacity">
+              <span class="grey--text">Capacity: </span>
+              <br />
+              <span> {{ shop.budget.capacity }}</span><br />
+            </div>
+            <div v-if="shop.non_smoking">
+              <span class="grey--text">Smoke: </span>
+              <br />
+              <span> {{ shop.non_smoking }}</span><br />
+            </div>
+            <div v-if="shop.mobile_access">
+              <span class="grey--text">Access: </span>
+              <br />
+              <span>{{ shop.mobile_access }}</span><br />
+            </div>
+            <div v-if="shop.address">
+              <span class="grey--text">Address: </span>
+              <br />
+              <span>{{ shop.address }}</span><br />
+            </div>
+            <div v-if="shop.open">
+              <span class="grey--text">Open hours: </span>
+              <br />
+              <span>{{ shop.open }}</span>
+            </div>
           </v-card-text>
           <div :id="shop.id" style="height: 400px; width: 100%;" />
           <CommentArea :shop-id="shop.id" />
@@ -68,7 +76,12 @@ export default {
   components: {
     CommentArea
   },
-  props: ["shop"],
+  props: {
+    shop: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       dialog: false,
@@ -83,7 +96,6 @@ export default {
   methods: {
     // Google map APIで住所を取得（geoLocation後に作動）
     initMap() {
-      var marker
       var center = {
         lat: this.shop.lat, // 緯度
         lng: this.shop.lng // 経度
@@ -92,10 +104,9 @@ export default {
         center: { lat: this.shop.lat, lng: this.shop.lng },
         zoom: 17
       })
-      marker = new google.maps.Marker({
-        // マーカーの追加
-        position: center, // マーカーを立てる位置を指定
-        map: map // マーカーを立てる地図を指定
+      var marker = new google.maps.Marker({
+        position: center,
+        map: map
       })
     }
   }

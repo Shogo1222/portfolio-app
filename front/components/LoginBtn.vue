@@ -1,12 +1,12 @@
 <template>
-  <!-- ボタン部分 -->
+  <!-- ログインボタン部分 -->
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
       <v-btn v-show="!isLoggedIn" class="white--text" text large v-on="on">
         LOGIN
       </v-btn>
     </template>
-    <!-- モーダル部分 -->
+    <!-- ログインモーダル部分 -->
     <v-card style="background-color:rgba(255,255,255,0.8);">
       <v-row justify="center">
         <v-col cols="10" align="center">
@@ -82,15 +82,15 @@ export default {
         .catch(error => {
           console.log(error)
           this.error = (code => {
+            this.$store.commit("setLoading", false)
             switch (code) {
               case "auth/user-not-found":
-                return "メールアドレスが間違っています"
+                return "Email address is in correc"
               case "auth/wrong-password":
-                return "※パスワードが正しくありません"
+                return "The password is in correc"
               default:
-                return "※メールアドレスとパスワードをご確認ください"
+                return "Confirm email address and password"
             }
-            this.$store.commit("setLoading", false)
           })(error.code)
         })
     },

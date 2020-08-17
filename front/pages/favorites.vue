@@ -1,3 +1,4 @@
+<!-- お気に入りリストページ -->
 <template>
   <v-app>
     <v-container>
@@ -44,6 +45,7 @@
               </v-card>
             </v-row>
 
+            <!--　項目が取得出来ない場合  -->
             <v-row v-if="!shops.length">
               <v-card else class="mx-auto" width="400">
                 <v-list-item three-line>

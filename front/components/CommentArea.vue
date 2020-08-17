@@ -1,4 +1,5 @@
 <template>
+  <!-- コメントエリア -->
   <div v-if="isLoggedIn">
     <h2 class="display-1 font-weight-thin my-5">
       Comments
@@ -29,7 +30,10 @@
           <v-card-text class="font-weight-medium">
             {{ postedComment.comment }}
           </v-card-text>
-          <CommentFavorite :comment-id="postedComment.id" :shop-id="postedComment.shop_id" />
+          <CommentFavorite
+            :comment-id="postedComment.id"
+            :shop-id="postedComment.shop_id"
+          />
         </v-col>
       </v-card>
     </div>
@@ -142,6 +146,7 @@ export default {
       if (!this.comment) {
         return
       }
+      this.$store.commit("setLoading", true)
       let formData = new FormData()
       formData.append("user_id", this.$store.state.id)
       formData.append("user_name", this.$store.state.name)
@@ -160,10 +165,17 @@ export default {
           this.imageFile = ""
           this.imageUrl = ""
           this.comment = ""
+          setTimeout(() => {
+            this.$store.commit("setLoading", false)
+          }, 1000) //1秒後に隠す
         })
     },
     destroyComment(id) {
+      this.$store.commit("setLoading", true)
       axios.delete("/v1/comment?id=" + id).then(() => {
+        setTimeout(() => {
+          this.$store.commit("setLoading", false)
+        }, 1000) //1秒後に隠す
         this.getComment()
       })
     }

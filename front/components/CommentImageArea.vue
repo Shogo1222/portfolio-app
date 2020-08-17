@@ -1,4 +1,5 @@
 <template>
+  <!-- コメント画像アプロードエリア-->
   <v-row>
     <v-col class="d-flex child-flex" cols="3">
       <v-card flat class="d-flex">

@@ -1,12 +1,12 @@
 <template>
-  <!-- ボタン部分 -->
+  <!-- サインアップボタン部分 -->
   <v-dialog v-model="dialog" max-width="800px">
     <template v-slot:activator="{ on }">
       <v-btn v-show="!isLoggedIn" class="white--text" text large v-on="on">
         SIGNUP
       </v-btn>
     </template>
-    <!-- モーダル部分 -->
+    <!-- サインアップモーダル部分 -->
     <v-card>
       <validation-observer v-slot="{ invalid }">
         <v-toolbar dark>
@@ -14,6 +14,7 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
+            <!-- ユーザーネーム: 最大文字数8 -->
             <ValidationProvider
               v-slot="{ errors }"
               name="name"
@@ -28,6 +29,7 @@
                 type="text"
               />
             </ValidationProvider>
+            <!-- メールアドレス: 入力方式チェック -->
             <ValidationProvider
               v-slot="{ errors }"
               name="email"
@@ -42,6 +44,7 @@
                 type="text"
               />
             </ValidationProvider>
+            <!-- パスワード: 最小文字数6 -->
             <ValidationProvider
               v-slot="{ errors }"
               name="password"
@@ -57,15 +60,16 @@
                 type="password"
               />
             </ValidationProvider>
+            <!-- パスワード: 最小文字数6 -->
             <ValidationProvider
               v-slot="{ errors }"
-              name="Password(確認用)"
+              name="Password(Confirm)"
               rules="required|min:6|confirmed:password"
             >
               <v-text-field
                 id="password_confirmation"
                 v-model="password_confirmation"
-                label="Password(確認用)"
+                label="Password(Confirm)"
                 name="password_confimation"
                 prepend-icon=""
                 :error-messages="errors[0]"
@@ -116,7 +120,7 @@ export default {
   methods: {
     register() {
       if (this.password !== this.password_confirmation) {
-        this.error = "※パスワードとパスワード確認が一致していません"
+        this.error = "Passwords do not match each other"
       }
 
       this.$store.commit("setLoading", true)
@@ -153,13 +157,13 @@ export default {
           this.error = (code => {
             switch (code) {
               case "auth/email-already-in-use":
-                return "既にそのメールアドレスは使われています"
+                return "Email address is already in use"
               case "auth/wrong-password":
-                return "※パスワードが正しくありません"
+                return "The password is in correct"
               case "auth/weak-password":
-                return "※パスワードは最低6文字以上にしてください"
+                return "Confirm password, please input above 6 letters"
               default:
-                return "※メールアドレスとパスワードをご確認ください"
+                return "Confirm email address and password"
             }
           })(error.code)
         })

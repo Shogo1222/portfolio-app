@@ -1,4 +1,5 @@
 <template>
+  <!-- お気に入りボタン -->
   <div v-if="isLoggedIn">
     <v-btn v-if="!is_favorite" class="mt-2" large icon color="white">
       <v-icon @click="favorite()">
