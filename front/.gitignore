@@ -92,3 +92,5 @@ sw.*
 .ash_history
 
 /.config
+
+.nuxtrc
