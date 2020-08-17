@@ -65,7 +65,6 @@
 - Route53
 - Certificate Manager
 - VPC
-- CloudWatch
 - IAM
 - Auto Scaling
 - S3
