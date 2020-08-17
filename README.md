@@ -2,7 +2,7 @@
 
 **Bistro + Concierge = Bischierge** <br>
 近くの飲食店をランダムで検索出来ることができるアプリケーションです。<br>
-「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。
+「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。<br><br>
 [https://www.bischierge.work/](https://www.bischierge.work/)
 
 ### PC view
@@ -43,7 +43,7 @@
 - terraformを用いてIaCを実現している。
 
 # Architecture
-![インフラ構成](https://user-images.githubusercontent.com/35006561/90001148-04314b80-dccc-11ea-9497-44a40d9bd6d5.png)
+![インフラ構成](https://user-images.githubusercontent.com/35006561/90375824-703af780-e0b0-11ea-8d43-7edfb322e6c1.png)
 
 # Technology used
 ## Development Environment
