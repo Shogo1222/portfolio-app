@@ -1,35 +1,23 @@
-
-# Created by https://www.gitignore.io/api/vagrant
-# Edit at https://www.gitignore.io/?templates=vagrant
-
 ### Vagrant ###
 # General
 .vagrant/*
 
-# Log files (if you are creating logs in debug mode, uncomment this)
-# *.log
-
 ### Vagrant Patch ###
 *.box
 
-# End of https://www.gitignore.io/api/vagrant
+*.log
 
-# macOS
+### macOS ###
 .DS_Store
 
-# firebase
+### Environment ###
 .env
-
-.log
-
 /ssl
 
-/back/.local/share/pry/pry_history
-/back/.rspec
-/back/log/.keep
 /front/.nuxtrc
 /ubuntu-xenial-16.04-cloudimg-console.log
 
+### terraform ###
 # terraform
 */.terraform
 *.tfstate*

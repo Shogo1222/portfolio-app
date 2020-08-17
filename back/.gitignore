@@ -18,6 +18,8 @@
 !/storage/.keep
 
 .byebug_history
+.local/share/pry/pry_history
+.rspec
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

@@ -32,5 +32,4 @@ describe 'Comment' do
     @json = JSON.parse(response.body)
     expect(response.status).to eq(@status_code_ok)
   end
-
 end

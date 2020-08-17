@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ImageUploader < CarrierWave::Uploader::Base
-
   if Rails.env.production? || Rails.env.staging?
     storage :fog
   else
@@ -16,9 +15,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    if original_filename.present?
-      "#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.jpg"
-    end
+    "#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.jpg" if original_filename.present?
   end
-
 end
