@@ -1,7 +1,9 @@
 import firebase from "@/plugins/firebase"
 import axios from "@/plugins/axios"
 
-const authCheck = ({ store, redirect }) => {
+// firebaseから取得したユーザーのDB存在確認
+// 存在すればvuexへcommit
+const authCheck = ({ store }) => {
   firebase.auth().onAuthStateChanged(async user => {
     if (user) {
       const { data } = await axios.get(`/v1/users?uid=${user.uid}`)

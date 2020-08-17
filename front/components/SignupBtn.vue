@@ -1,12 +1,12 @@
 <template>
-  <!-- ボタン部分 -->
+  <!-- サインアップボタン部分 -->
   <v-dialog v-model="dialog" max-width="800px">
     <template v-slot:activator="{ on }">
       <v-btn v-show="!isLoggedIn" class="white--text" text large v-on="on">
         SIGNUP
       </v-btn>
     </template>
-    <!-- モーダル部分 -->
+    <!-- サインアップモーダル部分 -->
     <v-card>
       <validation-observer v-slot="{ invalid }">
         <v-toolbar dark>

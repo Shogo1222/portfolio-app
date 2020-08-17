@@ -1,12 +1,12 @@
 <template>
-  <!-- ボタン部分 -->
+  <!-- ログインボタン部分 -->
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
       <v-btn v-show="!isLoggedIn" class="white--text" text large v-on="on">
         LOGIN
       </v-btn>
     </template>
-    <!-- モーダル部分 -->
+    <!-- ログインモーダル部分 -->
     <v-card style="background-color:rgba(255,255,255,0.8);">
       <v-row justify="center">
         <v-col cols="10" align="center">

@@ -1,4 +1,5 @@
 <template>
+  <!-- コメントお気に入りエリア -->
   <div v-if="isLoggedIn">
     <v-row>
       <v-col cols="12">

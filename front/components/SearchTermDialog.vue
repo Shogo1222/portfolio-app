@@ -1,4 +1,5 @@
 <template>
+  <!-- 検索時ダイアログエリア -->
   <div>
     <v-card elevation="24" max-width="900px" class="mx-auto">
       <!-- カルーセル部分 -->
@@ -11,6 +12,7 @@
         :show-arrows-on-hover="true"
         height
       >
+        <!-- ジャンル選択エリア -->
         <v-carousel-item>
           <v-sheet color="green" height="100%" tile>
             <v-item-group :multiple="true">
@@ -253,6 +255,7 @@
             </v-item-group>
           </v-sheet>
         </v-carousel-item>
+        <!-- 価格設定選択エリア -->
         <v-carousel-item>
           <v-sheet color="blue" height="100%" tile>
             <v-item-group>

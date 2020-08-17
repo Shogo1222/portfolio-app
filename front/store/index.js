@@ -16,6 +16,7 @@ const store = () => {
       }
     },
     mutations: {
+      // ログイン状態
       login(state, user) {
         if (!user) {
           state.id = ""
@@ -27,11 +28,12 @@ const store = () => {
           state.isLoggedIn = true
         }
       },
+      // 画面ぐるぐる
       setLoading(state, payload) {
         state.loading = payload
       },
+      // Success表示
       setNotice(state, payload) {
-        //追加
         state.notification = payload
       }
     }

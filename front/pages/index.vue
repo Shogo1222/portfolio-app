@@ -1,41 +1,45 @@
+<!-- トップページ -->
 <template>
   <v-app>
+    <!-- キービジュアルPC -->
     <v-parallax
-       v-if="!$vuetify.breakpoint.xs"
-       src="key_visual_m.jpg"
-       flat
-       style="height:100vh; opacity:0.8"
-     >
-       <v-row align="center" justify="center">
-         <v-col class="text-center" cols="12">
-           <h1 class="display-2 font-weight-thin mb-4" style="color:#000">
-             - Bischierge -
-           </h1>
-           <h4 class="display-1 font-weight-thin mb-4" style="color:#000">
-             What do you feel like eating?
-           </h4>
-           <StartBtn @get-location-shops="getLocation" />
-         </v-col>
-       </v-row>
-     </v-parallax>
-     <v-parallax
-       v-if="$vuetify.breakpoint.xs"
-       src="key_visual_s.jpg"
-       flat
-       style="height:100vh; opacity:0.8"
-     >
-       <v-row align="center" justify="center">
-         <v-col class="text-center" cols="12">
-           <h1 class="display-2 font-weight-thin mb-4" style="color:#000">
-             - Bischierge -
-           </h1>
-           <h4 class="display-1 font-weight-thin mb-4" style="color:#000">
-             What do you feel like eating?
-           </h4>
-           <StartBtn @get-location-shops="getLocation" />
-         </v-col>
-       </v-row>
-     </v-parallax>
+      v-if="!$vuetify.breakpoint.xs"
+      src="key_visual_m.jpg"
+      flat
+      style="height:100vh; opacity:0.8"
+    >
+      <v-row align="center" justify="center">
+        <v-col class="text-center" cols="12">
+          <h1 class="display-2 font-weight-thin mb-4" style="color:#000">
+            - Bischierge -
+          </h1>
+          <h4 class="display-1 font-weight-thin mb-4" style="color:#000">
+            What do you feel like eating?
+          </h4>
+          <StartBtn @get-location-shops="getLocation" />
+        </v-col>
+      </v-row>
+    </v-parallax>
+    <!-- キービジュアルSP -->
+    <v-parallax
+      v-if="$vuetify.breakpoint.xs"
+      src="key_visual_s.jpg"
+      flat
+      style="height:100vh; opacity:0.8"
+    >
+      <v-row align="center" justify="center">
+        <v-col class="text-center" cols="12">
+          <h1 class="display-2 font-weight-thin mb-4" style="color:#000">
+            - Bischierge -
+          </h1>
+          <h4 class="display-1 font-weight-thin mb-4" style="color:#000">
+            What do you feel like eating?
+          </h4>
+          <StartBtn @get-location-shops="getLocation" />
+        </v-col>
+      </v-row>
+    </v-parallax>
+    <!-- 飲食店表示エリア -->
     <v-container>
       <v-flex xs12 sm12 md12>
         <h2 class="display-1 font-weight-thin my-5">
@@ -96,6 +100,7 @@
             </v-row>
           </v-col>
         </v-row>
+        <!-- 更新ボタン -->
         <v-row align="center" justify="space-around">
           <v-btn
             class="ma-2"
@@ -280,7 +285,6 @@ export default {
       for (var i = 0; i < count; i++) {
         var arrayIndex = Math.floor(Math.random() * arrayData.length)
         result[i] = arrayData[arrayIndex]
-        // 1回選択された値は削除して再度選ばれないようにする
         arrayData.splice(arrayIndex, 1)
       }
       return result

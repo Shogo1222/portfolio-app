@@ -1,5 +1,5 @@
 <template>
-  <!-- ボタン部分 -->
+  <!-- スタートボタン部分 -->
   <v-dialog v-model="dialog" max-width="900px">
     <template v-slot:activator="{ on }">
       <v-btn

@@ -1,4 +1,5 @@
 <template>
+  <!-- コメントエリア -->
   <div v-if="isLoggedIn">
     <h2 class="display-1 font-weight-thin my-5">
       Comments
@@ -29,7 +30,10 @@
           <v-card-text class="font-weight-medium">
             {{ postedComment.comment }}
           </v-card-text>
-          <CommentFavorite :comment-id="postedComment.id" :shop-id="postedComment.shop_id" />
+          <CommentFavorite
+          :comment-id="postedComment.id"
+          :shop-id="postedComment.shop_id"
+          />
         </v-col>
       </v-card>
     </div>
