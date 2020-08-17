@@ -85,9 +85,9 @@ export default {
             this.$store.commit("setLoading", false)
             switch (code) {
               case "auth/user-not-found":
-                return "Email address is in correc"
+                return "Email address is in correct"
               case "auth/wrong-password":
-                return "The password is in correc"
+                return "The password is in correct"
               default:
                 return "Confirm email address and password"
             }
