@@ -3,14 +3,13 @@
 **Bistro + Concierge = Bischierge** <br>
 近くの飲食店をランダムで検索出来ることができるアプリケーションです。<br>
 「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。
+[https://www.bischierge.work/](https://www.bischierge.work/)
 
 ### PC view
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/35006561/90004321-63915a80-dcd0-11ea-89ef-a65d7dfd3e11.gif)
+![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/35006561/90373338-bc843880-e0ac-11ea-8155-eeb02abae118.gif)
 
 ### SP view
-![20200812_191936](https://user-images.githubusercontent.com/35006561/90004702-0fd34100-dcd1-11ea-9ae5-9bc07bbc4290.GIF)
-
-[Bischierge](https://www.bischierge.work/)
+![ezgif com-optimize](https://user-images.githubusercontent.com/35006561/90375215-9c09ad80-e0af-11ea-97c6-a74e5661bfd2.gif)
 
 ## Target users
 - これから「何を食べようか」と悩む人
@@ -30,7 +29,7 @@
 - 飲食店オーナーの課金度合いによって表示確率を変動させる。
 - 飲食店オーナーによる飲食店の自己PR項目。
 
-# 注目して頂きたい部分
+# Selling points
 
 - 開発環境での問題をnginx、Vagrant等を用いて柔軟に解決する問題解決能力。
 - Frontend、Backendを切り分け、Dockerを利用してマイクロサービスアーキテクチャを実現。
@@ -69,6 +68,7 @@
 - CloudWatch
 - IAM
 - Auto Scaling
+- S3
 
 ## Infrastructure As Code
 - terraform
@@ -80,8 +80,8 @@
 
 ## Frontend
 - node:12.5.0
-- Vue.js
-- Nuxt.js
+- Vue.js:2.6.11
+- Nuxt.js:2.12.2
 - Vuetify
 - firebase/auth
 - axios
@@ -100,8 +100,11 @@
 ## Backend
 - ruby:2.6.3
 - rails:5.2.4.3
-- MySQL
+- MySQL:5.7.30
 - puma
 - rubocop
 - dotenv-rails
 - rspec-rails
+
+## IDE
+- ATOM
