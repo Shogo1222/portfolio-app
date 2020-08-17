@@ -104,6 +104,8 @@
 - rubocop
 - dotenv-rails
 - rspec-rails
+- carrierwave
+- fog-aws
 
 ## IDE
 - ATOM
