@@ -146,8 +146,8 @@ export default {
     return {
       loader: null,
       loading: false,
-      latitude: 0,
-      longitude: 0,
+      latitude: 35.6813517, // 初期値を東京駅に設定
+      longitude: 139.7665776, // 初期値を東京駅に設定
       alert: false,
       shops: [],
       genre: [],
@@ -168,7 +168,7 @@ export default {
     }
   },
   created: function() {
-    this.getLocation()
+    this.getShops()
   },
   methods: {
     // 現在地の緯度、経度の取得
@@ -256,8 +256,8 @@ export default {
         .$get("/api/", {
           params: {
             key: process.env.VUE_APP_HOTPEPPER_API_KEY,
-            lat: this.latitude,
-            lng: this.longitude,
+            lat: this.latitude ? this.latitude : null,
+            lng: this.longitude ? this.longitude : null,
             count: 100,
             genre: this.genre.length ? this.genre.toString() : null,
             budget: priceCode,
