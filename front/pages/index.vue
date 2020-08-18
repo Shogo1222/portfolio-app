@@ -151,7 +151,8 @@ export default {
       alert: false,
       shops: [],
       genre: [],
-      range: null
+      range: null,
+      locale: null
     }
   },
   watch: {
@@ -160,7 +161,7 @@ export default {
       this[l] = !this[l]
       setTimeout(() => (this[l] = false), 1000)
       this.loader = null
-      this.getLocation()
+      this.getShops()
       window.scroll({
         top: 750,
         behavior: "smooth"
@@ -176,6 +177,14 @@ export default {
       if (terms) {
         this.range = terms["priceRange"]
         this.genre = terms["genre"]
+        this.locale = terms["locale"]
+        // 位置が指定されていればそれで検索
+        if (this.locale) {
+          this.latitude = this.locale.lat
+          this.longitude = this.locale.lng
+          this.getShops()
+          return
+        }
       }
       if (process.client) {
         if (!navigator.geolocation) {
