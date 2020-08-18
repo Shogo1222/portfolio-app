@@ -436,7 +436,7 @@
               class="font-weight-thin pl-3 pt-4 mb-4"
               style="color:#fff"
             >
-              Choose budget
+              Can we use your present location information?
             </h1>
             <v-item-group>
               <v-container>
