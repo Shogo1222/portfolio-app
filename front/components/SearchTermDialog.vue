@@ -9,12 +9,26 @@
         :hide-delimiters="true"
         :progress="true"
         progress-color="white"
-        :show-arrows-on-hover="true"
+        :show-arrows-on-hover="false"
         height
       >
         <!-- ジャンル選択エリア -->
         <v-carousel-item>
           <v-sheet color="green" height="100%" tile>
+            <h1
+              v-if="!$vuetify.breakpoint.xs"
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Choose genre as you like
+            </h1>
+            <h1
+              v-if="$vuetify.breakpoint.xs"
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Choose genre
+            </h1>
             <v-item-group :multiple="true">
               <v-container>
                 <v-row>
@@ -258,6 +272,20 @@
         <!-- 価格設定選択エリア -->
         <v-carousel-item>
           <v-sheet color="blue" height="100%" tile>
+            <h1
+              v-if="!$vuetify.breakpoint.xs"
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Choose budget as you like
+            </h1>
+            <h1
+              v-if="$vuetify.breakpoint.xs"
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Choose budget
+            </h1>
             <v-item-group>
               <v-container>
                 <v-row>
@@ -271,6 +299,7 @@
                         @click="
                           toggle()
                           fetchPriceRange(1000)
+                          model++
                         "
                       >
                         <div
@@ -298,6 +327,7 @@
                         @click="
                           toggle()
                           fetchPriceRange(2000)
+                          model++
                         "
                       >
                         <div
@@ -325,6 +355,7 @@
                         @click="
                           toggle()
                           fetchPriceRange(3000)
+                          model++
                         "
                       >
                         <div
@@ -352,6 +383,7 @@
                         @click="
                           toggle()
                           fetchPriceRange(4000)
+                          model++
                         "
                       >
                         <div
@@ -378,12 +410,112 @@
                         outlined
                         large
                         class="ma-2"
-                        @click="getLocationShops"
+                        @click="model++"
                       >
-                        enjoy!
+                        Next
                       </v-btn>
                     </v-col>
                   </v-row>
+                </v-row>
+              </v-container>
+            </v-item-group>
+          </v-sheet>
+        </v-carousel-item>
+        <!-- 位置情報選択エリア -->
+        <v-carousel-item>
+          <v-sheet color="green" height="100%" tile>
+            <h1
+              v-if="!$vuetify.breakpoint.xs"
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Can we use your present location information?
+            </h1>
+            <h1
+              v-if="$vuetify.breakpoint.xs"
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Choose budget
+            </h1>
+            <v-item-group>
+              <v-container>
+                <v-row align="center" justify="center">
+                  <v-col cols="12" xs="12" md="3" sm="3">
+                    <v-item v-slot:default="{ active, toggle }">
+                      <v-card
+                        color="white"
+                        elevation="24"
+                        class="d-flex align-center"
+                        height="150"
+                        @click="getPresentLocationShops"
+                      >
+                        <div
+                          class="display-1 black--text font-weight-thin text-center flex-grow-1"
+                        >
+                          OK
+                        </div>
+                      </v-card>
+                    </v-item>
+                  </v-col>
+                  <v-col cols="12" xs="12" md="3" sm="3">
+                    <v-item>
+                      <v-card
+                        color="white"
+                        elevation="24"
+                        class="d-flex align-center"
+                        height="150"
+                        @click="model++"
+                      >
+                        <div
+                          class="display-1 black--text font-weight-thin text-center flex-grow-1"
+                        >
+                          NO
+                        </div>
+                      </v-card>
+                    </v-item>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-item-group>
+          </v-sheet>
+        </v-carousel-item>
+        <!-- 位置情報取得エリア -->
+        <v-carousel-item>
+          <v-sheet color="green" height="100%" tile>
+            <h1
+              class="font-weight-thin pl-3 pt-4 mb-4"
+              style="color:#fff"
+            >
+              Search location
+            </h1>
+            <v-item-group>
+              <v-container>
+                <v-row align="center" justify="center">
+                  <v-col cols="12" xs="12">
+                    <v-card
+                      color="white"
+                      elevation="24"
+                      class="d-flex align-center"
+                    >
+                      <SearchFromMap @set-location="setLocation" />
+                    </v-card>
+                  </v-col>
+                </v-row>
+                <v-row align="center" justify="center">
+                  <v-col class="text-center" cols="12">
+                    <v-btn
+                      color="#fff"
+                      dark
+                      rounded
+                      outlined
+                      large
+                      class="ma-2"
+                      @click="getLocationShops"
+                    >
+                      enjoy!
+                    </v-btn>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-item-group>
@@ -395,17 +527,37 @@
 </template>
 
 <script>
+import SearchFromMap from "./SearchFromMap"
+
 export default {
+  components: {
+    SearchFromMap
+  },
   data() {
     return {
       dialog: false,
       model: null,
       genre: [],
-      priceRange: 0
+      priceRange: 0,
+      locale: null
     }
   },
   methods: {
+    // 検索したエリアを取得
+    setLocation(locale) {
+      this.locale = locale
+    },
+    // エリアを指定して検索
     getLocationShops() {
+      this.dialog = false
+      var terms = []
+      terms["genre"] = this.genre
+      terms["priceRange"] = this.priceRange
+      terms["locale"] = this.locale
+      this.$emit("get-location-shops", terms)
+    },
+    // 現在地を取得して検索
+    getPresentLocationShops() {
       this.dialog = false
       var terms = []
       terms["genre"] = this.genre
