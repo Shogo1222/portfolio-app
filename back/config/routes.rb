@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   root to: 'application#index'
   namespace :v1 do
-    resources :users, only: %i[index create]
+    resource :users
+    resource :user_tags do
+      member do
+        get 'recent_tag'
+      end
+    end
     resource :favorite
     resource :comment
     resource :comment_favorite

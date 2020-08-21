@@ -5,5 +5,6 @@ FactoryBot.define do
     email { 'test@gmail.com' }
     uid { '1234' }
     name { 'testuser' }
+    image { '' }
   end
 end
