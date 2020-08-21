@@ -14,7 +14,7 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
-            <!-- ユーザーネーム: 最大文字数8 -->
+            <!-- Username: 最大文字数8 -->
             <ValidationProvider
               v-slot="{ errors }"
               name="name"
@@ -22,7 +22,7 @@
             >
               <v-text-field
                 v-model="name"
-                label="ユーザーネーム"
+                label="Username"
                 name="name"
                 prepend-icon=""
                 :error-messages="errors[0]"

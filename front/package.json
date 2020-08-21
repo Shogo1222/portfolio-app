@@ -32,7 +32,6 @@
     "nuxt": "^2.0.0",
     "nuxt-webfontloader": "^1.1.0",
     "vee-validate": "^3.2.1",
-    "vue2-google-maps": "^0.10.7",
     "vuex-persistedstate": "^2.7.0"
   },
   "devDependencies": {

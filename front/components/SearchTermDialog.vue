@@ -429,14 +429,14 @@
               class="font-weight-thin pl-3 pt-4 mb-4"
               style="color:#fff"
             >
-              Can we use your present location information?
+              Use Google's location service?
             </h1>
             <h1
               v-if="$vuetify.breakpoint.xs"
               class="font-weight-thin pl-3 pt-4 mb-4"
               style="color:#fff"
             >
-              Can we use your present location information?
+              Use Google's location service?
             </h1>
             <v-item-group>
               <v-container>
@@ -453,7 +453,7 @@
                         <div
                           class="display-1 black--text font-weight-thin text-center flex-grow-1"
                         >
-                          OK
+                          Agree
                         </div>
                       </v-card>
                     </v-item>
@@ -470,7 +470,7 @@
                         <div
                           class="display-1 black--text font-weight-thin text-center flex-grow-1"
                         >
-                          NO
+                          Disagree
                         </div>
                       </v-card>
                     </v-item>

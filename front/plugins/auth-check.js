@@ -9,6 +9,7 @@ const authCheck = ({ store }) => {
       const { data } = await axios.get(`/v1/users?uid=${user.uid}`)
       if (data) {
         data.isLoggedIn = true
+        data.uid = user.uid
       }
       store.commit("login", data)
     } else {
