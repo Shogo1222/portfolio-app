@@ -8,6 +8,7 @@ const store = () => {
     state: {
       id: "",
       name: "",
+      uid: "",
       isLoggedIn: false,
       loading: false,
       notification: {
@@ -21,10 +22,12 @@ const store = () => {
         if (!user) {
           state.id = ""
           state.name = ""
+          state.uid = ""
           state.isLoggedIn = false
         } else {
           state.id = user.id
           state.name = user.name
+          state.uid = user.uid
           state.isLoggedIn = true
         }
       },

@@ -53,7 +53,7 @@ export default {
             ""
         )
         .then(res => {
-          if (!res.data) {
+          if (!res.data.length) {
             this.is_favorite = false
           } else {
             this.is_favorite = true

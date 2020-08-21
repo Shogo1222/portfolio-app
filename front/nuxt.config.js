@@ -46,8 +46,7 @@ export default {
     "@/plugins/axios",
     "@/plugins/vuetify",
     "@/plugins/auth-check",
-    "@/plugins/vee-validate.js",
-    "@/plugins/vue2-google-maps.js"
+    "@/plugins/vee-validate.js"
   ],
   modules: ["@nuxtjs/axios", "@nuxtjs/proxy", "@nuxtjs/auth", "@nuxtjs/dotenv"],
   axios: {

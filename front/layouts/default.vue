@@ -13,7 +13,7 @@
       flat
       app
     >
-    <!-- ロゴ -->
+      <!-- ロゴ -->
       <v-btn
         v-if="!$vuetify.breakpoint.xs"
         color="#fff"
@@ -59,6 +59,15 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- 右リスト内プロフィール（ログイン時のみ表示） -->
+        <v-list-item v-if="isLoggedIn" nuxt to="/profile">
+          <v-list-item-action>
+            <v-icon>person</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Your Profile</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <!-- 右リスト内お気に入りリスト（ログイン時のみ表示） -->
