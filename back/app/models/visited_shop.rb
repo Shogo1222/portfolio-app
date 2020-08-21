@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class Favorite < ApplicationRecord
+class VisitedShop < ApplicationRecord
   validates :user_id, presence: true
   validates :shop_id, presence: true
 
