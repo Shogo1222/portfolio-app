@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'User' do
+describe 'UserTag' do
   before(:each) do
     @status_code_ok = 200
   end

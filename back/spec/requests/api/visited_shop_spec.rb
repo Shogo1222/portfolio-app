@@ -2,18 +2,18 @@
 
 require 'rails_helper'
 
-describe 'Favorite' do
+describe 'VisitedShop' do
   before(:each) do
     @user_id = 1
     @shop_id = 1
     @status_code_ok = 200
   end
-  it 'お気に入りを表示' do
+  it '訪問したショップを表示' do
     @user = FactoryBot.create(:user)
     @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
-    FactoryBot.create(:favorite, user_id: @user.id, logged_shop_id: @logged_shop.id, shop_id: 'test')
+    FactoryBot.create(:visited_shop, user_id: @user.id, logged_shop_id: @logged_shop.id, shop_id: 'test')
     @params = { user_id: @user.id, shop_id: 'test' }
-    get '/v1/favorite', params: @params
+    get '/v1/visited_shop', params: @params
     @json = JSON.parse(response.body)
     # responseの可否判定
     expect(response.status).to eq(@status_code_ok)
@@ -22,19 +22,19 @@ describe 'Favorite' do
     expect(@json[0]['shop_id']).to eq('test')
   end
 
-  it '新しくお気に入りする' do
+  it '新しく訪問したショップを登録する' do
     @user = FactoryBot.create(:user)
     @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
     @params = { user_id: @user.id, logged_shop_id: @logged_shop.id, shop_id: 'test' }
-    expect { post '/v1/favorite/', params: @params }.to change(Favorite, :count).by(+1)
+    expect { post '/v1/visited_shop/', params: @params }.to change(VisitedShop, :count).by(+1)
   end
 
-  it 'お気に入りを削除する' do
+  it '訪問したショップを削除する' do
     @user = FactoryBot.create(:user)
     @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
-    FactoryBot.create(:favorite, user_id: @user.id, logged_shop_id: @logged_shop.id, shop_id: 'test')
+    FactoryBot.create(:visited_shop, user_id: @user.id, logged_shop_id: @logged_shop.id, shop_id: 'test')
     @params = { user_id: @user.id, logged_shop_id: @logged_shop.id, shop_id: 'test' }
-    expect { delete '/v1/favorite/', params: @params }.to change(Favorite, :count).by(-1)
+    expect { delete '/v1/visited_shop/', params: @params }.to change(VisitedShop, :count).by(-1)
     @json = JSON.parse(response.body)
     expect(response.status).to eq(@status_code_ok)
   end

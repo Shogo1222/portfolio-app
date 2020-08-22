@@ -8,7 +8,8 @@ describe 'Comment' do
   end
   it 'コメントを表示' do
     @user = FactoryBot.create(:user)
-    @comment = FactoryBot.create(:comment, user_id: @user.id, user_name: @user.name, shop_id: 'test', comment: 'test')
+    @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
+    @comment = FactoryBot.create(:comment, user_id: @user.id, logged_shop_id: @logged_shop.id, user_name: @user.name, shop_id: 'test', comment: 'test')
     @params = { shop_id: @shop_id }
     get '/v1/comment', params: @params
     @json = JSON.parse(response.body)
@@ -23,14 +24,16 @@ describe 'Comment' do
 
   it '新しくコメントをする' do
     @user = FactoryBot.create(:user)
-    @params = { user_id: @user.id, user_name: @user.name, shop_id: 'test', comment: 'test' }
+    @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
+    @params = { user_id: @user.id, logged_shop_id: @logged_shop.id, user_name: @user.name, shop_id: 'test', comment: 'test' }
     expect { post '/v1/comment/', params: @params }.to change(Comment, :count).by(+1)
   end
 
   it 'コメントを削除' do
     @user = FactoryBot.create(:user)
-    @comment = FactoryBot.create(:comment, user_id: @user.id, user_name: @user.name, shop_id: 'test', comment: 'test')
-    @params = { id: @comment.id }
+    @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
+    @comment = FactoryBot.create(:comment, user_id: @user.id, logged_shop_id: @logged_shop.id, user_name: @user.name, shop_id: 'test', comment: 'test')
+    @params = { id: @comment.id, user_id: @user.id, shop_id: 'test' }
     expect { delete '/v1/comment/', params: @params }.to change(Comment, :count).by(-1)
     expect(response.status).to eq(@status_code_ok)
   end
