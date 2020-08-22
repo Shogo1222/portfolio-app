@@ -98,18 +98,18 @@ export default {
     this.getShops()
   },
   methods: {
-  getShops() {
-    axios.get("/v1/logged_shop", {
-        params: {
-          user_id: this.$store.state.id,
-          action_from: this.action
-        }
-      })
-      .then(res => {
-        console.log(res.data)
-        this.shops = res.data
-      })
+    getShops() {
+      axios
+        .get("/v1/logged_shop", {
+          params: {
+            user_id: this.$store.state.id,
+            action_from: this.action
+          }
+        })
+        .then(res => {
+          this.shops = res.data
+        })
+    }
   }
-}
 }
 </script>

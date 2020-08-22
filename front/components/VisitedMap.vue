@@ -56,7 +56,6 @@ export default {
       }
       this.marker.push(marker)
     })
-    console.log(this.marker)
   }
 }
 </script>
