@@ -9,10 +9,10 @@
         class="white--text font-weight-medium mt-3"
         v-on="on"
       >
+      <v-icon class="mr-1" color="white">
+        edit
+      </v-icon>
         EDIT
-        <v-icon class="ml-1" color="white">
-          edit
-        </v-icon>
       </v-btn>
     </template>
     <!-- エディットモーダル部分 -->

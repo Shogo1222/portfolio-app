@@ -3,11 +3,11 @@
   <v-dialog v-model="dialog" max-width="900px">
     <template v-slot:activator="{ on }">
       <v-btn
-        color="#000"
+        color="black"
         rounded
         outlined
         large
-        class="ma-2"
+        class="mt-10"
         @click="dialog = true"
       >
         Start Now

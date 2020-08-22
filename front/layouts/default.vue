@@ -30,18 +30,22 @@
       </v-btn>
       <v-spacer />
       <LoginBtn v-show="!isLoggedIn" />
-      <h1
-        v-show="isLoggedIn"
-        class="white--text font-weight-thin mb-1 col-auto"
-        text
-        large
-      >
-        Hi ! {{ userName }}
-      </h1>
+      <div v-if="isLoggedIn">
+        <v-btn large icon color="white" nuxt to="/favorites">
+          <v-icon>
+            favorite
+          </v-icon>
+        </v-btn>
+        <v-btn large icon color="white" nuxt to="/visited">
+          <v-icon>
+            check_circle_outline
+          </v-icon>
+        </v-btn>
+      </div>
       <SignupBtn />
-      <v-btn v-if="isLoggedIn" dark outlined @click.stop="rightDrawer = !rightDrawer">
+      <v-btn v-if="isLoggedIn" large icon color="white" @click.stop="rightDrawer = !rightDrawer">
         <v-icon>
-          mdi-menu
+          menu
         </v-icon>
       </v-btn>
     </v-app-bar>
@@ -67,7 +71,7 @@
             <v-icon>person</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Your Profile</v-list-item-title>
+            <v-list-item-title>Profile</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <!-- 右リスト内お気に入りリスト（ログイン時のみ表示） -->
@@ -76,9 +80,19 @@
             <v-icon>favorite</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Favorite</v-list-item-title>
+            <v-list-item-title>Favorite Bistros</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <!-- 右リスト内訪問したお店リスト（ログイン時のみ表示） -->
+        <v-list-item v-if="isLoggedIn" nuxt to="/visited">
+          <v-list-item-action>
+            <v-icon>check_circle_outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Visited Bistros</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
         <!-- 右リスト内ログアウトボタン（ログイン時のみ表示） -->
         <v-list-item v-if="isLoggedIn" @click="logout">
           <v-list-item-action>

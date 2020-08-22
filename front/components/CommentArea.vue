@@ -61,9 +61,11 @@
         accept="image/*"
         @change="onFilePicked"
       />
-      <v-btn dark class="mr-4 mb-5 mt-5" @click="submitComment">
-        submit
-      </v-btn>
+      <v-row align="center" justify="center">
+        <v-btn dark class="mr-4 mb-5 mt-5" @click="submitComment">
+          submit
+        </v-btn>
+    </v-row>
     </form>
   </div>
 </template>
@@ -79,8 +81,8 @@ export default {
     CommentFavorite
   },
   props: {
-    shopId: {
-      type: String,
+    shop: {
+      type: Object,
       required: true
     }
   },
@@ -91,7 +93,8 @@ export default {
       exists_comment: true,
       imageName: "",
       imageUrl: "",
-      imageFile: ""
+      imageFile: "",
+      action: "comment"
     }
   },
   computed: {
@@ -133,7 +136,7 @@ export default {
       }
     },
     getComment() {
-      axios.get("/v1/comment?shop_id=" + this.shopId + "").then(res => {
+      axios.get("/v1/comment?shop_id=" + this.shop.shop_id + "").then(res => {
         if (!res.data) {
           this.exists_comment = false
         } else {
@@ -147,37 +150,84 @@ export default {
         return
       }
       this.$store.commit("setLoading", true)
-      let formData = new FormData()
-      formData.append("user_id", this.$store.state.id)
-      formData.append("user_name", this.$store.state.name)
-      formData.append("shop_id", this.shopId)
-      formData.append("comment", this.comment)
-      formData.append("image", this.imageFile)
+
       axios
-        .post("/v1/comment", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+        .post("/v1/logged_shop", {
+          user_id: this.$store.state.id,
+          shop_id: this.shop.shop_id,
+          action_from: this.action,
+          lat: this.shop.lat,
+          lng: this.shop.lng,
+          name: this.shop.name,
+          catch: this.shop.catch,
+          capacity: this.shop.capacity,
+          photo: this.shop.photo,
+          budget: this.shop.budget,
+          budget_memo: this.shop.budget_memo,
+          mobile_access: this.shop.mobile_access,
+          open: this.shop.open,
+          non_smoking: this.shop.non_smoking,
+          address: this.shop.address
         })
-        .then(() => {
-          this.getComment()
-          this.imageName = ""
-          this.imageFile = ""
-          this.imageUrl = ""
-          this.comment = ""
-          setTimeout(() => {
-            this.$store.commit("setLoading", false)
-          }, 1000) //1秒後に隠す
+        .then(res => {
+          let formData = new FormData()
+          formData.append("user_id", this.$store.state.id)
+          formData.append("user_name", this.$store.state.name)
+          formData.append("logged_shop_id", res.data.id)
+          formData.append("shop_id", this.shop.shop_id)
+          formData.append("comment", this.comment)
+          formData.append("image", this.imageFile)
+          axios
+            .post("/v1/comment", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            })
+            .then(() => {
+              this.getComment()
+              this.imageName = ""
+              this.imageFile = ""
+              this.imageUrl = ""
+              this.comment = ""
+              setTimeout(() => {
+                this.$store.commit("setLoading", false)
+              }, 500) //1秒後に隠す
+            })
         })
     },
     destroyComment(id) {
       this.$store.commit("setLoading", true)
-      axios.delete("/v1/comment?id=" + id).then(() => {
-        setTimeout(() => {
-          this.$store.commit("setLoading", false)
-        }, 1000) //1秒後に隠す
-        this.getComment()
-      })
+      axios
+        .delete("/v1/comment", {
+          params: {
+            user_id: this.$store.state.id,
+            shop_id: this.shop.shop_id,
+            id: id
+          }
+        })
+        .then(res => {
+          if (res.data) {
+            this.getComment()
+            setTimeout(() => {
+              this.$store.commit("setLoading", false)
+            }, 500) //1秒後に隠す
+          } else {
+            axios
+              .delete("/v1/logged_shop", {
+                params: {
+                  user_id: this.$store.state.id,
+                  shop_id: this.shop.shop_id,
+                  action_from: this.action
+                }
+              })
+              .then(() => {
+                setTimeout(() => {
+                  this.$store.commit("setLoading", false)
+                }, 500) //1秒後に隠す
+                this.getComment()
+              })
+          }
+        })
     }
   }
 }

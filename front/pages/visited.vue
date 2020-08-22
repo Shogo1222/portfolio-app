@@ -4,7 +4,7 @@
     <v-container>
       <v-flex xs12 sm12 md12>
         <h2 class="display-1 font-weight-thin my-5">
-          Your Favorite Bistros
+          Your Visited Bistros
         </h2>
         <v-row justify="center">
           <v-col cols="12" md="12" xl="10">
@@ -54,7 +54,7 @@
                       Sorry! We can't find any bistros
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                      please go back home and add favorite your bistros
+                      please go back home and check visited bistros
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -92,7 +92,7 @@ export default {
   data() {
     return {
       shops: [],
-      action: "favorite"
+      action: "visited"
     }
   },
   created: function() {

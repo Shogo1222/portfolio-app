@@ -14,7 +14,7 @@
           color="gray"
         >
           <v-icon @click="favorite()">
-            favorite
+            thumb_up
           </v-icon>
         </v-btn>
         <v-btn
@@ -22,10 +22,10 @@
           class="mt-2 float-right"
           large
           icon
-          color="pink"
+          color="primary"
         >
           <v-icon @click="favoriteDestroy()">
-            favorite
+            thumb_up
           </v-icon>
         </v-btn>
       </v-col>

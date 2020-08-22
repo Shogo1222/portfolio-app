@@ -5,6 +5,8 @@
         <v-text-field
           ref="address"
           v-model="address"
+          clear-icon="close"
+          clearable
           light
           data-vv-name="address"
           label="Input Address"

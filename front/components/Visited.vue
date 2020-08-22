@@ -1,14 +1,14 @@
 <template>
-  <!-- お気に入りボタン -->
+  <!-- 直近訪問したお店ボタン -->
   <div v-if="isLoggedIn">
-    <v-btn v-if="!is_favorite" class="mt-2" large icon color="white" @click="favorite()">
+    <v-btn v-if="!is_visited" class="mt-2" large icon color="white" @click="visited()">
       <v-icon>
-        favorite
+        check_circle_outline
       </v-icon>
     </v-btn>
-    <v-btn v-if="is_favorite" class="mt-2" large icon color="pink" @click="favoriteDestroy()">
+    <v-btn v-if="is_visited" class="mt-2" large icon color="primary" @click="visitedDestroy()">
       <v-icon>
-        favorite
+        check_circle
       </v-icon>
     </v-btn>
   </div>
@@ -26,8 +26,8 @@ export default {
   },
   data() {
     return {
-      is_favorite: false,
-      action: "favorite"
+      is_visited: false,
+      action: "visited"
     }
   },
   computed: {
@@ -36,17 +36,17 @@ export default {
     }
   },
   created: function() {
-    this.getFavorite()
+    this.getVisited()
   },
   mounted() {
     this.$store.watch(() => {
-      this.getFavorite()
+      this.getVisited()
     })
   },
   methods: {
-    getFavorite() {
+    getVisited() {
       axios
-        .get("/v1/favorite", {
+        .get("/v1/visited_shop", {
           params: {
             user_id: this.$store.state.id,
             shop_id: this.shop.shop_id
@@ -54,13 +54,13 @@ export default {
         })
         .then(res => {
           if (!res.data.length) {
-            this.is_favorite = false
+            this.is_visited = false
           } else {
-            this.is_favorite = true
+            this.is_visited = true
           }
         })
     },
-    favorite() {
+    visited() {
       axios
         .post("/v1/logged_shop", {
           user_id: this.$store.state.id,
@@ -81,19 +81,19 @@ export default {
         })
         .then(res => {
           axios
-            .post("/v1/favorite", {
+            .post("/v1/visited_shop", {
               user_id: this.$store.state.id,
               logged_shop_id: res.data.id,
               shop_id: this.shop.shop_id
             })
             .then(() => {
-              this.is_favorite = true
+              this.is_visited = true
             })
         })
     },
-    favoriteDestroy() {
+    visitedDestroy() {
       axios
-        .delete("/v1/favorite", {
+        .delete("/v1/visited_shop", {
           params: {
             user_id: this.$store.state.id,
             shop_id: this.shop.shop_id
@@ -109,7 +109,7 @@ export default {
               }
             })
             .then(() => {
-              this.is_favorite = false
+              this.is_visited = false
             })
         })
     }

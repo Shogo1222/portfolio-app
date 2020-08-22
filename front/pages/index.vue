@@ -50,13 +50,14 @@
             <v-row v-if="shops.length" justify="center">
               <v-card
                 v-for="shop in shops"
-                :key="shop.id"
+                :key="shop.shop_id"
                 class="mx-3 my-4"
                 width="350"
               >
-                <v-img height="250" :src="shop.photo.pc.l">
+                <v-img height="250" :src="shop.photo">
                   <v-card-actions class="float-right">
-                    <Favorite :shop-id="shop.id" />
+                    <Favorite :shop="shop" />
+                    <Visited :shop="shop" />
                   </v-card-actions>
                 </v-img>
                 <v-card-title>
@@ -67,14 +68,14 @@
                     {{ shop.catch | truncate(30, "...") }}
                   </div>
 
-                  <span class="grey--text">・平均予算：</span><br />
-                  <span> {{ shop.budget.average | truncate(15, "...") }}</span>
+                  <span class="grey--text">Budget: </span><br />
+                  <span> {{ shop.budget | truncate(20, "...") }}</span>
                   <br />
-                  <span class="grey--text">・アクセス：</span>
+                  <span class="grey--text">Access: </span>
                   <br />
                   <span>{{ shop.mobile_access | truncate(23, "...") }}</span>
                   <br />
-                  <span class="grey--text">・営業時間：</span>
+                  <span class="grey--text">Open hours: </span>
                   <br />
                   <span>{{ shop.open | truncate(30, "...") }}</span>
                 </v-card-text>
@@ -104,14 +105,14 @@
         <v-row align="center" justify="space-around">
           <v-btn
             class="ma-2"
-            color="#000"
+            color="blue darken-4"
             rounded
             outlined
             :loading="loading"
             :disabled="loading"
             @click="loader = 'loading'"
           >
-            Reload
+            VIEW MORE
             <v-icon dark right>
               refresh
             </v-icon>
@@ -126,12 +127,14 @@
 import StartBtn from "../components/StartBtn.vue"
 import ShopDetailsDialog from "../components/ShopDetailsDialog.vue"
 import Favorite from "../components/Favorite.vue"
+import Visited from "../components/Visited.vue"
 
 export default {
   components: {
     StartBtn,
     ShopDetailsDialog,
-    Favorite
+    Favorite,
+    Visited
   },
   filters: {
     truncate: function(value, length) {
@@ -294,9 +297,27 @@ export default {
       for (var i = 0; i < count; i++) {
         var arrayIndex = Math.floor(Math.random() * arrayData.length)
         result[i] = arrayData[arrayIndex]
+        result[i] = this.convertShopJsonToArr(result[i])
         arrayData.splice(arrayIndex, 1)
       }
       return result
+    },
+    convertShopJsonToArr(shop) {
+      return {
+        shop_id: shop.id,
+        lat: shop.lat,
+        lng: shop.lng,
+        name: shop.name,
+        catch: shop.catch,
+        capacity: shop.capacity,
+        photo: shop.photo.pc.l,
+        budget: shop.budget.average,
+        budget_memo: shop.budget_memo,
+        mobile_access: shop.mobile_access,
+        open: shop.open,
+        non_smoking: shop.non_smoking,
+        address: shop.address
+      }
     }
   }
 }
