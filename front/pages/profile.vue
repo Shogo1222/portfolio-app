@@ -38,7 +38,10 @@
                     :email="email"
                     @success-update="getUser"
                   />
-                  <UserDelete :email="email" @success-update="getUser" />
+                  <UserDelete
+                  :email="email"
+                  @success-update="getUser"
+                  />
                 </div>
               </v-col>
             </v-img>
@@ -54,6 +57,19 @@
         </v-col>
       </v-row>
     </v-container>
+    <ShopsOverView
+    :user-id="this.id"
+    :action="visited"
+    />
+    <ShopsOverView
+    :user-id="this.id"
+    :action="favorite"
+    />
+    <ShopsOverView
+    :user-id="this.id"
+    :action="comment"
+    />
+
   </v-app>
 </template>
 <script>
@@ -61,12 +77,14 @@ import axios from "~/plugins/axios"
 import UserEdit from "~/components/UserEdit"
 import UserDelete from "~/components/UserDelete"
 import UserTag from "~/components/UserTag"
+import ShopsOverView from "~/components/ShopsOverView"
 
 export default {
   components: {
     UserEdit,
     UserDelete,
-    UserTag
+    UserTag,
+    ShopsOverView
   },
   filters: {
     truncate: function(value, length) {
@@ -82,7 +100,10 @@ export default {
       id: 0,
       name: "",
       email: "",
-      imageUrl: ""
+      imageUrl: "",
+      favorite: "favorite",
+      visited: "visited",
+      comment: "comment"
     }
   },
   created() {

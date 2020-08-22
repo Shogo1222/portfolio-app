@@ -29,7 +29,7 @@
           style="width: 100%; height: 300px;"
           @center_changed="onCenterChanged"
         >
-        <GmapMarker
+          <GmapMarker
             v-show="marker_center"
             :position="marker_center"
             :clickable="true"

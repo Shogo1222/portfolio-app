@@ -65,7 +65,7 @@
         <v-btn dark class="mr-4 mb-5 mt-5" @click="submitComment">
           submit
         </v-btn>
-    </v-row>
+      </v-row>
     </form>
   </div>
 </template>
@@ -206,7 +206,7 @@ export default {
           }
         })
         .then(res => {
-          if (res.data) {
+          if (res.data.length !== 0) {
             this.getComment()
             setTimeout(() => {
               this.$store.commit("setLoading", false)
