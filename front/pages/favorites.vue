@@ -18,7 +18,6 @@
                 <v-img height="250" :src="shop.photo">
                   <v-card-actions class="float-right">
                     <Favorite :shop="shop" />
-                    <Visited :shop="shop" />
                   </v-card-actions>
                 </v-img>
                 <v-card-title>
@@ -99,18 +98,18 @@ export default {
     this.getShops()
   },
   methods: {
-    getShops() {
-      axios
-        .get("/v1/logged_shop", {
-          params: {
-            user_id: this.$store.state.id,
-            action_from: this.action
-          }
-        })
-        .then(res => {
-          this.shops = res.data
-        })
-    }
+  getShops() {
+    axios.get("/v1/logged_shop", {
+        params: {
+          user_id: this.$store.state.id,
+          action_from: this.action
+        }
+      })
+      .then(res => {
+        console.log(res.data)
+        this.shops = res.data
+      })
   }
+}
 }
 </script>

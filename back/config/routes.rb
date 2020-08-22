@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     resource :visited_shop
     resource :comment
     resource :comment_favorite
-    resource :logged_shop
+    resource :logged_shop do
+      member do
+        get 'recent_shop'
+      end
+    end
     resource :shop_tags do
       member do
         get 'recent_tag'
