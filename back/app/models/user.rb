@@ -18,7 +18,8 @@ class User < ApplicationRecord
 
   has_many :user_tags, foreign_key: :user_id, dependent: :destroy
 
-  has_many :displayed_shops, foreign_key: :user_id, dependent: :destroy
+  has_many :logged_shops, foreign_key: :user_id, dependent: :destroy
+  has_many :visited_shops, foreign_key: :user_id, dependent: :destroy
 
   mount_uploader :image, ImageUploader
 end

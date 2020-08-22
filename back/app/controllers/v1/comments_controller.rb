@@ -12,6 +12,7 @@ class V1:: CommentsController < ApplicationController
     @comment = Comment.new(
       user_id: params[:user_id],
       user_name: params[:user_name],
+      logged_shop_id: params[:logged_shop_id],
       shop_id: params[:shop_id],
       comment: params[:comment],
       image: params[:image]
@@ -24,10 +25,11 @@ class V1:: CommentsController < ApplicationController
   end
 
   def destroy
-    if params[:id]
+    if params[:id] && params[:shop_id] && params[:user_id]
       @comment = Comment.find(params[:id])
       @comment.delete
-      render json: { status: 'SUCCESS', message: 'delete comment' }
+      @exist_comment = Comment.where(shop_id: params[:shop_id], user_id: params[:user_id])
+      render json: @exist_comment, status: :ok
     else
       render json: { status: 'NOT_FOUND', message: 'can not delete comment' }
     end

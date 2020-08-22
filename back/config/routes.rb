@@ -8,7 +8,14 @@ Rails.application.routes.draw do
       end
     end
     resource :favorite
+    resource :visited_shop
     resource :comment
     resource :comment_favorite
+    resource :logged_shop
+    resource :shop_tags do
+      member do
+        get 'recent_tag'
+      end
+    end
   end
 end
