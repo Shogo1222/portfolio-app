@@ -18,8 +18,8 @@
             >
               <v-img height="250" :src="shop.photo">
                 <v-card-actions class="float-right">
-                  <Favorite :shop="shop" />
-                  <Visited :shop="shop" />
+                  <Favorite v-if="action ==='favorite'" :shop="shop" />
+                  <Visited  v-if="action ==='visited'" :shop="shop" />
                 </v-card-actions>
               </v-img>
               <v-card-title>
