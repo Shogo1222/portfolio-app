@@ -10,7 +10,7 @@
     >
       <!-- 店舗詳細モーダル -->
       <template v-slot:activator="{ on }">
-        <v-btn class="ma-2" color="black" rounded outlined v-on="on">
+        <v-btn class="ma-2" color="black" rounded outlined v-on="on"　style="text-transform: none">
           Details
         </v-btn>
       </template>
@@ -25,21 +25,23 @@
           <h2 class="font-weight-thin mb-4">
             {{ shop.name }}
           </h2>
-          <v-img height="400" :src="shop.photo.pc.l" />
+          <v-img height="400" :src="shop.photo" />
+          <ShopTag :shop="shop" />
+          <v-divider></v-divider>
           <v-card-text>
             <div class="my-4 subtitle-1">
               {{ shop.catch }}
             </div>
-            <div v-if="shop.budget.average && shop.budget_memo">
+            <div v-if="shop.budget && shop.budget_memo">
               <span class="grey--text">Budget: </span>
               <br />
-              <span> {{ shop.budget.average }}</span><br />
+              <span> {{ shop.budget }}</span><br />
               <span> {{ shop.budget_memo }}</span><br />
             </div>
-            <div v-if="shop.budget.capacity">
+            <div v-if="shop.capacity">
               <span class="grey--text">Capacity: </span>
               <br />
-              <span> {{ shop.budget.capacity }}</span><br />
+              <span> {{ shop.capacity }}</span><br />
             </div>
             <div v-if="shop.non_smoking">
               <span class="grey--text">Smoke: </span>
@@ -62,8 +64,8 @@
               <span>{{ shop.open }}</span>
             </div>
           </v-card-text>
-          <div :id="shop.id" style="height: 400px; width: 100%;" />
-          <CommentArea :shop-id="shop.id" />
+          <div :id="shop.shop_id" style="height: 400px; width: 100%;" />
+          <CommentArea :shop="shop" />
         </v-container>
       </v-card>
     </v-dialog>
@@ -72,9 +74,12 @@
 
 <script>
 import CommentArea from "./CommentArea.vue"
+import ShopTag from "./ShopTag.vue"
+
 export default {
   components: {
-    CommentArea
+    CommentArea,
+    ShopTag
   },
   props: {
     shop: {
@@ -84,10 +89,7 @@ export default {
   },
   data() {
     return {
-      dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false
+      dialog: false
     }
   },
   mounted: function() {
@@ -97,11 +99,14 @@ export default {
     // Google map APIで住所を取得（geoLocation後に作動）
     initMap() {
       var center = {
-        lat: this.shop.lat, // 緯度
-        lng: this.shop.lng // 経度
+        lat: parseFloat(this.shop.lat), // 緯度
+        lng: parseFloat(this.shop.lng) // 経度
       }
-      var map = new google.maps.Map(document.getElementById(this.shop.id), {
-        center: { lat: this.shop.lat, lng: this.shop.lng },
+      var map = new google.maps.Map(document.getElementById(this.shop.shop_id), {
+        center: {
+          lat: parseFloat(this.shop.lat),
+          lng: parseFloat(this.shop.lng)
+        },
         zoom: 17
       })
       var marker = new google.maps.Marker({

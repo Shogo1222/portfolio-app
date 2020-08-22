@@ -1,6 +1,9 @@
 <template>
   <!-- タグ部分 -->
   <v-container>
+    <h2 class="display-1 font-weight-thin my-5">
+      Tags
+    </h2>
     <!-- タグ一覧 -->
     <v-row align="center" justify="center">
       <div v-for="tag in tags" v-if="tags.length" :key="tag.id">
@@ -11,7 +14,7 @@
       </div>
       <div v-if="!tags.length">
         <p class="font-weight-thin pl-5 pt-5 headline">
-          Please add your tags that "describe" you!
+          Please add your tags that "describe" Bistro!
         </p>
       </div>
     </v-row>
@@ -22,7 +25,6 @@
         <template v-slot:activator="{ on, attrs }">
           <v-spacer />
           <v-btn
-            color="teal darken-4"
             class="ma-2 mt-5"
             dark
             v-bind="attrs"
@@ -38,11 +40,11 @@
             <v-row align="center" justify="center">
               <v-col cols="10">
                 <v-text-field
-                  clear-icon="close"
-                  clearable
                   v-model="newTag"
                   label="Tag"
-                  placeholder="I love sushi!"
+                  clear-icon="close"
+                  clearable
+                  placeholder="For Dating"
                 />
               </v-col>
             </v-row>
@@ -51,7 +53,7 @@
             <v-row align="center" justify="center">
               <v-col cols="10">
                 <p class="font-weight-thin subtitle-1">
-                  * Others used tags
+                  * Other bistros used tags
                 </p>
                 <div v-for="tag in recentAddedTags" :key="tag.id">
                   <v-btn
@@ -83,8 +85,8 @@ import axios from "~/plugins/axios"
 
 export default {
   props: {
-    userId: {
-      type: Number,
+    shop: {
+      type: Object,
       required: true
     }
   },
@@ -94,7 +96,8 @@ export default {
       recentAddedTags: [],
       newTag: "",
       dialog: false,
-      searchTag: ""
+      searchTag: "",
+      action: "tag"
     }
   },
   computed: {
@@ -103,20 +106,20 @@ export default {
     }
   },
   watch: {
-    userId: function() {
-      this.getTags()
-      this.getRecentAddedTags()
-    },
     newTag: function() {
       this.searchRecentAddedTags()
     }
   },
+  created: function() {
+    this.getTags()
+    this.getRecentAddedTags()
+  },
   methods: {
     getTags() {
       axios
-        .get("/v1/user_tags", {
+        .get("/v1/shop_tags", {
           params: {
-            user_id: this.userId
+            shop_id: this.shop.shop_id
           }
         })
         .then(res => {
@@ -125,9 +128,9 @@ export default {
     },
     getRecentAddedTags() {
       axios
-        .get("/v1/user_tags/recent_tag", {
+        .get("/v1/shop_tags/recent_tag", {
           params: {
-            user_id: this.userId
+            shop_id: this.shop.shop_id
           }
         })
         .then(res => {
@@ -136,9 +139,9 @@ export default {
     },
     searchRecentAddedTags() {
       axios
-        .get("/v1/user_tags/recent_tag/", {
+        .get("/v1/shop_tags/recent_tag/", {
           params: {
-            user_id: this.userId,
+            shop_id: this.shop.shop_id,
             tag: this.newTag
           }
         })
@@ -151,31 +154,64 @@ export default {
     },
     addTag() {
       axios
-        .post("/v1/user_tags", {
-          user_id: this.userId,
-          tag: this.newTag
+        .post("/v1/logged_shop", {
+          user_id: this.$store.state.id,
+          shop_id: this.shop.shop_id,
+          action_from: this.action,
+          lat: this.shop.lat,
+          lng: this.shop.lng,
+          name: this.shop.name,
+          catch: this.shop.catch,
+          capacity: this.shop.capacity,
+          photo: this.shop.photo,
+          budget: this.shop.budget,
+          budget_memo: this.shop.budget_memo,
+          mobile_access: this.shop.mobile_access,
+          open: this.shop.open,
+          non_smoking: this.shop.non_smoking,
+          address: this.shop.address
         })
-        .then(
-          function() {
-            this.getTags()
-            this.newTag = ""
-            this.dialog = false
-          }.bind(this)
-        )
+        .then(res => {
+          axios
+            .post("/v1/shop_tags", {
+              shop_id: this.shop.shop_id,
+              logged_shop_id: res.data.id,
+              tag: this.newTag
+            })
+            .then(
+              function() {
+                this.getTags()
+                this.newTag = ""
+                this.dialog = false
+              }.bind(this)
+            )
+        })
     },
     deleteTag(tag) {
       axios
-        .delete("/v1/user_tags", {
+        .delete("/v1/shop_tags", {
           params: {
-            user_id: this.userId,
+            shop_id: this.shop.shop_id,
             tag: tag
           }
         })
-        .then(
-          function() {
+        .then(res => {
+          if (res.data) {
             this.getTags()
-          }.bind(this)
-        )
+          } else {
+            axios
+              .delete("/v1/logged_shop", {
+                params: {
+                  user_id: this.$store.state.id,
+                  shop_id: this.shop.shop_id,
+                  action_from: this.action
+                }
+              })
+              .then(() => {
+                this.getTags()
+              })
+          }
+        })
     }
   }
 }

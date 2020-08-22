@@ -38,10 +38,7 @@
                     :email="email"
                     @success-update="getUser"
                   />
-                  <UserDelete
-                  :email="email"
-                  @success-update="getUser"
-                  />
+                  <UserDelete :email="email" @success-update="getUser" />
                 </div>
               </v-col>
             </v-img>
