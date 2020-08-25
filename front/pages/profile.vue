@@ -74,7 +74,7 @@
             <v-tabs-items v-model="tab">
               <v-tab-item value="tab-1">
                 <v-container>
-                  <v-list height="300px" style="overflow: auto">
+                  <v-list max-height="300px" style="overflow: auto">
                     <v-list-item
                       v-for="user in following"
                       :key="user.id"
@@ -104,7 +104,7 @@
               <v-tab-item value="tab-2">
                 <v-card flat>
                   <v-container>
-                    <v-list height="300px" style="overflow: auto">
+                    <v-list max-height="300px" style="overflow: auto">
                       <v-list-item
                         v-for="user in follower"
                         :key="user.id"
@@ -256,17 +256,17 @@ export default {
             follower_user.filter(follower => {
               follower_user_ids.push(follower.user_id)
             })
+            axios
+              .get("/v1/users", {
+                params: {
+                  ids: follower_user_ids
+                }
+              })
+              .then(res => {
+                this.follower = res.data
+                this.followerNum = this.follower.length
+              })
           }
-          axios
-            .get("/v1/users", {
-              params: {
-                ids: follower_user_ids
-              }
-            })
-            .then(res => {
-              this.follower = res.data
-              this.followerNum = this.follower.length
-            })
         })
     }
   }
