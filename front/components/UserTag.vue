@@ -2,21 +2,28 @@
   <!-- タグ部分 -->
   <v-container>
     <!-- タグ一覧 -->
-    <v-row align="center" justify="center">
-      <div v-for="tag in tags" v-if="tags.length" :key="tag.id">
-        <v-icon color="red" @click="deleteTag(tag.tag)">
+    <v-row v-if="tags.length" align="center" justify="center">
+      <div v-for="tag in tags":key="tag.id">
+        <v-icon v-if="isProfilePage" color="red" @click="deleteTag(tag.tag)">
           close
         </v-icon>
-        <v-btn outlined depressed class="ma-1"> #{{ tag.tag }} </v-btn>
+        <v-btn text class="ma-1" nuxt exact :to="{ path: `/search?search_txt=${tag.tag}&tab=tab-2`}"> #{{ tag.tag }} </v-btn>
       </div>
-      <div v-if="!tags.length">
+      </v-row>
+      <v-row align="center" justify="center">
+      <div v-if="!tags.length && isProfilePage">
         <p class="font-weight-thin pl-5 pt-5 headline">
           Please add your tags that "describe" you!
         </p>
       </div>
+      <div v-if="!tags.length && !isProfilePage">
+        <p class="font-weight-thin pl-5 pt-5 headline">
+          User don't have any Tags
+        </p>
+      </div>
     </v-row>
     <!-- タグ追加部分 -->
-    <v-row align="center" justify="center">
+    <v-row v-if="isProfilePage" align="center" justify="center">
       <v-dialog v-model="dialog" width="500">
         <!-- タグ追加ダイアログボタン部分 -->
         <template v-slot:activator="{ on, attrs }">
@@ -86,6 +93,11 @@ export default {
     userId: {
       type: Number,
       required: true
+    },
+    isProfilePage: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data() {
@@ -109,6 +121,12 @@ export default {
     },
     newTag: function() {
       this.searchRecentAddedTags()
+    }
+  },
+  created: function() {
+    if(this.userId){
+      this.getTags()
+      this.getRecentAddedTags()
     }
   },
   methods: {

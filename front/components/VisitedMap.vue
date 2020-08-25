@@ -28,10 +28,6 @@ export default {
     shops: {
       type: Array,
       required: true
-    },
-    action: {
-      type: String,
-      required: true
     }
   },
   data() {

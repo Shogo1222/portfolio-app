@@ -10,7 +10,7 @@
         <v-icon color="red" @click="deleteTag(tag.tag)">
           close
         </v-icon>
-        <v-btn outlined depressed class="ma-1"> #{{ tag.tag }} </v-btn>
+        <v-btn text class="ma-1" nuxt exact :to="{ path: `/search?search_txt=${tag.tag}&tab=tab-3`}"> #{{ tag.tag }} </v-btn>
       </div>
       <div v-if="!tags.length">
         <p class="font-weight-thin pl-5 pt-5 headline">

@@ -31,6 +31,11 @@
       <v-spacer />
       <LoginBtn v-show="!isLoggedIn" />
       <div v-if="isLoggedIn">
+        <v-btn large icon color="white" nuxt to="/search">
+          <v-icon>
+            search
+          </v-icon>
+        </v-btn>
         <v-btn large icon color="white" nuxt to="/favorites">
           <v-icon>
             favorite
