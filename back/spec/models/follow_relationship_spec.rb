@@ -33,16 +33,4 @@ RSpec.describe FollowRelationship, type: :model do
     @followRelationship.valid?
     expect(@followRelationship.errors[:following_user_id]).to include("can't be blank")
   end
-
-  it '異常テスト_nil_is_mutual_follow' do
-    @user1 = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
-    @followRelationship = FollowRelationship.new(
-      user_id: @user1.id,
-      following_user_id: @user2.id,
-      is_mutual_follow: nil
-    )
-    @followRelationship.valid?
-    expect(@followRelationship.errors[:is_mutual_follow]).to include("can't be blank")
-  end
 end

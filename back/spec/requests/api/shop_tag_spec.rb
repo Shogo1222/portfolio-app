@@ -7,12 +7,28 @@ describe 'ShopTag' do
     @status_code_ok = 200
   end
 
-  it 'ショップタグを表示・重複データを取得しない' do
+  it 'ショップタグを表示・重複データを取得しない1' do
     @user = FactoryBot.create(:user)
     @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
     @shopTag1 = FactoryBot.create(:shop_tag, shop_id: @logged_shop.shop_id, tag: 'test', logged_shop_id: @logged_shop.id)
     @shopTag2 = FactoryBot.create(:shop_tag, shop_id: @logged_shop.shop_id, tag: 'test', logged_shop_id: @logged_shop.id)
     @params = { shop_id: @logged_shop.shop_id }
+    get '/v1/shop_tags/', params: @params
+    @json = JSON.parse(response.body)
+    # responseの可否判定
+    expect(response.status).to eq(@status_code_ok)
+    # 入力したデータとの整合性判定
+    expect(@json.length).to eq(1)
+    # タグが一件だけ取得できていることを判定
+    expect(@json[0]['shop_id']).to eq(@logged_shop.shop_id)
+  end
+
+  it 'ショップタグを表示・重複データを取得しない2' do
+    @user = FactoryBot.create(:user)
+    @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
+    @shopTag1 = FactoryBot.create(:shop_tag, shop_id: @logged_shop.shop_id, tag: 'test', logged_shop_id: @logged_shop.id)
+    @shopTag2 = FactoryBot.create(:shop_tag, shop_id: @logged_shop.shop_id, tag: 'test', logged_shop_id: @logged_shop.id)
+    @params = { tag: 'test' }
     get '/v1/shop_tags/', params: @params
     @json = JSON.parse(response.body)
     # responseの可否判定

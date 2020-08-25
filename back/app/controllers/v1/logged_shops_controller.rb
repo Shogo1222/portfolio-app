@@ -1,12 +1,13 @@
 class V1::LoggedShopsController < ApplicationController
   def show
-    if params[:user_id] && params[:action_from]
-      @logged_shop = LoggedShop.where(user_id: params[:user_id], action_from: params[:action_from])
-      render json: @logged_shop.as_json
-    else
-      @logged_shop = LoggedShop.all.as_json
-      render json: @logged_shop
+    @logged_shop = if params[:user_id] && params[:action_from]
+                     LoggedShop.where(user_id: params[:user_id], action_from: params[:action_from])
+                   elsif params[:shop_ids] && params[:action_from]
+                     LoggedShop.where(shop_id: params[:shop_ids], action_from: params[:action_from])
+                   else
+                     LoggedShop.all.as_json
     end
+    render json: @logged_shop
   end
 
   def recent_shop
@@ -46,7 +47,7 @@ class V1::LoggedShopsController < ApplicationController
       else
         render json: @logged_shop.errors, status: :unprocessable_entity
       end
-  end
+    end
   end
 
   def destroy

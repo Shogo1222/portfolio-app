@@ -1,12 +1,14 @@
 class V1::UserTagsController < ApplicationController
   def show
-    if params[:user_id]
-      @user_tag = UserTag.select(:user_id, :tag).where(user_id: params[:user_id]).distinct
-      render json: @user_tag.as_json
-    else
-      @user_tag = UserTag.all.as_json
-      render json: @user_tag
+    @user_tag = if params[:user_id]
+                  UserTag.select(:user_id, :tag).where(user_id: params[:user_id]).distinct
+                elsif params[:tag]
+                  UserTag.select(:user_id, :tag).where('tag LIKE ?', "%#{params[:tag]}%").distinct
+                else
+                  UserTag.all
+
     end
+    render json: @user_tag.as_json
   end
 
   def recent_tag

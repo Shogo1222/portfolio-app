@@ -7,11 +7,26 @@ describe 'UserTag' do
     @status_code_ok = 200
   end
 
-  it 'ユーザータグを表示・重複データを取得しない' do
+  it 'ユーザータグを表示・重複データを取得しない1' do
     @user = FactoryBot.create(:user)
     @userTag1 = FactoryBot.create(:user_tag, user_id: @user.id)
     @userTag2 = FactoryBot.create(:user_tag, user_id: @user.id)
     @params = { user_id: @user.id }
+    get '/v1/user_tags/', params: @params
+    @json = JSON.parse(response.body)
+    # responseの可否判定
+    expect(response.status).to eq(@status_code_ok)
+    # 入力したデータとの整合性判定
+    expect(@json.length).to eq(1)
+    # タグが一件だけ取得できていることを判定
+    expect(@json[0]['user_id']).to eq(@user.id)
+  end
+
+  it 'ユーザータグを表示・重複データを取得しない2' do
+    @user = FactoryBot.create(:user)
+    @userTag1 = FactoryBot.create(:user_tag, user_id: @user.id, tag: 'test')
+    @userTag2 = FactoryBot.create(:user_tag, user_id: @user.id, tag: 'test')
+    @params = { tag: 'test' }
     get '/v1/user_tags/', params: @params
     @json = JSON.parse(response.body)
     # responseの可否判定
