@@ -33,28 +33,10 @@ describe 'ShopTag' do
     @json = JSON.parse(response.body)
     # responseの可否判定
     expect(response.status).to eq(@status_code_ok)
-    # 入力したデータとの整合性判定
-    expect(@json.length).to eq(1)
     # タグが一件だけ取得できていることを判定
+    expect(@json.length).to eq(1)
+    # 入力したデータとの整合性判定
     expect(@json[0]['shop_id']).to eq(@logged_shop.shop_id)
-  end
-
-  it '別のユーザーのタグを表示・重複データを取得しない' do
-    @user1 = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
-    @logged_shop1 = FactoryBot.create(:logged_shop, user_id: @user1.id, shop_id: 'test1')
-    @logged_shop2 = FactoryBot.create(:logged_shop, user_id: @user2.id, shop_id: 'test2')
-    @shopTag1 = FactoryBot.create(:shop_tag, shop_id: @logged_shop1.shop_id, tag: 'test1', logged_shop_id: @logged_shop1.id)
-    @shopTag2 = FactoryBot.create(:shop_tag, shop_id: @logged_shop2.shop_id, tag: 'test2', logged_shop_id: @logged_shop2.id)
-    @params = { shop_id: @logged_shop1.shop_id }
-    get '/v1/shop_tags/recent_tag', params: @params
-    @json = JSON.parse(response.body)
-    # responseの可否判定
-    expect(response.status).to eq(@status_code_ok)
-    # 入力したデータとの整合性判定
-    expect(@json.length).to eq(1)
-    # タグが一件だけ取得できていることを判定
-    expect(@json[0]['shop_id']).to eq(@logged_shop2.shop_id)
   end
 
   it '別のユーザーのタグを検索・重複データを取得しない' do
@@ -62,16 +44,17 @@ describe 'ShopTag' do
     @user2 = FactoryBot.create(:user)
     @logged_shop1 = FactoryBot.create(:logged_shop, user_id: @user1.id, shop_id: 'test1')
     @logged_shop2 = FactoryBot.create(:logged_shop, user_id: @user2.id, shop_id: 'test2')
-    @shopTag1 = FactoryBot.create(:shop_tag, shop_id: @logged_shop1.shop_id, tag: 'test1', logged_shop_id: @logged_shop1.id)
-    @shopTag2 = FactoryBot.create(:shop_tag, shop_id: @logged_shop2.shop_id, tag: 'test2', logged_shop_id: @logged_shop2.id)
+    @shopTag1 = FactoryBot.create(:shop_tag, shop_id: @logged_shop1.shop_id, tag: 'test', logged_shop_id: @logged_shop1.id)
+    @shopTag2 = FactoryBot.create(:shop_tag, shop_id: @logged_shop2.shop_id, tag: 'test', logged_shop_id: @logged_shop2.id)
     # あいまい条件
     @params = { shop_id: @logged_shop1.shop_id, tag: 'tes' }
     get '/v1/shop_tags/recent_tag', params: @params
     @json = JSON.parse(response.body)
     # responseの可否判定
     expect(response.status).to eq(@status_code_ok)
-    # タ�����一件���け取得で��ていることを判定
+    # タグが一件だけ取得できていることを判定
     expect(@json.length).to eq(1)
+    expect(@json[0]['tag']).to eq('test')
   end
 
   it '新しくショップタグを登録' do

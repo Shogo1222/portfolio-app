@@ -12,16 +12,14 @@ class V1::UserTagsController < ApplicationController
   end
 
   def recent_tag
-    if params[:user_id] && params[:tag]
-      @user_tag = UserTag.select(:tag).where.not(user_id: params[:user_id]).where('tag LIKE ?', "%#{params[:tag]}%").limit(5).distinct
-      render json: @user_tag.as_json
-    elsif params[:user_id]
-      @user_tag = UserTag.select(:user_id, :tag).where.not(user_id: params[:user_id]).limit(5).distinct
-      render json: @user_tag.as_json
-    else
-      @user_tag = UserTag.all.limit(5)
-      render json: @user_tag.as_json
+    @user_tag = if params[:user_id] && params[:tag]
+                  UserTag.select(:tag).where.not(user_id: params[:user_id]).where('tag LIKE ?', "%#{params[:tag]}%").limit(5).distinct
+                elsif params[:user_id]
+                  UserTag.select(:user_id, :tag).where.not(user_id: params[:user_id]).limit(5).distinct
+                else
+                  UserTag.all.limit(5)
     end
+    render json: @user_tag
    end
 
   def create

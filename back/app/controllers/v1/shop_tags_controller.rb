@@ -11,16 +11,14 @@ class V1::ShopTagsController < ApplicationController
   end
 
   def recent_tag
-    if params[:shop_id] && params[:tag]
-      @shop_tag = ShopTag.select(:tag).where.not(shop_id: params[:shop_id]).where('tag LIKE ?', "%#{params[:tag]}%").limit(5).distinct
-      render json: @shop_tag.as_json
-    elsif params[:shop_id]
-      @shop_tag = ShopTag.select(:shop_id, :tag).where.not(shop_id: params[:shop_id]).limit(5).distinct
-      render json: @shop_tag.as_json
-    else
-      @shop_tag = ShopTag.all.limit(5)
-      render json: @shop_tag.as_json
+    @shop_tag = if params[:shop_id] && params[:tag]
+                  ShopTag.select(:tag).where.not(shop_id: params[:shop_id]).where('tag LIKE ?', "%#{params[:tag]}%").limit(5).distinct
+                elsif params[:shop_id]
+                  ShopTag.select(:tag).where.not(shop_id: params[:shop_id]).limit(5).distinct
+                else
+                  ShopTag.all.limit(5)
     end
+    render json: @shop_tag
    end
 
   def create
