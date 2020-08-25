@@ -61,8 +61,10 @@ export default {
       this.getFollowRelationship()
     }
   },
-  created: function() {
-    this.getFollowRelationship()
+  mounted() {
+    this.$store.watch(() => {
+      this.getFollowRelationship()
+    })
   },
   methods: {
     getFollowRelationship() {

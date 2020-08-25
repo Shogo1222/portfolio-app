@@ -15,8 +15,7 @@ class V1::LoggedShopsController < ApplicationController
       @logged_shop = LoggedShop.where(user_id: params[:user_id], action_from: params[:action_from]).order(created_at: 'DESC').limit(3)
       render json: @logged_shop.as_json
     else
-      @logged_shop = LoggedShop.all.as_json
-      render json: @logged_shop
+      render json: []
     end
    end
 
