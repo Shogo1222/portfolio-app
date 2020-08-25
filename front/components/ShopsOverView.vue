@@ -200,7 +200,7 @@ export default {
           }
         })
         .then(res => {
-          // ユーザーがお気に入りしているショップの除去
+          // ユーザーが訪問したことがあるショップの除去
           var visitedShopIds = []
           res.data.filter(visitedShop =>
             visitedShopIds.push(visitedShop.shop_id)
