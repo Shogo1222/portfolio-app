@@ -1,12 +1,17 @@
 class V1::UsersController < ApplicationController
   def show
-    if params[:uid]
-      @user = User.find_by(uid: params[:uid]).as_json
-      render json: @user
-    else
-      @users = User.all.as_json
-      render json: @users
+    @user = if params[:uid]
+              User.find_by(uid: params[:uid])
+            elsif params[:id]
+              User.find_by(id: params[:id])
+            elsif params[:ids]
+              User.where(id: params[:ids])
+            elsif params[:name]
+              User.where('name LIKE ?', "%#{params[:name]}%").distinct
+            else
+              User.all
     end
+    render json: @user.as_json
   end
 
   def create

@@ -3,11 +3,14 @@
   <v-app v-if="shops.length">
     <v-container>
       <v-flex xs12 sm12 md12>
-        <h2 class="display-1 font-weight-thin my-5">
-          {{ description }}
-        </h2
+        <h2 v-if="!isOtherUser" class="display-1 font-weight-thin my-5">
+          Recent {{ description }}
+        </h2>
+        <h2 v-if="isOtherUser" class="display-1 font-weight-thin my-5">
+          Others {{ description }}
+        </h2>
         <v-row justify="center">
-          <VisitedMap v-if="action ==='visited'" :shops="shops" />
+          <VisitedMap v-if="action ==='visited' && !isOtherUser" :shops="shops" />
         <v-col cols="12" md="12" xl="10">
           <v-row v-if="shops.length" justify="center">
             <v-card
@@ -92,6 +95,11 @@ export default {
       description: ""
     }
   },
+  computed: {
+    isOtherUser() {
+      return this.$store.state.id !== this.userId
+    }
+  },
   watch: {
     userId: function() {
       this.getShops()
@@ -103,13 +111,13 @@ export default {
   mounted: function() {
     switch (this.action) {
       case "favorite":
-        this.description = "Recent Favorite Bistros"
+        this.description = "Favorite Bistros"
         break
       case "visited":
-        this.description = "Recent Visited Bistros"
+        this.description = "Visited Bistros"
         break
       case "comment":
-        this.description = "Recent Commented Bistros"
+        this.description = "Commented Bistros"
         break
       default:
     }

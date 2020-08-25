@@ -60,6 +60,14 @@
                 </v-list-item>
               </v-card>
             </v-row>
+            <!-- フォロワーレコメンド -->
+            <v-row justify="center">
+              <ShopsOverView
+                v-if="followerId"
+                :user-id="followerId"
+                :action="action"
+              />
+            </v-row>
           </v-col>
         </v-row>
       </v-flex>
@@ -72,13 +80,15 @@ import axios from "~/plugins/axios"
 import ShopDetailsDialog from "../components/ShopDetailsDialog.vue"
 import Favorite from "../components/Favorite.vue"
 import Visited from "../components/Visited.vue"
+import ShopsOverView from "~/components/ShopsOverView"
 
 export default {
   middleware: "authenticated",
   components: {
     ShopDetailsDialog,
     Favorite,
-    Visited
+    Visited,
+    ShopsOverView
   },
   filters: {
     truncate: function(value, length) {
@@ -92,11 +102,13 @@ export default {
   data() {
     return {
       shops: [],
-      action: "visited"
+      action: "visited",
+      followerId: null
     }
   },
   created: function() {
     this.getShops()
+    this.getFollower()
   },
   methods: {
     getShops() {
@@ -109,6 +121,20 @@ export default {
         })
         .then(res => {
           this.shops = res.data
+        })
+    },
+    // フォロワーを一件選んでレコメンドを表示する
+    getFollower() {
+      axios
+        .get("/v1/follow_relationship", {
+          params: {
+            user_id: this.$store.state.id
+          }
+        })
+        .then(res => {
+          if (res.data) {
+            this.followerId = res.data.following_user_id
+          }
         })
     }
   }

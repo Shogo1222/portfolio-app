@@ -1,25 +1,24 @@
 class V1::ShopTagsController < ApplicationController
   def show
-    if params[:shop_id]
-      @shop_tag = ShopTag.select(:shop_id, :tag).where(shop_id: params[:shop_id]).distinct
-      render json: @shop_tag.as_json
-    else
-      @shop_tag = ShopTag.all.as_json
-      render json: @shop_tag
+    @shop_tag = if params[:shop_id]
+                  ShopTag.select(:shop_id, :tag).where(shop_id: params[:shop_id]).distinct
+                elsif params[:tag]
+                  ShopTag.select(:shop_id, :tag).where('tag LIKE ?', "%#{params[:tag]}%").distinct
+                else
+                  ShopTag.all
     end
+    render json: @shop_tag
   end
 
   def recent_tag
-    if params[:shop_id] && params[:tag]
-      @shop_tag = ShopTag.select(:tag).where.not(shop_id: params[:shop_id]).where('tag LIKE ?', "%#{params[:tag]}%").limit(5).distinct
-      render json: @shop_tag.as_json
-    elsif params[:shop_id]
-      @shop_tag = ShopTag.select(:shop_id, :tag).where.not(shop_id: params[:shop_id]).limit(5).distinct
-      render json: @shop_tag.as_json
-    else
-      @shop_tag = ShopTag.all.limit(5)
-      render json: @shop_tag.as_json
+    @shop_tag = if params[:shop_id] && params[:tag]
+                  ShopTag.select(:tag).where.not(shop_id: params[:shop_id]).where('tag LIKE ?', "%#{params[:tag]}%").limit(5).distinct
+                elsif params[:shop_id]
+                  ShopTag.select(:tag).where.not(shop_id: params[:shop_id]).limit(5).distinct
+                else
+                  ShopTag.all.limit(5)
     end
+    render json: @shop_tag
    end
 
   def create

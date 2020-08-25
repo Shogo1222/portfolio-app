@@ -21,13 +21,12 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
           <v-card-text>
-            <v-icon>person</v-icon>
-            {{ postedComment.user_name }}
+            <UserDetailsDialog :user-id="postedComment.user_id" />
           </v-card-text>
           <v-container v-if="postedComment.image.url" fluid>
             <CommentImageArea :url="postedComment.image.url" />
           </v-container>
-          <v-card-text class="font-weight-medium">
+          <v-card-text class="font-weight-medium ml-3">
             {{ postedComment.comment }}
           </v-card-text>
           <CommentFavorite
@@ -74,11 +73,17 @@
 import axios from "~/plugins/axios"
 import CommentImageArea from "./CommentImageArea"
 import CommentFavorite from "./CommentFavorite"
+import Follow from "./Follow"
+import Avatar from "./Avatar"
+import UserDetailsDialog from "./UserDetailsDialog"
 
 export default {
   components: {
     CommentImageArea,
-    CommentFavorite
+    CommentFavorite,
+    Follow,
+    Avatar,
+    UserDetailsDialog
   },
   props: {
     shop: {
@@ -94,7 +99,8 @@ export default {
       imageName: "",
       imageUrl: "",
       imageFile: "",
-      action: "comment"
+      action: "comment",
+      isFollow: false
     }
   },
   computed: {
