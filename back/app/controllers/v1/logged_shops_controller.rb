@@ -12,11 +12,10 @@ class V1::LoggedShopsController < ApplicationController
 
   def recent_shop
     if params[:user_id] && params[:action_from]
-      @logged_shop = LoggedShop.where(user_id: params[:user_id], action_from: params[:action_from]).order(created_at: 'DESC').limit(3)
+      @logged_shop = LoggedShop.where(user_id: params[:user_id], action_from: params[:action_from]).order(created_at: 'DESC').limit(6)
       render json: @logged_shop.as_json
     else
-      @logged_shop = LoggedShop.all.as_json
-      render json: @logged_shop
+      render json: []
     end
    end
 

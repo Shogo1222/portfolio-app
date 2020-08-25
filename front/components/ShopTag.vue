@@ -10,7 +10,15 @@
         <v-icon color="red" @click="deleteTag(tag.tag)">
           close
         </v-icon>
-        <v-btn text class="ma-1" nuxt exact :to="{ path: `/search?search_txt=${tag.tag}&tab=tab-3`}"> #{{ tag.tag }} </v-btn>
+        <v-btn
+          text
+          class="ma-1"
+          nuxt
+          exact
+          :to="{ path: `/search?search_txt=${tag.tag}&tab=tab-3` }"
+        >
+          #{{ tag.tag }}
+        </v-btn>
       </div>
       <div v-if="!tags.length">
         <p class="font-weight-thin pl-5 pt-5 headline">
@@ -24,12 +32,7 @@
         <!-- タグ追加ダイアログボタン部分 -->
         <template v-slot:activator="{ on, attrs }">
           <v-spacer />
-          <v-btn
-            class="ma-2 mt-5"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-btn class="ma-2 mt-5" dark v-bind="attrs" v-on="on">
             ADD TAG
           </v-btn>
         </template>
@@ -110,9 +113,11 @@ export default {
       this.searchRecentAddedTags()
     }
   },
-  created: function() {
-    this.getTags()
-    this.getRecentAddedTags()
+  mounted() {
+    this.$store.watch(() => {
+      this.getTags()
+      this.getRecentAddedTags()
+    })
   },
   methods: {
     getTags() {

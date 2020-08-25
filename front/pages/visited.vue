@@ -63,8 +63,8 @@
             <!-- フォロワーレコメンド -->
             <v-row justify="center">
               <ShopsOverView
-                v-if="followerId"
-                :user-id="followerId"
+                v-if="followerIds"
+                :user-ids="followerIds"
                 :action="action"
               />
             </v-row>
@@ -103,12 +103,14 @@ export default {
     return {
       shops: [],
       action: "visited",
-      followerId: null
+      followerIds: []
     }
   },
-  created: function() {
-    this.getShops()
-    this.getFollower()
+  mounted() {
+    this.$store.watch(() => {
+      this.getShops()
+      this.getFollower()
+    })
   },
   methods: {
     getShops() {
@@ -133,7 +135,9 @@ export default {
         })
         .then(res => {
           if (res.data) {
-            this.followerId = res.data.following_user_id
+            res.data.forEach(follow => {
+              this.followerIds.push(follow.following_user_id)
+            })
           }
         })
     }

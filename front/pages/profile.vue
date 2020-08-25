@@ -183,18 +183,12 @@ export default {
       followingNum: 0
     }
   },
-  created() {
-    if (!this.$store.state.uid) {
-      setTimeout(() => {
-        this.getUser()
-        this.getFollower()
-        this.getFollowing()
-      }, 1000)
-    } else {
+  mounted() {
+    this.$store.watch(() => {
       this.getUser()
       this.getFollower()
       this.getFollowing()
-    }
+    })
   },
   methods: {
     getUser() {
