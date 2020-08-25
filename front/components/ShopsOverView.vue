@@ -90,7 +90,7 @@ export default {
     userIds: {
       type: Array,
       required: false,
-      default: new Array()
+      default: () => {}
     },
     action: {
       type: String,
@@ -135,7 +135,6 @@ export default {
   },
   methods: {
     getShops() {
-      console.log(this.userIds)
       axios
         .get("/v1/logged_shop/recent_shop/", {
           params: {
@@ -144,7 +143,72 @@ export default {
           }
         })
         .then(res => {
-          this.shops = res.data
+          // プロフィール画面ではそのまま返す
+          if (this.$store.state.id === this.userId) {
+            this.shops = res.data
+            return
+          } else {
+            // お気に入り・訪問したお店ページでは同shop_idと
+            // お気に入り・訪問したお店を除外する。
+            var shopIds = []
+            var excludeDuplicateShops = []
+
+            // shop_idの重複を除去
+            res.data.filter(shop => {
+              if (shopIds.indexOf(shop.shop_id) === -1) {
+                excludeDuplicateShops.push(shop)
+                shopIds.push(shop.shop_id)
+              }
+            })
+            switch (this.action) {
+              case "favorite":
+                this.excludeFavorite(shopIds, excludeDuplicateShops)
+                break
+              case "visited":
+                this.excludeVisited(shopIds, excludeDuplicateShops)
+                break
+              default:
+                break
+            }
+          }
+        })
+    },
+    excludeFavorite(shopIds, excludeDuplicateShops) {
+      axios
+        .get("/v1/favorite", {
+          params: {
+            user_id: this.$store.state.id,
+            shop_id: shopIds
+          }
+        })
+        .then(res => {
+          // ユーザーがお気に入りしているショップの除去
+          var favoriteShopIds = []
+          res.data.filter(favorite => favoriteShopIds.push(favorite.shop_id))
+          var excludeFavoriteShops = excludeDuplicateShops.filter(
+            shop => favoriteShopIds.indexOf(shop.shop_id) == -1
+          )
+          this.shops = excludeFavoriteShops
+        })
+    },
+    excludeVisited(shopIds, excludeDuplicateShops) {
+      axios
+        .get("/v1/visited_shop", {
+          params: {
+            user_id: this.$store.state.id,
+            shop_id: shopIds
+          }
+        })
+        .then(res => {
+          // ユーザーがお気に入りしているショップの除去
+          var visitedShopIds = []
+          res.data.filter(visitedShop =>
+            visitedShopIds.push(visitedShop.shop_id)
+          )
+          var excludeVisitedShops = excludeDuplicateShops.filter(
+            shop => visitedShopIds.indexOf(shop.shop_id) == -1
+          )
+          this.shops = excludeVisitedShops
         })
     }
   }
