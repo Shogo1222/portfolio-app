@@ -1,12 +1,26 @@
 <template>
   <!-- お気に入りボタン -->
   <div v-if="isLoggedIn">
-    <v-btn v-if="!is_favorite" class="mt-2" large icon color="white" @click="favorite()">
+    <v-btn
+      v-if="!is_favorite"
+      class="mt-2"
+      large
+      icon
+      color="white"
+      @click="favorite()"
+    >
       <v-icon>
         favorite
       </v-icon>
     </v-btn>
-    <v-btn v-if="is_favorite" class="mt-2" large icon color="pink" @click="favoriteDestroy()">
+    <v-btn
+      v-if="is_favorite"
+      class="mt-2"
+      large
+      icon
+      color="pink"
+      @click="favoriteDestroy()"
+    >
       <v-icon>
         favorite
       </v-icon>
@@ -37,11 +51,6 @@ export default {
   },
   created: function() {
     this.getFavorite()
-  },
-  mounted() {
-    this.$store.watch(() => {
-      this.getFavorite()
-    })
   },
   methods: {
     getFavorite() {

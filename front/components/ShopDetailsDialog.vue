@@ -10,7 +10,7 @@
     >
       <!-- 店舗詳細モーダル -->
       <template v-slot:activator="{ on }">
-        <v-btn class="ma-2" color="black" rounded outlined v-on="on"　style="text-transform: none">
+        <v-btn class="ma-2" color="black" rounded outlined v-on="on" style="text-transform: none">
           Details
         </v-btn>
       </template>
@@ -22,10 +22,13 @@
           </v-btn>
         </v-toolbar>
         <v-container>
-          <h2 class="font-weight-thin mb-4">
-            {{ shop.name }}
-          </h2>
+          <v-row class="mb-4">
+            <h2 class="font-weight-thin mt-2 ml-2">
+              {{ shop.name }}
+            </h2>
+        </v-row>
           <v-img height="400" :src="shop.photo" />
+          <InviteArea :shop="shop" :is-show="dialog" />
           <ShopTag :shop="shop" />
           <v-divider></v-divider>
           <v-card-text>
@@ -75,11 +78,13 @@
 <script>
 import CommentArea from "./CommentArea.vue"
 import ShopTag from "./ShopTag.vue"
+import InviteArea from "./InviteArea.vue"
 
 export default {
   components: {
     CommentArea,
-    ShopTag
+    ShopTag,
+    InviteArea
   },
   props: {
     shop: {

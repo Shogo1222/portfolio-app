@@ -62,9 +62,7 @@ export default {
     this.getFavorite()
   },
   mounted() {
-    this.$store.watch(() => {
-      this.getFavorite()
-    })
+    this.getFavorite()
   },
   methods: {
     getFavorite() {

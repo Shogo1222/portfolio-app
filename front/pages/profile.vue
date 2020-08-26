@@ -36,9 +36,9 @@
                   <UserEdit
                     :name="name"
                     :email="email"
-                    @success-update="getUser"
+                    @success-update="getProfileUser"
                   />
-                  <UserDelete :email="email" @success-update="getUser" />
+                  <UserDelete :email="email" @success-update="getProfileUser" />
                 </div>
               </v-col>
             </v-img>
@@ -151,6 +151,7 @@ import ShopsOverView from "~/components/ShopsOverView"
 import UserDetailsDialogList from "../components/UserDetailsDialogList"
 
 export default {
+  middleware: "authenticated",
   components: {
     UserEdit,
     UserDelete,
@@ -160,6 +161,9 @@ export default {
   },
   filters: {
     truncate: function(value, length) {
+      if (!value) {
+        return ""
+      }
       var ommision = "..."
       if (value.length <= length) {
         return value
@@ -184,14 +188,23 @@ export default {
     }
   },
   mounted() {
-    this.$store.watch(() => {
-      this.getUser()
-      this.getFollower()
-      this.getFollowing()
-    })
+    this.getProfileUser()
+    this.getFollower()
+    this.getFollowing()
+    this.updateNotifications()
   },
   methods: {
-    getUser() {
+    updateNotifications() {
+      axios
+        .patch("/v1/notification", {
+          user_id: this.$store.state.id,
+          action_from: "follow"
+        })
+        .then(() => {
+          this.$store.commit("setfollowNotice", false)
+        })
+    },
+    getProfileUser() {
       axios
         .get("/v1/users", {
           params: {

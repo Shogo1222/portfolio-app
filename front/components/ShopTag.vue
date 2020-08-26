@@ -1,6 +1,6 @@
 <template>
   <!-- タグ部分 -->
-  <v-container>
+  <v-container v-if="isLoggedIn">
     <h2 class="display-1 font-weight-thin my-5">
       Tags
     </h2>
@@ -114,10 +114,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.watch(() => {
-      this.getTags()
-      this.getRecentAddedTags()
-    })
+    this.getTags()
+    this.getRecentAddedTags()
   },
   methods: {
     getTags() {

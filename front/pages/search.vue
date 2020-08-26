@@ -54,7 +54,6 @@
 
               <!-- タブアイテム -->
               <v-tabs-items v-model="tab">
-
                 <!-- ユーザー検索タブ -->
                 <v-tab-item value="tab-1">
                   <v-container>
@@ -200,6 +199,7 @@ import Visited from "../components/Visited.vue"
 import UserDetailsDialogList from "../components/UserDetailsDialogList"
 
 export default {
+  middleware: "authenticated",
   components: {
     ShopDetailsDialog,
     Favorite,
@@ -208,6 +208,9 @@ export default {
   },
   filters: {
     truncate: function(value, length) {
+      if (!value) {
+        return ""
+      }
       var ommision = "..."
       if (value.length <= length) {
         return value
