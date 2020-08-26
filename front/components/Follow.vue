@@ -62,9 +62,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.watch(() => {
-      this.getFollowRelationship()
-    })
+    this.getFollowRelationship()
   },
   methods: {
     getFollowRelationship() {
@@ -92,9 +90,17 @@ export default {
           following_user_id: userId,
           user_id: this.$store.state.id
         })
-        .then(() => {
-          this.isFollow = true
-          this.getFollowRelationship()
+        .then(res => {
+          axios
+            .post("/v1/notification", {
+              user_id: res.data.following_user_id,
+              action_from: "follow",
+              follow_relationship_id: res.data.id
+            })
+            .then(() => {
+              this.isFollow = true
+              this.getFollowRelationship()
+            })
         })
     },
     unfollow(userId) {

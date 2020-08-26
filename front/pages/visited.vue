@@ -92,6 +92,9 @@ export default {
   },
   filters: {
     truncate: function(value, length) {
+      if (!value) {
+        return ""
+      }
       var ommision = "..."
       if (value.length <= length) {
         return value
@@ -107,10 +110,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.watch(() => {
-      this.getShops()
-      this.getFollower()
-    })
+    this.getShops()
+    this.getFollower()
   },
   methods: {
     getShops() {

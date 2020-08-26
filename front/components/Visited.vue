@@ -1,12 +1,26 @@
 <template>
   <!-- 直近訪問したお店ボタン -->
   <div v-if="isLoggedIn">
-    <v-btn v-if="!is_visited" class="mt-2" large icon color="white" @click="visited()">
+    <v-btn
+      v-if="!is_visited"
+      class="mt-2"
+      large
+      icon
+      color="white"
+      @click="visited()"
+    >
       <v-icon>
         check_circle_outline
       </v-icon>
     </v-btn>
-    <v-btn v-if="is_visited" class="mt-2" large icon color="primary" @click="visitedDestroy()">
+    <v-btn
+      v-if="is_visited"
+      class="mt-2"
+      large
+      icon
+      color="primary"
+      @click="visitedDestroy()"
+    >
       <v-icon>
         check_circle
       </v-icon>
@@ -16,7 +30,6 @@
 
 <script>
 import axios from "~/plugins/axios"
-
 export default {
   props: {
     shop: {
@@ -39,9 +52,7 @@ export default {
     this.getVisited()
   },
   mounted() {
-    this.$store.watch(() => {
-      this.getVisited()
-    })
+    this.getVisited()
   },
   methods: {
     getVisited() {

@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     resource :visited_shop
     resource :comment
     resource :comment_favorite
-
+    resource :invitation
+    resource :notification
     resource :logged_shop do
       member do
         get 'recent_shop'

@@ -41,14 +41,22 @@
             favorite
           </v-icon>
         </v-btn>
-        <v-btn large icon color="white" nuxt to="/visited">
-          <v-icon>
-            check_circle_outline
-          </v-icon>
-        </v-btn>
+        <v-badge dot color="red" overlap offset-y="13" :value="inviteNotice">
+          <v-btn large icon color="white" nuxt to="/invitation">
+            <v-icon>
+              mail
+            </v-icon>
+          </v-btn>
+        </v-badge>
       </div>
       <SignupBtn />
-      <v-btn v-if="isLoggedIn" large icon color="white" @click.stop="rightDrawer = !rightDrawer">
+      <v-btn
+        v-if="isLoggedIn"
+        large
+        icon
+        color="white"
+        @click.stop="rightDrawer = !rightDrawer"
+      >
         <v-icon>
           menu
         </v-icon>
@@ -73,7 +81,9 @@
         <!-- 右リスト内プロフィール（ログイン時のみ表示） -->
         <v-list-item v-if="isLoggedIn" nuxt to="/profile">
           <v-list-item-action>
-            <v-icon>person</v-icon>
+            <v-badge dot color="red" overlap offset-x="1" :value="followNotice">
+              <v-icon>person</v-icon>
+            </v-badge>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Profile</v-list-item-title>
@@ -97,7 +107,16 @@
             <v-list-item-title>Visited Bistros</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider></v-divider>
+        <!-- 右リスト内インビテーションリスト（ログイン時のみ表示） -->
+        <v-list-item v-if="isLoggedIn" nuxt to="/invitation">
+          <v-list-item-action>
+            <v-icon>mail</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Invitation</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
         <!-- 右リスト内ログアウトボタン（ログイン時のみ表示） -->
         <v-list-item v-if="isLoggedIn" @click="logout">
           <v-list-item-action>
@@ -124,6 +143,8 @@
 </template>
 
 <script>
+import axios from "~/plugins/axios"
+
 import firebase from "@/plugins/firebase"
 import LoginBtn from "../components/LoginBtn"
 import SignupBtn from "../components/SignupBtn"
@@ -141,7 +162,8 @@ export default {
     return {
       fixed: false,
       rightDrawer: false,
-      title: ""
+      followNotice: false,
+      inviteNotice: false
     }
   },
   computed: {
@@ -150,9 +172,59 @@ export default {
     },
     userName() {
       return this.$store.state.name
+    },
+    getFollowNotification() {
+      return this.$store.state.followNotification
+    },
+    getInviteNotification() {
+      return this.$store.state.inviteNotification
     }
   },
+  watch: {
+    getFollowNotification() {
+      this.getNotice()
+    },
+    getInviteNotification() {
+      this.getNotice()
+    },
+    isLoggedIn() {
+      this.getNotice()
+    }
+  },
+  mounted() {
+    this.getNotice()
+  },
   methods: {
+    getNotice() {
+      axios
+        .get("/v1/notification", {
+          params: {
+            user_id: this.$store.state.id
+          }
+        })
+        .then(res => {
+          if (!res.data.length) {
+            this.followNotice = false
+            this.inviteNotice = false
+          } else {
+            this.followNotice = false
+            this.inviteNotice = false
+            res.data.filter(notice => {
+              switch (notice.action_from) {
+                case "follow":
+                  this.followNotice = true
+                  this.$store.commit("setfollowNotice", true)
+                  break
+                case "invite":
+                  this.inviteNotice = true
+                  this.$store.commit("setinviteNotice", true)
+                  break
+                default:
+              }
+            })
+          }
+        })
+    },
     logout() {
       firebase
         .auth()

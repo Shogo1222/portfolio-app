@@ -14,7 +14,9 @@ const store = () => {
       notification: {
         status: false,
         message: ""
-      }
+      },
+      followNotification: false,
+      inviteNotification: false
     },
     mutations: {
       // ログイン状態
@@ -38,6 +40,14 @@ const store = () => {
       // Success表示
       setNotice(state, payload) {
         state.notification = payload
+      },
+      // follow通知
+      setfollowNotice(state, status) {
+        state.followNotification = status
+      },
+      // invitation通知
+      setinviteNotice(state, status) {
+        state.inviteNotification = status
       }
     }
   })
