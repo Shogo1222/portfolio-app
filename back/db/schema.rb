@@ -55,6 +55,18 @@ ActiveRecord::Schema.define(version: 202008150430225) do
     t.index ["user_id"], name: "index_follow_relationships_on_user_id"
   end
 
+  create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "to_user_id", null: false
+    t.string "shop_id", null: false
+    t.bigint "logged_shop_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["logged_shop_id"], name: "index_invitations_on_logged_shop_id"
+    t.index ["to_user_id"], name: "index_invitations_on_to_user_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
   create_table "logged_shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "action_from", null: false
@@ -85,6 +97,17 @@ ActiveRecord::Schema.define(version: 202008150430225) do
     t.datetime "updated_at", null: false
     t.index ["to_user_id"], name: "index_messages_on_to_user_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "is_opened", default: false
+    t.string "action_from", null: false
+    t.bigint "follow_relationship_id", default: 0
+    t.bigint "invitation_id", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "shop_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -131,9 +154,13 @@ ActiveRecord::Schema.define(version: 202008150430225) do
   add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "follow_relationships", "users", column: "following_user_id", on_delete: :cascade
   add_foreign_key "follow_relationships", "users", on_delete: :cascade
+  add_foreign_key "invitations", "logged_shops", on_delete: :cascade
+  add_foreign_key "invitations", "users", column: "to_user_id", on_delete: :cascade
+  add_foreign_key "invitations", "users", on_delete: :cascade
   add_foreign_key "logged_shops", "users", on_delete: :cascade
   add_foreign_key "messages", "users", column: "to_user_id", on_delete: :cascade
   add_foreign_key "messages", "users", on_delete: :cascade
+  add_foreign_key "notifications", "users", on_delete: :cascade
   add_foreign_key "shop_tags", "logged_shops", on_delete: :cascade
   add_foreign_key "user_tags", "users", on_delete: :cascade
   add_foreign_key "visited_shops", "logged_shops", on_delete: :cascade

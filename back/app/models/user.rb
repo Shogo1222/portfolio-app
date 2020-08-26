@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   has_many :favorites, foreign_key: :user_id, dependent: :destroy
 
-  has_many :messages, foreign_key: :user_id, dependent: :destroy
-  has_many :messages, foreign_key: :to_user_id, dependent: :destroy
+  has_many :invitations, foreign_key: :user_id, dependent: :destroy
+  has_many :invitations, foreign_key: :to_user_id, dependent: :destroy
 
   has_many :follow_relationships, foreign_key: :user_id, dependent: :destroy
   has_many :follow_relationships, foreign_key: :following_user_id, dependent: :destroy
