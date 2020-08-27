@@ -87,7 +87,7 @@
 # Architecture
 ![インフラ構成](https://user-images.githubusercontent.com/35006561/90375824-703af780-e0b0-11ea-8d43-7edfb322e6c1.png)
 
-# ER
+# ER diagram
 ![er](https://user-images.githubusercontent.com/35006561/91324326-e6500480-e7fc-11ea-9703-1f5725650c3c.png)
 
 
