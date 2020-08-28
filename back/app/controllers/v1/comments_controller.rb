@@ -1,9 +1,12 @@
 class V1:: CommentsController < ApplicationController
   def show
     @comments = if params[:shop_id]
-                  Comment.where(shop_id: params[:shop_id])
+                  Comment
+                    .select('comments.*, logged_shops.shop_id')
+                    .joins('JOIN logged_shops ON logged_shops.id = comments.logged_shop_id')
+                    .where(logged_shops: { shop_id: params[:shop_id] })
                 else
-                  Comment.all
+                  []
                 end
     render json: @comments
   end
@@ -11,9 +14,7 @@ class V1:: CommentsController < ApplicationController
   def create
     @comment = Comment.new(
       user_id: params[:user_id],
-      user_name: params[:user_name],
       logged_shop_id: params[:logged_shop_id],
-      shop_id: params[:shop_id],
       comment: params[:comment],
       image: params[:image]
     )
@@ -28,7 +29,9 @@ class V1:: CommentsController < ApplicationController
     if params[:id] && params[:shop_id] && params[:user_id]
       @comment = Comment.find(params[:id])
       @comment.delete
-      @exist_comment = Comment.where(shop_id: params[:shop_id], user_id: params[:user_id])
+      @exist_comment = Comment
+                       .joins('JOIN logged_shops ON logged_shops.id = comments.logged_shop_id')
+                       .where(logged_shops: { shop_id: params[:shop_id] }, user_id: params[:user_id])
       render json: @exist_comment, status: :ok
     else
       render json: { status: 'NOT_FOUND', message: 'can not delete comment' }

@@ -10,9 +10,9 @@ class V1::InvitationsController < ApplicationController
                           'invitations.user_id',
                           'invitations.to_user_id',
                           'invitations.id AS invitation_id',
-                          'invitations.shop_id',
                           'invitations.created_at AS invitation_created_at',
                           'logged_shops.name AS shop_name',
+                          'logged_shops.shop_id',
                           'logged_shops.catch AS catch_copy',
                           'logged_shops.lat',
                           'logged_shops.lng',
@@ -37,8 +37,7 @@ class V1::InvitationsController < ApplicationController
     @invitation = Invitation.create(
       user_id: params[:user_id],
       to_user_id: params[:to_user_id],
-      logged_shop_id: params[:logged_shop_id],
-      shop_id: params[:shop_id]
+      logged_shop_id: params[:logged_shop_id]
     )
     if @invitation.save
       render json: @invitation, status: :created

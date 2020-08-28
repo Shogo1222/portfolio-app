@@ -94,8 +94,7 @@ export default {
           axios
             .post("/v1/visited_shop", {
               user_id: this.$store.state.id,
-              logged_shop_id: res.data.id,
-              shop_id: this.shop.shop_id
+              logged_shop_id: res.data.id
             })
             .then(() => {
               this.is_visited = true

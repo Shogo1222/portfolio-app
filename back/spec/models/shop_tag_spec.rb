@@ -6,7 +6,6 @@ RSpec.describe ShopTag, type: :model do
     @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
     @shopTag = ShopTag.new(
       logged_shop_id: @logged_shop.id,
-      shop_id: 'test',
       tag: 'test'
     )
     expect(@shopTag).to be_valid
@@ -15,23 +14,10 @@ RSpec.describe ShopTag, type: :model do
   it '異常テスト_nil_logged_shop_id' do
     @shopTag = ShopTag.new(
       logged_shop_id: nil,
-      shop_id: 'test',
       tag: 'test'
     )
     @shopTag.valid?
     expect(@shopTag.errors[:logged_shop_id]).to include("can't be blank")
-  end
-
-  it '異常テスト_nil_shop_id' do
-    @user = FactoryBot.create(:user)
-    @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
-    @shopTag = ShopTag.new(
-      logged_shop_id: @logged_shop.id,
-      shop_id: nil,
-      tag: 'test'
-    )
-    @shopTag.valid?
-    expect(@shopTag.errors[:shop_id]).to include("can't be blank")
   end
 
   it '異常テスト_nil_tag' do
@@ -39,7 +25,6 @@ RSpec.describe ShopTag, type: :model do
     @logged_shop = FactoryBot.create(:logged_shop, user_id: @user.id)
     @shopTag = ShopTag.new(
       logged_shop_id: @logged_shop.id,
-      shop_id: 'test',
       tag: nil
     )
     @shopTag.valid?

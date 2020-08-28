@@ -67,7 +67,7 @@ export default {
   methods: {
     getFavorite() {
       axios
-        .get("/v1/comment_favorite?comment_id=" + this.commentId)
+        .get("/v1/comment_favorite", { params: { comment_id: this.commentId } })
         .then(res => {
           if (!res.data.length) {
             this.is_favorite = false
@@ -89,7 +89,6 @@ export default {
       axios
         .post("/v1/comment_favorite", {
           user_id: this.$store.state.id,
-          shop_id: this.shopId,
           comment_id: this.commentId
         })
         .then(() => {
@@ -98,13 +97,12 @@ export default {
     },
     favoriteDestroy() {
       axios
-        .delete(
-          "/v1/comment_favorite?user_id=" +
-            this.$store.state.id +
-            "&comment_id=" +
-            this.commentId +
-            ""
-        )
+        .delete("/v1/comment_favorite", {
+          params: {
+            user_id: this.$store.state.id,
+            comment_id: this.commentId
+          }
+        })
         .then(() => {
           this.is_favorite = false
           this.getFavorite()

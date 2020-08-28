@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'application#index'
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   namespace :v1 do
     resource :users
     resource :favorite

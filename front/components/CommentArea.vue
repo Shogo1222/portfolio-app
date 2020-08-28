@@ -73,16 +73,12 @@
 import axios from "~/plugins/axios"
 import CommentImageArea from "./CommentImageArea"
 import CommentFavorite from "./CommentFavorite"
-import Follow from "./Follow"
-import Avatar from "./Avatar"
 import UserDetailsDialog from "./UserDetailsDialog"
 
 export default {
   components: {
     CommentImageArea,
     CommentFavorite,
-    Follow,
-    Avatar,
     UserDetailsDialog
   },
   props: {
@@ -178,9 +174,7 @@ export default {
         .then(res => {
           let formData = new FormData()
           formData.append("user_id", this.$store.state.id)
-          formData.append("user_name", this.$store.state.name)
           formData.append("logged_shop_id", res.data.id)
-          formData.append("shop_id", this.shop.shop_id)
           formData.append("comment", this.comment)
           formData.append("image", this.imageFile)
           axios
@@ -206,9 +200,9 @@ export default {
       axios
         .delete("/v1/comment", {
           params: {
+            id: id,
             user_id: this.$store.state.id,
-            shop_id: this.shop.shop_id,
-            id: id
+            shop_id: this.shop.shop_id
           }
         })
         .then(res => {
