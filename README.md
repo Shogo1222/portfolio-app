@@ -71,18 +71,18 @@
 ![インビテーション画面](https://user-images.githubusercontent.com/35006561/91412740-2d81d800-e885-11ea-970a-71608ebb4fb4.gif)
 
 - 管理画面機能
- - DBの閲覧・操作が可能です。各テーブルで可能な機能は下記記載。
- - Users View/Edit/Destroy
- - UserTags View/Edit/Destroy/Create
- - Notifications View/Edit
- - Comments View/Edit/Destroy
- - CommentFavorite View
- - Favorites View
- - VisitedShops View
- - FollowRelationships View
- - Invitations View/Destroy
- - ShopTags View/Edit/Destroy/Create
- - LoggedShops View/Edit/Destroy
+  - DBの閲覧・操作が可能です。各テーブルで可能な機能は下記記載。
+  - Users: View/Edit/Destroy
+  - UserTags: View/Edit/Destroy/Create
+  - Notifications: View/Edit
+  - Comments: View/Edit/Destroy
+  - CommentFavorite: View
+  - Favorites: View
+  - VisitedShops: View
+  - FollowRelationships: View
+  - Invitations: View/Destroy
+  - ShopTags: View/Edit/Destroy/Create
+  - LoggedShops: View/Edit/Destroy
 
 # Selling points
 
