@@ -83,6 +83,8 @@
   - Invitations: View/Destroy
   - ShopTags: View/Edit/Destroy/Create
   - LoggedShops: View/Edit/Destroy
+  <img width="1432" alt="スクリーンショット 2020-08-28 21 12 36" src="https://user-images.githubusercontent.com/35006561/91559555-4799e400-e973-11ea-8539-1aac09731b0f.png">
+
 
 # Selling points
 
@@ -101,7 +103,7 @@
 ![インフラ構成](https://user-images.githubusercontent.com/35006561/90375824-703af780-e0b0-11ea-8d43-7edfb322e6c1.png)
 
 # ER diagram
-![er](https://user-images.githubusercontent.com/35006561/91324326-e6500480-e7fc-11ea-9703-1f5725650c3c.png)
+![ER図](https://user-images.githubusercontent.com/35006561/91559649-6f894780-e973-11ea-8736-4200df5a4887.png)
 
 
 # Technology used
