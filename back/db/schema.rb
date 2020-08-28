@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 202008150430227) do
+ActiveRecord::Schema.define(version: 202008150430225) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 202008150430227) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "comment", null: false
     t.string "image"
+    t.bigint "user_id", null: false
     t.bigint "logged_shop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 202008150430227) do
   end
 
   create_table "follow_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.boolean "is_mutual_follow", null: false
     t.bigint "user_id", null: false
     t.bigint "following_user_id", null: false
-    t.boolean "is_mutual_follow", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["following_user_id"], name: "index_follow_relationships_on_following_user_id"
@@ -89,7 +89,6 @@ ActiveRecord::Schema.define(version: 202008150430227) do
   end
 
   create_table "logged_shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "action_from", null: false
     t.string "shop_id", null: false
     t.string "lat"
@@ -104,17 +103,29 @@ ActiveRecord::Schema.define(version: 202008150430227) do
     t.string "open"
     t.string "non_smoking"
     t.string "address"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_logged_shops_on_user_id"
   end
 
-  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "body", null: false
     t.bigint "user_id", null: false
+    t.bigint "to_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["to_user_id"], name: "index_messages_on_to_user_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.boolean "is_opened", default: false
     t.string "action_from", null: false
     t.bigint "follow_relationship_id", default: 0
     t.bigint "invitation_id", default: 0
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
@@ -129,8 +140,8 @@ ActiveRecord::Schema.define(version: 202008150430227) do
   end
 
   create_table "user_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "tag", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_tags_on_user_id"
@@ -166,6 +177,8 @@ ActiveRecord::Schema.define(version: 202008150430227) do
   add_foreign_key "invitations", "users", column: "to_user_id", on_delete: :cascade
   add_foreign_key "invitations", "users", on_delete: :cascade
   add_foreign_key "logged_shops", "users", on_delete: :cascade
+  add_foreign_key "messages", "users", column: "to_user_id", on_delete: :cascade
+  add_foreign_key "messages", "users", on_delete: :cascade
   add_foreign_key "notifications", "users", on_delete: :cascade
   add_foreign_key "shop_tags", "logged_shops", on_delete: :cascade
   add_foreign_key "user_tags", "users", on_delete: :cascade
