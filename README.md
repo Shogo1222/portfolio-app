@@ -18,7 +18,7 @@
   - 気分に合わせて洋食・和食・中華などの絞り込みが行えます。
   - 予算に合わせて絞り込みが行えます。
   - 現在の位置情報を利用しても絞り込みが行えます。
-  - マップを指定しても絞り込みが行えます。
+  - マップを指定しても絞り込みが行えます。（住所から検索・マップを動かして指定可）
 ![飲食店サーチ動画](https://user-images.githubusercontent.com/35006561/91411057-c6632400-e882-11ea-93ea-cf61bf4993c6.gif)
 
 - コメント機能
@@ -70,7 +70,7 @@
 ![インビテーション送信](https://user-images.githubusercontent.com/35006561/91412539-e09e0180-e884-11ea-9ced-02cbe98b08b9.gif)
 ![インビテーション画面](https://user-images.githubusercontent.com/35006561/91412740-2d81d800-e885-11ea-970a-71608ebb4fb4.gif)
 
-- 管理画面機能
+- 管理画面機能(active admin利用)
   - DBの閲覧・操作が可能です。各テーブルで可能な機能は下記記載。
   - Users: View/Edit/Destroy
   - UserTags: View/Edit/Destroy/Create
