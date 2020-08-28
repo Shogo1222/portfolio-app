@@ -1,11 +1,12 @@
 class V1::FavoritesController < ApplicationController
   def show
     @favorite = if params[:user_id] && params[:shop_id]
-                  Favorite.where(user_id: params[:user_id], shop_id: params[:shop_id])
+                  Favorite.joins('JOIN logged_shops ON logged_shops.id = favorites.logged_shop_id')
+                          .where(user_id: params[:user_id], logged_shops: { shop_id: params[:shop_id] })
                 elsif params[:user_id]
                   Favorite.where(user_id: params[:user_id]) || []
                 else
-                  Favorite.all
+                  []
                 end
     render json: @favorite
   end
@@ -13,8 +14,7 @@ class V1::FavoritesController < ApplicationController
   def create
     @favorite = Favorite.create(
       user_id: params[:user_id],
-      logged_shop_id: params[:logged_shop_id],
-      shop_id: params[:shop_id]
+      logged_shop_id: params[:logged_shop_id]
     )
     if @favorite.save
       render json: @favorite, status: :created
@@ -25,7 +25,8 @@ class V1::FavoritesController < ApplicationController
 
   def destroy
     if params[:user_id] && params[:shop_id] && params[:logged_shop_id]
-      @favorite = Favorite.find_by(user_id: params[:user_id], shop_id: params[:shop_id], logged_shop_id: params[:logged_shop_id])
+      @favorite = Favorite.joins('JOIN logged_shops ON logged_shops.id = favorites.logged_shop_id')
+                          .find_by(user_id: params[:user_id], logged_shops: { shop_id: params[:shop_id] }, logged_shop_id: params[:logged_shop_id])
       @favorite.delete
       render json: { status: 'SUCCESS', message: 'delete favorite' }
     else

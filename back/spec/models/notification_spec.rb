@@ -14,8 +14,7 @@ RSpec.describe Notification, type: :model do
       :invitation,
       user_id: @user1.id,
       to_user_id: @user2.id,
-      logged_shop_id: @logged_shop.id,
-      shop_id: 'test'
+      logged_shop_id: @logged_shop.id
     )
     @notification = Notification.new(
       user_id: @user2.id,

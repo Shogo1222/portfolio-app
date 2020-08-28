@@ -14,8 +14,7 @@ describe 'Invitation' do
       :invitation,
       user_id: @user1.id,
       to_user_id: @user2.id,
-      logged_shop_id: @logged_shop.id,
-      shop_id: 'test'
+      logged_shop_id: @logged_shop.id
     )
     @params = { user_id: @user2.id }
     get '/v1/invitation', params: @params
@@ -48,8 +47,7 @@ describe 'Invitation' do
     @params = {
       user_id: @user1.id,
       to_user_id: @user2.id,
-      logged_shop_id: @logged_shop.id,
-      shop_id: 'test'
+      logged_shop_id: @logged_shop.id
     }
     expect { post '/v1/invitation/', params: @params }.to change(Invitation, :count).by(+1)
   end

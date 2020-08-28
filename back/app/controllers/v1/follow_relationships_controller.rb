@@ -3,11 +3,11 @@ class V1::FollowRelationshipsController < ApplicationController
     @followRelationship = if params[:user_id] && params[:following_user_id]
                             FollowRelationship.find_by(user_id: params[:user_id], following_user_id: params[:following_user_id])
                           elsif params[:user_id]
-                            FollowRelationship.where(user_id: params[:user_id])
+                            FollowRelationship.where(user_id: params[:user_id]).order(created_at: 'DESC')
                           elsif params[:following_user_id]
-                            FollowRelationship.where(following_user_id: params[:following_user_id])
+                            FollowRelationship.where(following_user_id: params[:following_user_id]).order(created_at: 'DESC')
                           else
-                            FollowRelationship.all
+                            []
     end
     render json: @followRelationship
   end

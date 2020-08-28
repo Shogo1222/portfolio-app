@@ -1,15 +1,18 @@
 class V1::CommentFavoritesController < ApplicationController
   def show
     @commentFavorites = if params[:comment_id]
-                          CommentFavorite.where(comment_id: params[:comment_id])
+                          CommentFavorite
+                            .joins('JOIN comments ON comments.id = comment_favorites.comment_id')
+                            .joins('JOIN logged_shops ON logged_shops.id = comments.logged_shop_id')
+                            .where(comment_id: params[:comment_id])
                         else
-                          CommentFavorite.all
-                                      end
+                          []
+                        end
     render json: @commentFavorites
   end
 
   def create
-    @commentFavorite = CommentFavorite.create(user_id: params[:user_id], comment_id: params[:comment_id], shop_id: params[:shop_id])
+    @commentFavorite = CommentFavorite.create(user_id: params[:user_id], comment_id: params[:comment_id])
     if @commentFavorite.save
       render json: @commentFavorite, status: :created
     else

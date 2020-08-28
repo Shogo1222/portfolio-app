@@ -14,8 +14,7 @@ describe 'Notification' do
       :invitation,
       user_id: @user1.id,
       to_user_id: @user2.id,
-      logged_shop_id: @logged_shop.id,
-      shop_id: 'test'
+      logged_shop_id: @logged_shop.id
     )
     @notification = FactoryBot.create(
       :notification,
