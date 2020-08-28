@@ -92,8 +92,7 @@ export default {
           axios
             .post("/v1/favorite", {
               user_id: this.$store.state.id,
-              logged_shop_id: res.data.id,
-              shop_id: this.shop.shop_id
+              logged_shop_id: res.data.id
             })
             .then(() => {
               this.is_favorite = true

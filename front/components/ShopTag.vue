@@ -177,7 +177,6 @@ export default {
         .then(res => {
           axios
             .post("/v1/shop_tags", {
-              shop_id: this.shop.shop_id,
               logged_shop_id: res.data.id,
               tag: this.newTag
             })

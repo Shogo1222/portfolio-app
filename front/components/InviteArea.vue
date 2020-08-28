@@ -108,8 +108,7 @@ export default {
             .post("/v1/invitation", {
               user_id: this.$store.state.id,
               to_user_id: this.model,
-              logged_shop_id: res.data.id,
-              shop_id: this.shop.shop_id
+              logged_shop_id: res.data.id
             })
             .then(res => {
               axios

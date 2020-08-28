@@ -309,8 +309,11 @@ export default {
             this.tagsShops = []
           } else {
             var shopIds = []
-            this.tags.filter(tag => {
-              shopIds.push(tag.shop_id)
+            // shop_idの重複を除去
+            res.data.filter(tag => {
+              if (shopIds.indexOf(tag.shop_id) === -1) {
+                shopIds.push(tag.shop_id)
+              }
             })
             axios
               .get("/v1/logged_shop", {
@@ -320,7 +323,16 @@ export default {
                 }
               })
               .then(res => {
-                this.tagsShops = res.data
+                // shopの重複を除去
+                var shopIds = []
+                var shops = []
+                res.data.filter(shop => {
+                  if (shopIds.indexOf(shop.shop_id) === -1) {
+                    shopIds.push(shop.shop_id)
+                    shops.push(shop)
+                  }
+                })
+                this.tagsShops = shops
               })
           }
         })
