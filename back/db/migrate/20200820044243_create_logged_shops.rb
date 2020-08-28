@@ -1,10 +1,8 @@
 class CreateLoggedShops < ActiveRecord::Migration[5.2]
   def change
     create_table :logged_shops do |t|
-      t.bigint :user_id, null: false
       t.string :action_from, null: false
       t.string :shop_id, null: false
-      t.string :lat, null: true
       t.string :lat, null: true
       t.string :lng, null: true
       t.string :name, null: true
