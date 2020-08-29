@@ -105,6 +105,7 @@
 - 外部API（HotPepperAPI、GoogleAPI、firebase）を用いて機能を実現している。
 - CircleCIを用いて自動テスト・自動デプロイをしている。
 - terraformを用いてIaCを実現している。
+- Rails 5->6へのアップデート
 
 # Architecture
 ![インフラ構成](https://user-images.githubusercontent.com/35006561/90375824-703af780-e0b0-11ea-8d43-7edfb322e6c1.png)
@@ -167,7 +168,7 @@
 
 ## Backend
 - ruby:2.6.3
-- rails:5.2.4.3
+- Rails:5.2.4.3 => Rails 6.0.3.2　【途中アップデートしました。】
 - MySQL:5.7.30
 - puma
 - rubocop
