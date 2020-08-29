@@ -1,8 +1,10 @@
 class V1::FavoritesController < ApplicationController
   def show
     @favorite = if params[:user_id] && params[:shop_id]
-                  Favorite.joins('JOIN logged_shops ON logged_shops.id = favorites.logged_shop_id')
-                          .where(user_id: params[:user_id], logged_shops: { shop_id: params[:shop_id] })
+                  Favorite
+                    .select('favorites.*, logged_shops.shop_id')
+                    .joins('JOIN logged_shops ON logged_shops.id = favorites.logged_shop_id')
+                    .where(user_id: params[:user_id], logged_shops: { shop_id: params[:shop_id] })
                 elsif params[:user_id]
                   Favorite.where(user_id: params[:user_id]) || []
                 else

@@ -2,6 +2,7 @@ class V1::VisitedShopsController < ApplicationController
   def show
     @visited_shops = if params[:user_id] && params[:shop_id]
                        VisitedShop
+                         .select('visited_shops.*, logged_shops.shop_id')
                          .joins('JOIN logged_shops ON logged_shops.id = visited_shops.logged_shop_id')
                          .where(user_id: params[:user_id], logged_shops: { shop_id: params[:shop_id] })
                      elsif params[:user_id]
