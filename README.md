@@ -7,6 +7,13 @@
 「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。<br><br>
 [https://www.bischierge.work/](https://www.bischierge.work/)
 
+簡単ログインユーザー:<br>
+ mail: test@gmail.com<br>
+ pw: testPassword<br>
+テストログインユーザー:<br>
+ mail: test2@gmail.com<br>
+ pw: testPassword<br>
+
 ## Target users
 - これから「何を食べようか」と悩む人
 - これから恋人や友人と食事に行く際に、何処に行くか決められない人
