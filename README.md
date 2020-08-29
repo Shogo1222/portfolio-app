@@ -7,10 +7,10 @@
 「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。<br><br>
 [https://www.bischierge.work/](https://www.bischierge.work/)
 
-簡単ログインユーザー:<br>
+簡単ログインユーザー :<br>
  mail: test@gmail.com<br>
- pw: testPassword<br>
-テストログインユーザー:<br>
+ pw: testPassword<br><br>
+テストログインユーザー（↑と相互フォローしてます） :<br>
  mail: test2@gmail.com<br>
  pw: testPassword<br>
 
