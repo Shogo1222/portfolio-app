@@ -13,6 +13,10 @@
 テストログインユーザー（↑と相互フォローしてます） :<br>
  mail: test2@gmail.com<br>
  pw: testPassword<br>
+ 
+ こういった記事も書いてます。<br>
+[【API】RailsとNuxtとCircleCIを使ってモダンですぐ開発出来る開発環境を構築（導入篇）【自動テスト付】](https://qiita.com/Shogo1222/items/d90b3fa01a2dca14aeeb)<br>
+[ハンズオンに使ったリポジトリ](https://github.com/Shogo1222/qiita-sample-app)
 
 ## Target users
 - これから「何を食べようか」と悩む人
