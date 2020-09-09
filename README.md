@@ -16,6 +16,7 @@
  
  こういった記事も書いてます。<br>
 [【API】RailsとNuxtとCircleCIを使ってモダンですぐ開発出来る開発環境を構築（導入篇）【自動テスト付】](https://qiita.com/Shogo1222/items/d90b3fa01a2dca14aeeb)<br>
+[【ECS】Rails+Nuxtの疎結合サービスをCircleCIで自動本番デプロイする【ECR】](https://qiita.com/Shogo1222/items/dcbc1e50f6fc83f48b44)<br><br>
 [ハンズオンに使ったリポジトリ](https://github.com/Shogo1222/qiita-sample-app)
 
 ## Target users
