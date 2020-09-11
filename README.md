@@ -5,6 +5,9 @@
 
 近くの飲食店をランダムで検索出来ることができるアプリケーションです。<br>
 「今日、何食べる？」を、**Simple, Smart and Smooth User Flow**で解決する事がコンセプトです。<br><br>
+
+**※夜間・土日は停止しています。**
+
 [https://www.bischierge.work/](https://www.bischierge.work/)
 
 簡単ログインユーザー :<br>
