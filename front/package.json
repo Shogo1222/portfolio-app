@@ -27,7 +27,7 @@
     "firebase-tools": "^8.4.0",
     "js-cookie": "^2.2.1",
     "loaders.css": "^0.1.2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "material-design-icons-iconfont": "^5.0.1",
     "nuxt": "^2.0.0",
     "nuxt-webfontloader": "^1.1.0",
